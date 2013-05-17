@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": "Assets",
+			"folder_exclude_patterns": ["Mesh","Resources", "Examples", "Scenes", "Elements", "Objects", "_FBX", "_Materials", "*Materials*", "*Prefabs*", "SuperSplinesSamples", "Demo", "*Shaders*", "*Textures*", "_scene_assets", "_prefabs", "_audio", "_animations", "_effects", "_icons", "_reuse_background","_backgrounds", "backgrounds", "dev_art", "StreamingAssets"],
+         	"file_exclude_patterns": ["*.meta","*.unityscene", "*.unity", "*.anim", "*.png", "*.tga", "*.wav"]
+		}
+	]
+}

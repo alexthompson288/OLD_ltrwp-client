@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>farm_splat_container_0_a.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{303,260}}</string>
+                <key>offset</key>
+                <string>{2,2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,2},{303,260}}</string>
+                <key>sourceSize</key>
+                <string>{307,268}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>farm_splat_container.png</string>
+            <key>size</key>
+            <string>{512,512}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:ffe8d4d662b8453718322dcfaed428db$</string>
+            <key>textureFileName</key>
+            <string>farm_splat_container.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 97b6ba42f329b4358a7c0a8bed262625
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - SpherePrefab: {fileID: 400000, guid: d74c46320e28e4fb7ad67591610dbd39, type: 2}
+  - uiSplash: {instanceID: 0}
+  - audioIntro: {instanceID: 0}
+  - pip: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

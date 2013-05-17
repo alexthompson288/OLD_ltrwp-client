@@ -1,0 +1,95 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_scripts/menus/ContentBrowserTouch.cs">
+    <Files>
+      <File FileName="Assets/_scenes/SplatTheRat/Scripts/SplatTheRatManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/menus/PersistentObject.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/MatchingBonds/Scripts/MatchingBondsObject.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/MatchingBonds/Scripts/MatchingBondsManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/PopulateNodes.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/AlphabetBook/Scripts/AlphabetBookManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/MatchingImageWords/MatchingIWManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/MatchingImageWords/MatchingIWImage.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/MatchingImageWords/MatchingIWWord.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/Splat/Scripts/SplatSceneManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/Splat/NewScripts/SplatManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/Splat/NewScripts/SplatBally.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/LetterFormation/Scripts/LFManager.cs" Line="61" Column="37" />
+      <File FileName="Assets/_scenes/ContentBrowser/TrophyRoom-Script/TrophyRoomManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_services/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_services/SqliteDatabase.cs" Line="1" Column="1" />
+      <File FileName="Assets/MobileMovieTexture/Instructions.txt" Line="40" Column="5" />
+      <File FileName="Assets/MobileMovieTexture/MobileMovieTexture.cs" Line="1" Column="1" />
+      <File FileName="Assets/MobileMovieTexture/Shaders/YCrCbtoRGBChromaKey.shader" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/ContentBrowser/MenuBrowser.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/NodeInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/menus/ContentBrowserTouch.cs" Line="33" Column="21" />
+      <File FileName="Assets/_services/SessionMgr.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/AlphabetBook/Scripts/PhotoBoothManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_animations/curtain/CurtainAnimation.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_scripts/PrintGameInfo.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="_animations" expanded="True">
+                <Node name="curtain" expanded="True" />
+                <Node name="smoke" expanded="True" />
+              </Node>
+              <Node name="_scenes" expanded="True">
+                <Node name="AlphabetBook" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="ContentBrowser" expanded="True">
+                  <Node name="TrophyRoom-Script" expanded="True" />
+                  <Node name="WordBank-Script" expanded="True" />
+                </Node>
+                <Node name="DifferentVessels" expanded="True" />
+                <Node name="IntroducingPhoneme" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="LetterFormation" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="MatchingBonds" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="MatchingImageWords" expanded="True" />
+                <Node name="Segmenting" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="Splat" expanded="True">
+                  <Node name="NewScripts" expanded="True" />
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+                <Node name="SplatTheRat" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="_scripts" expanded="True">
+                <Node name="menus" expanded="True">
+                  <Node name="ContentBrowserTouch.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="_services" expanded="True" />
+              <Node name="MobileMovieTexture" expanded="True">
+                <Node name="Shaders" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
