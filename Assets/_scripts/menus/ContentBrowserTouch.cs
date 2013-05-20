@@ -371,19 +371,6 @@ public class ContentBrowserTouch : MonoBehaviour {
 			return;	
 		}
 		
-		void MoveMap(int direction)
-		{
-			currentMapIndex+=direction;
-			var config=new GoTweenConfig()
-				.position( new Vector3(0.0f, i*768.0f, -1000.0f) )
-				.setEaseType( GoEaseType.QuadIn );
-
-		
-			// Go.to(s, 0.3f, config );
-			GoTween tween=new GoTween(camera.transform, 0.3f, config);
-
-			Go.addTween(tween);
-		}
 
 		if(TintPickObject)
 		{
@@ -395,6 +382,19 @@ public class ContentBrowserTouch : MonoBehaviour {
 			
 	}
 
+	void MoveMap(int direction)
+	{
+		currentMapIndex+=direction;
+		var config=new GoTweenConfig()
+			.position( new Vector3(0.0f, direction*768.0f, -1000.0f) )
+			.setEaseType( GoEaseType.QuadIn );
+
+	
+		// Go.to(s, 0.3f, config );
+		GoTween tween=new GoTween(camera.transform, 0.3f, config);
+
+		Go.addTween(tween);
+	}
 
 
 }

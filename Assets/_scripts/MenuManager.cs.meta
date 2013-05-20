@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 6a6b9e65973494930afcd24ffbfd245c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - BalHolder: {fileID: 400000, guid: 3498671bfdae241b6a7fd2a9122d510a, type: 2}
+  - BalAnimation: {fileID: 400000, guid: e3bc26f1508de4b7a9933a3246043ba8, type: 2}
+  - Backmark: {fileID: 400000, guid: 348cbc1130a4a49348461ea76a488c65, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

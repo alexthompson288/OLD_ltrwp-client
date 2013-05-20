@@ -49,27 +49,27 @@ public class SplatSceneManager : MonoBehaviour {
 		
 		ContainerSprites=CForest;
 
-		if(persistentManager.CurrentTheme=="Forest"){
+		if(GameSetting=="forest_splat"){
 			Backgrounds=BGForest;
 			ContainerSprites=CForest;
 			HasClouds=true;
 		}
-		else if(persistentManager.CurrentTheme=="Farm"){
+		else if(GameSetting=="farm_splat"){
 			Backgrounds=BGFarm;
 			ContainerSprites=CFarm;
 			HasClouds=true;
 		}
-		else if(persistentManager.CurrentTheme=="Castle"){
+		else if(GameSetting=="castle_splat"){
 			Backgrounds=BGCastle;
 			ContainerSprites=CCastle;
 			HasClouds=true;
 		}
-		else if(persistentManager.CurrentTheme=="School"){
+		else if(GameSetting=="school_splat"){
 			Backgrounds=BGSchool;
 			ContainerSprites=CSchool;
 			HasClouds=false;
 		}
-		else if(persistentManager.CurrentTheme=="Space"){
+		else if(GameSetting=="alien_splat"){
 			HasClouds=false;
 			Backgrounds=BGSpace;
 			ContainerSprites=CSpace;
@@ -78,9 +78,9 @@ public class SplatSceneManager : MonoBehaviour {
 		int currentDepth=5;
 		int currentBGIndex=0;
 
-		for (int i=0;i<BGAssets.Length;i++)
+		for (int i=0;i<Backgrounds.Length;i++)
 		{
-			Texture2D t=BGAssets[i];
+			Texture2D t=Backgrounds[i];
 			Debug.Log("This texture name: "+t.name+" / looking for "+GameSetting+"_bg_"+currentBGIndex);
 			if(t.name==GameSetting+"_bg_"+currentBGIndex)
 			{
