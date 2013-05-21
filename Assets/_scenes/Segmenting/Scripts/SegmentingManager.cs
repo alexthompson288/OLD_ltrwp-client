@@ -33,6 +33,9 @@ public class SegmentingManager : MonoBehaviour {
 	public Transform ContainerPrefab;
 	public ArrayList CreatedLetters;
 	public ArrayList CreatedContainers;
+
+	public float scaffoldStartXPos=-118.0f;
+	public float scaffoldStartYPos=-35.0f;
 	
 	
 	// return to contentbrowser vars
@@ -110,14 +113,14 @@ public class SegmentingManager : MonoBehaviour {
 		
 		// setup our scene now
 		
-		float contXPos=-118.0f;
+		float contXPos=scaffoldStartXPos;
 		
 		if(CorrectLetters.Length==4)
 			contXPos-=80.0f;
 		else if(CorrectLetters.Length==5)
 			contXPos-=160.0f;
 		
-		float contYPos=0.0f;
+		float contYPos=scaffoldStartYPos;
 		float letXPos=-180.0f;
 		float letYPos=238.0f;
 
