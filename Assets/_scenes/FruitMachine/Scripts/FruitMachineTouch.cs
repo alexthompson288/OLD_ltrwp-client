@@ -54,8 +54,8 @@ public class FruitMachineTouch : MonoBehaviour {
 		Vector2 newPos=new Vector2(s.position.x, 0.11f);
 
 		if(Application.loadedLevelName=="FruitMachine-Zoomed")
-			newPos=new Vector2(s.position.x, 0.16f);
-
+			newPos=new Vector2(0.31f, -0.08f);
+		
 		var config=new GoTweenConfig()
 				.vector2Prop( "position", newPos )
 				.floatProp("rotation", -80.0f)
@@ -73,10 +73,10 @@ public class FruitMachineTouch : MonoBehaviour {
 	void MoveLeverUp()
 	{
 		OTSprite s=gameObject.GetComponent<OTSprite>();
-		Vector2 newPos=new Vector2(s.position.x, 0.1469531f);
+		Vector2 newPos=new Vector2(s.position.x, 0.1990806f);
 
 		if(Application.loadedLevelName=="FruitMachine-Zoomed")
-			newPos=new Vector2(s.position.x, 0.1159259f);
+			newPos=new Vector2(0.35f, -0.03f);
 		//0.1469531
 		
 
