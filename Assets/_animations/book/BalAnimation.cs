@@ -15,7 +15,7 @@ public class BalAnimation : MonoBehaviour {
 	OTAnimatingSprite myself;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
 //		myself.PlayOnce("goingback2");
 	}
