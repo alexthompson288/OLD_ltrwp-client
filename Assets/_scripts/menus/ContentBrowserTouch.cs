@@ -158,6 +158,8 @@ public class ContentBrowserTouch : MonoBehaviour {
 				Application.LoadLevel("PhotoBooth");
 			}
 		}
+
+		Debug.Log("pickObject name is "+gesture.pickObject.name);
 		
 		if(gesture.pickObject.name=="btnBook")
 		{
@@ -344,10 +346,18 @@ public class ContentBrowserTouch : MonoBehaviour {
 
 			GameManager.Instance.SessionMgr.CloseActivity();
 		}
+		else if(gesture.pickObject.name=="UpBtn")
+		{
+			MoveMap(-1);
+		}
+		else if(gesture.pickObject.name=="DownBtn")
+		{
+			MoveMap(1);
+		}
 		else if(gesture.pickObject.name=="btnBalAni")
 		{
 			Debug.Log ("loaded level name: "+Application.loadedLevelName);
-			if(Application.loadedLevelName=="ContentBrowser-Scroll"){
+			if(Application.loadedLevelName=="ContentBrowser-Scrolling"){
 				Application.LoadLevel("BookMenu");
 			}
 			else if(Application.loadedLevelName=="SplatTheRat PX"){
@@ -384,10 +394,17 @@ public class ContentBrowserTouch : MonoBehaviour {
 
 	void MoveMap(int direction)
 	{
+		Debug.Log("MoveMap");
 		currentMapIndex+=direction;
+
+		if(currentMapIndex<0)
+			currentMapIndex=0;
+		else if(currentMapIndex>6)
+			currentMapIndex=6;
+
 		var config=new GoTweenConfig()
-			.position( new Vector3(0.0f, direction*768.0f, -1000.0f) )
-			.setEaseType( GoEaseType.QuadIn );
+			.position( new Vector3(0.0f, 25-(currentMapIndex*825.0f), -1000.0f) )
+			.setEaseType( GoEaseType.BounceOut );
 
 	
 		// Go.to(s, 0.3f, config );
