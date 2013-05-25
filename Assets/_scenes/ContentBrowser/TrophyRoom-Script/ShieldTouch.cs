@@ -75,21 +75,29 @@ public class ShieldTouch : MonoBehaviour {
 	{
 		if(gesture.pickObject==gameObject)
 		{
-			if(Mnemonic!=null)
-			{
-				fadeMnemonicIn();
-			}
-			else{
-				if(colourShield==null)return;
-				OTSprite s=colourShield.gameObject.GetComponent<OTSprite>();
-				OTTween mt=new OTTween(s,0.5f, OTEasing.Linear);
-				mt.Tween("alpha", 1.0f);
-			
+			if(colourText!=null){
 				OTTextSprite t=colourText.gameObject.GetComponent<OTTextSprite>();
-				OTTween mtt=new OTTween(t,0.5f, OTEasing.Linear);
-				mtt.Tween("tintColor", new Color(255.0f,255.0f,255.0f,255.0f));
-				
+
+				gameManager.CreateBigShield(t.text);
 			}
 		}
+		// if(gesture.pickObject==gameObject)
+		// {
+		// 	if(Mnemonic!=null)
+		// 	{
+		// 		fadeMnemonicIn();
+		// 	}
+		// 	else{
+		// 		if(colourShield==null)return;
+		// 		OTSprite s=colourShield.gameObject.GetComponent<OTSprite>();
+		// 		OTTween mt=new OTTween(s,0.5f, OTEasing.Linear);
+		// 		mt.Tween("alpha", 1.0f);
+			
+		// 		OTTextSprite t=colourText.gameObject.GetComponent<OTTextSprite>();
+		// 		OTTween mtt=new OTTween(t,0.5f, OTEasing.Linear);
+		// 		mtt.Tween("tintColor", new Color(255.0f,255.0f,255.0f,255.0f));
+				
+		// 	}
+		// }
 	}
 }
