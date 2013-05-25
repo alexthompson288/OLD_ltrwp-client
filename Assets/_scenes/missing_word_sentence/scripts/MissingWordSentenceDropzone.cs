@@ -18,8 +18,18 @@ public class MissingWordSentenceDropzone : MonoBehaviour {
 	{
 		OTSprite dropSprite=owner.dropTarget.gameObject.GetComponent<OTSprite>();
 		DragDropAnswer answerPrefs=owner.dropTarget.gameObject.GetComponent<DragDropAnswer>();
-		dropSprite.position=mySprite.position;
 
-		Debug.Log("Received drop - "+owner.dropTarget.gameObject.name+" - is Correct? "+answerPrefs.isCorrect);
+		if(answerPrefs.isCorrect)
+		{
+			dropSprite.transform.parent=mySprite.transform.parent;
+			dropSprite.position=mySprite.position;
+			MissingWordSentenceManager mgr=GameObject.Find("Main Camera").GetComponent<MissingWordSentenceManager>();
+			mgr.FixFrame();
+		}
+		else 
+		{
+			OTTween mt=new OTTween(dropSprite,0.5f, OTEasing.BounceInOut);
+				mt.Tween("position", new Vector2(transform.position.x,transform.position.y-300.0f));
+		}
 	}
 }
