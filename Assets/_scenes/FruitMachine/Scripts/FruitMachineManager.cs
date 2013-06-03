@@ -43,6 +43,12 @@ public class FruitMachineManager : MonoBehaviour {
 		
 		// Go.to(s, 0.3f, config );
 		GoTween tween=new GoTween(SlotMac, 0.8f, config);
+		tween.setOnCompleteHandler(c => EnableScaffold());
 		Go.addTween(tween);
+	}
+
+	void EnableScaffold()
+	{
+		gameObject.GetComponent<SegmentingManager>().enabled=true;
 	}
 } 

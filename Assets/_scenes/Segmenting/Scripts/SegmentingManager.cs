@@ -36,6 +36,8 @@ public class SegmentingManager : MonoBehaviour {
 
 	public float scaffoldStartXPos=-118.0f;
 	public float scaffoldStartYPos=-35.0f;
+	public float letterStartXPos=-180.0f;
+	public float letterStartYPos=238.0f;
 	
 	
 	// return to contentbrowser vars
@@ -121,8 +123,8 @@ public class SegmentingManager : MonoBehaviour {
 			contXPos-=160.0f;
 		
 		float contYPos=scaffoldStartYPos;
-		float letXPos=-180.0f;
-		float letYPos=238.0f;
+		float letXPos=letterStartXPos;
+		float letYPos=letterStartYPos;
 
 		bool is1Letter=false;
 		bool is2Letters=false;
