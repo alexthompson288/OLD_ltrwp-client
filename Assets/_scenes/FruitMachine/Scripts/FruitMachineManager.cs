@@ -23,6 +23,12 @@ public class FruitMachineManager : MonoBehaviour {
 		// this is a non-zoomed fruitmachine
 		else
 		{
+
+			// -205,113
+			SegmentingManager segMan=gameObject.GetComponent<SegmentingManager>();
+			segMan.scaffoldStartXPos=-285.0f;
+			segMan.scaffoldStartYPos=75.0f;
+			segMan.letterStartXPos=-250.0f;
 			OTSprite SlotMac=GameObject.Find("FruitMachine").GetComponent<OTSprite>();
 			Vector2 newPos=new Vector2(-54.0f, -33.0f);
 			var config=new GoTweenConfig()
@@ -30,6 +36,7 @@ public class FruitMachineManager : MonoBehaviour {
 				.setEaseType( GoEaseType.BounceOut );
 
 			GoTween tween=new GoTween(SlotMac, 0.8f, config);
+			tween.setOnCompleteHandler(c => EnableScaffold());
 			Go.addTween(tween);
 		}
 	}
