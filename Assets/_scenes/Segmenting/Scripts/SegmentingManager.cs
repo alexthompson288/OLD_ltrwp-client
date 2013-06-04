@@ -31,6 +31,7 @@ public class SegmentingManager : MonoBehaviour {
 	public Transform LetterPrefab;
 	public Transform LetterFont;
 	public Transform ContainerPrefab;
+	public Transform containerBtnPrefab;
 	public ArrayList CreatedLetters;
 	public ArrayList CreatedContainers;
 
@@ -38,6 +39,11 @@ public class SegmentingManager : MonoBehaviour {
 	public float scaffoldStartYPos=-35.0f;
 	public float letterStartXPos=-180.0f;
 	public float letterStartYPos=238.0f;
+	public float spaceFor1Letter=60;
+	public float spaceFor2Letters=200;
+	public float spaceFor3Letters=240;
+	public Vector2 defaultContainerSize=new Vector2(128.0f,128.0f);
+	
 	
 	
 	// return to contentbrowser vars
@@ -117,6 +123,8 @@ public class SegmentingManager : MonoBehaviour {
 		
 		float contXPos=scaffoldStartXPos;
 		
+		Debug.Log("contXPos is "+scaffoldStartXPos);
+
 		if(CorrectLetters.Length==4)
 			contXPos-=80.0f;
 		else if(CorrectLetters.Length==5)
@@ -130,9 +138,6 @@ public class SegmentingManager : MonoBehaviour {
 		bool is2Letters=false;
 		bool is3Letters=false;
 
-		float spaceFor1Letter=140;
-		float spaceFor2Letters=200;
-		float spaceFor3Letters=240;
 		bool isInDigraph=false;
 		SegmentingContainer StartDigraph=null;
 		
@@ -141,26 +146,27 @@ public class SegmentingManager : MonoBehaviour {
 			Transform cont=(Transform)Instantiate(ContainerPrefab);
 			SegmentingContainer contprefs=cont.GetComponent<SegmentingContainer>();
 			OTSprite scont=cont.GetComponent<OTSprite>();
+			scont.size=defaultContainerSize;
 			contprefs.ExpectedLetter=LettersToUse[i];
 			contprefs.AudioLetter=LettersToUse[i];
 
-Debug.Log("scont size "+scont.size);
+			Debug.Log("scont size "+scont.size);
 
 			if(contprefs.ExpectedLetter.Length==1 || contprefs.ExpectedLetter.Contains("-")){
 				is1Letter=true;
 				contXPos+=(spaceFor1Letter/2);
-				scont.size=new Vector2(scont.size.x, scont.size.y);
+				// scont.size=new Vector2(scont.size.x, scont.size.y);
 			}
 			else if(contprefs.ExpectedLetter.Length==2){
 				is2Letters=true;
 				contXPos+=(spaceFor2Letters/2);
-				scont.size=new Vector2(scont.size.x+60, scont.size.y);
+				// scont.size=new Vector2(scont.size.x+60, scont.size.y);
 				contprefs.isMultiPartLetter=true;
 			}
 			else if(contprefs.ExpectedLetter.Length==3 && !contprefs.ExpectedLetter.Contains("-")){
 				is3Letters=true;
 				contXPos+=(spaceFor3Letters/2);
-				scont.size=new Vector2(scont.size.x+90, scont.size.y);
+				// scont.size=new Vector2(scont.size.x+90, scont.size.y);
 				contprefs.isMultiPartLetter=true;
 			}
 
@@ -291,6 +297,12 @@ Debug.Log("scont size "+scont.size);
 	public void StopGame () {
 	
 		
+	}
+
+	public Transform CreateNewButton(Vector3 position, Quaternion rotation)
+	{
+		Debug.Log("my instans pos"+position);
+		return (Transform)Instantiate(containerBtnPrefab, position, rotation);
 	}
 	
 	public void CheckCurrentLetterForContainerDrop(Transform thisLetter)
