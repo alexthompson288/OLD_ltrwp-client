@@ -4,24 +4,55 @@ using System.Collections;
 public class GenericDraggable : MonoBehaviour {
 
 	public bool isPotentialAnswer=false;
+	public string answerValue="0";
 	public OTSprite mySprite;
+	public Transform expectedDropPoint;
+
+	public bool isDraggable=true;
+	public bool isCollidable=false;
+	public bool canInput=false;
+	public bool inOutOfView=false;
+	public bool onOffEvents=false;
 
 
 	// Use this for initialization
 	void Awake () {
 		mySprite=gameObject.GetComponent<OTSprite>();
-		mySprite.onReceiveDrop=ReceiveDrop;
-		mySprite.onInput=OnInput;
-		mySprite.onIntoView=IntoView;
-		mySprite.onCreateObject=CreateObject;
-		mySprite.onDragStart=DragStart;
-		mySprite.onDragging=Dragging;
-		mySprite.onDragEnd=DragEnd;
-		mySprite.onCollision=OnCollision;
-		mySprite.onOutOfView=OutOfView;
-		mySprite.onEnter=OnEnter;
-		mySprite.onExit=OnExit;
-		mySprite.onStay=OnStay;
+
+		if(canInput)
+		{
+			mySprite.registerInput=true;
+
+			mySprite.onReceiveDrop=ReceiveDrop;
+			mySprite.onInput=OnInput;
+		}
+		if(isDraggable)
+		{
+			mySprite.draggable=true;
+
+			mySprite.onDragStart=DragStart;
+			mySprite.onDragging=Dragging;
+			mySprite.onDragEnd=DragEnd;			
+		}
+		if(inOutOfView)
+		{
+			mySprite.onIntoView=IntoView;
+			mySprite.onOutOfView=OutOfView;
+		}
+		if(isCollidable)
+		{
+			mySprite.collidable=true;
+
+			mySprite.onCollision=OnCollision;
+			mySprite.onEnter=OnEnter;
+			mySprite.onExit=OnExit;
+			mySprite.onStay=OnStay;
+		}
+		if(onOffEvents)
+		{
+			mySprite.onCreateObject=CreateObject;
+			mySprite.onDestroyObject=DestroyObject;
+		}
 	}
 	
 	// Update is called once per frame
@@ -31,6 +62,11 @@ public class GenericDraggable : MonoBehaviour {
 
 	// when the object is created
 	void CreateObject (OTObject owner)
+	{
+
+	}
+
+	void DestroyObject (OTObject owner)
 	{
 
 	}
@@ -56,7 +92,20 @@ public class GenericDraggable : MonoBehaviour {
 	// drag ends
 	void DragEnd(OTObject owner)
 	{
-
+		if(isPotentialAnswer){
+			if(owner.dropTarget==null)
+			{
+				return;
+			}
+			else if(owner.dropTarget.transform == expectedDropPoint)
+			{
+				Debug.Log("dropped in right place brah");
+			}
+			else
+			{
+				Debug.Log("incorrect drop brah, praise christ");
+			}
+		}
 	}
 
 	void OutOfView(OTObject owner)
@@ -73,7 +122,7 @@ public class GenericDraggable : MonoBehaviour {
 	// when collision starts
 	void OnEnter(OTObject owner)
 	{
-		
+
 	}
 
 	// when collision ends

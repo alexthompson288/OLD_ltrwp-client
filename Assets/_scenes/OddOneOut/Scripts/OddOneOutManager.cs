@@ -69,7 +69,7 @@ public class OddOneOutManager : MonoBehaviour {
 				.setEaseType( GoEaseType.BounceIn );
 
 			GoTween tween=new GoTween(s, 0.8f, config);
-			
+
 			if(!SetCompleteAction){
 				tween.setOnCompleteHandler(c => SwitchToMap());
 				SetCompleteAction=true;
