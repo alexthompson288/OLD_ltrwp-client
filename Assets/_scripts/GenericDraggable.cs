@@ -73,7 +73,7 @@ public class GenericDraggable : MonoBehaviour {
 	// when collision starts
 	void OnEnter(OTObject owner)
 	{
-
+		
 	}
 
 	// when collision ends
@@ -85,7 +85,7 @@ public class GenericDraggable : MonoBehaviour {
 	// if it stays in collision zone
 	void OnStay(OTObject owner)
 	{
-
+	
 	}
 
 

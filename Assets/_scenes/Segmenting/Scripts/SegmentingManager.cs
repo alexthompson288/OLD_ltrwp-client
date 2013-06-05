@@ -301,7 +301,6 @@ public class SegmentingManager : MonoBehaviour {
 
 	public Transform CreateNewButton(Vector3 position, Quaternion rotation)
 	{
-		Debug.Log("my instans pos"+position);
 		return (Transform)Instantiate(containerBtnPrefab, position, rotation);
 	}
 	
