@@ -23,7 +23,11 @@ public class SegmentingContainer : MonoBehaviour {
 		gameManager=GameObject.Find("Main Camera").GetComponent<SegmentingManager>();
 		Transform newBtn = gameManager.CreateNewButton(transform.position, transform.rotation);
 		// newBtn.position=new Vector3(newBtn.position.x, newBtn.position.y+100, newBtn.position.z);
+		OTSprite bS=newBtn.GetComponent<OTSprite>();
+		bS.size=new Vector2(0.5f,0.5f);
+		// bS.position=new Vector2(bS.position.x, bS.position.y+30);
 		newBtn.parent=transform;
+
 
 		SetMyButton();
 		
