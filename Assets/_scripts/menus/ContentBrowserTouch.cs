@@ -14,12 +14,17 @@ public class ContentBrowserTouch : MonoBehaviour {
 	bool fzVisible;
 	string NextSceneType="last";
 	int currentMapIndex=0;
+	ContentBrowserManager cbMan;
 	
 	public Transform[] LayersToMove;
 	
 	float countdownToNewScene=1.0f;
 	bool countdown=false;
 	
+	void Awake() {
+		cbMan=GameObject.Find("Main Camera").GetComponent<ContentBrowserManager>();
+	}
+
 	// Use this for initialization
 	void Start () {
 		ReadPersistentObjectSettings();	
@@ -401,6 +406,8 @@ public class ContentBrowserTouch : MonoBehaviour {
 			currentMapIndex=0;
 		else if(currentMapIndex>6)
 			currentMapIndex=6;
+
+		cbMan.UpdateAudio(currentMapIndex);
 
 		var config=new GoTweenConfig()
 			.position( new Vector3(0.0f, 25-(currentMapIndex*825.0f), -1000.0f) )

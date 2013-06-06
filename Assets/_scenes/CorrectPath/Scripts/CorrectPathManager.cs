@@ -6,6 +6,9 @@ public class CorrectPathManager : MonoBehaviour {
 	bool DisableTap=false;
 	int currentIndex=0;
 	int totalScalableSections=3;
+	float sectionHeight=768.0f;
+	public OTSprite platform;
+
 
 	// Use this for initialization
 	void Start () {
@@ -41,25 +44,57 @@ public class CorrectPathManager : MonoBehaviour {
 	{
 		currentIndex++;
 
-		if(currentIndex>=totalScalableSections)
-		{
-			ReturnToMap();
-		}
-		else {
-			var config=new GoTweenConfig()
-				.position( new Vector3(Camera.main.transform.position.x, currentIndex*768.0f, Camera.main.transform.position.z), false )
-				.setEaseType( GoEaseType.ExpoOut );
 
-			GoTween tween=new GoTween(Camera.main.transform, 1.8f, config);
+		var config=new GoTweenConfig()
+			.position( new Vector3(Camera.main.transform.position.x, currentIndex*sectionHeight, Camera.main.transform.position.z), false )
+			.setEaseType( GoEaseType.ExpoOut );
+
+		GoTween tween=new GoTween(Camera.main.transform, 1.8f, config);
+		if(currentIndex>=totalScalableSections)
+			tween.setOnCompleteHandler(c => RevealTreasure());
+		else 
 			tween.setOnCompleteHandler(c => EnableTaps());
 
-			Go.addTween(tween);
-		}
-}
+		Go.addTween(tween);
+
+		MovePlatform();
+	}
+
+	void MovePlatform() 
+	{	
+		Vector2 newPos=new Vector2(platform.position.x, -265.0f+(currentIndex*sectionHeight));
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", newPos )
+			.setEaseType( GoEaseType.CubicOut );
+
+		
+		// Go.to(s, 0.3f, config );
+		GoTween tween=new GoTween(platform, 1.2f, config);
+		Go.addTween(tween);
+	}
 
 	void EnableTaps()
 	{
 		DisableTap=false;
+	}
+
+	void RevealTreasure()
+	{
+		Debug.Log("reveal");
+		OTSprite treecover=GameObject.Find("4-treecover").GetComponent<OTSprite>();
+		
+		Vector2 newPos=new Vector2(-1000.0f, treecover.position.y);
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", newPos )
+			.setEaseType( GoEaseType.ExpoIn );
+
+		
+		// Go.to(s, 0.3f, config );
+		GoTween tween=new GoTween(treecover, 1.8f, config);
+		tween.setOnCompleteHandler(c => ReturnToMap());
+
+		Go.addTween(tween);
+
 	}
 
 	void On_SimpleTap(Gesture gesture)
