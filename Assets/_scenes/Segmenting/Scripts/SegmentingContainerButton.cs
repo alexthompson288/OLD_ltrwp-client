@@ -17,17 +17,19 @@ public class SegmentingContainerButton : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
+		myContainer=transform.parent.GetComponent<SegmentingContainer>();
 	}
 	
 	void Awake () {
 		gameManager=GameObject.Find("Main Camera").GetComponent<SegmentingManager>();
-		myContainer=transform.parent.GetComponent<SegmentingContainer>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-	
+		if(gameObject.GetComponent<OTSprite>().image==pressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
+			gameObject.GetComponent<OTSprite>().image=unpressedState;
+		else if(gameObject.GetComponent<OTSprite>().image==barPressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
+				gameObject.GetComponent<OTSprite>().image=barUnpressedState;
 	}
 	
 	void OnEnable(){

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SplatSceneManager : MonoBehaviour {
 	
-	public string name="Splat";
+	public string name="Forest";
 	public string setting="Mushroom";
 	SplatManager gameManager;
 	

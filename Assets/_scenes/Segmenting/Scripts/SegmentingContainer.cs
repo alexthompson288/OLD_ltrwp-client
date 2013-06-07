@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SegmentingContainer : MonoBehaviour {
 	
+	SegmentingManager gameManager;
 	public string ExpectedLetter;
 	public string AudioLetter;
 	public Transform MountedLetter;
@@ -18,7 +19,16 @@ public class SegmentingContainer : MonoBehaviour {
 	SegmentingContainerButton MyButton;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+		gameManager=GameObject.Find("Main Camera").GetComponent<SegmentingManager>();
+		Transform newBtn = gameManager.CreateNewButton(transform.position, transform.rotation);
+		// newBtn.position=new Vector3(newBtn.position.x, newBtn.position.y+100, newBtn.position.z);
+		OTSprite bS=newBtn.GetComponent<OTSprite>();
+		bS.size=new Vector2(0.5f,0.5f);
+		// bS.position=new Vector2(bS.position.x, bS.position.y+30);
+		newBtn.parent=transform;
+
+
 		SetMyButton();
 		
 		
@@ -34,11 +44,7 @@ public class SegmentingContainer : MonoBehaviour {
 		if(HiddenContainer)
 			HideContainer();
 		
-		SetButtonReuse(CanReuseButton);
-	}
-
-	void Awake(){
-		SetMyButton();
+		// SetButtonReuse(CanReuseButton);
 	}
 	
 	// Update is called once per frame
@@ -47,6 +53,7 @@ public class SegmentingContainer : MonoBehaviour {
 	}
 	
 	bool SetMyButton(){
+
 		if(MyButton==null)
 		{
 			foreach(Transform t in transform)

@@ -299,7 +299,7 @@ public class SessionMgr
 				//todo: unload session, bail to menu
 				Debug.Log ("run out of activities");
 				
-				Application.LoadLevel ("contentbrowser-scrolling");
+				Application.LoadLevel ("contentbrowser-full");
 			} else {
 				//goto next activity
 				StartActivity ();
@@ -704,9 +704,7 @@ public class SessionMgr
 
             else if(sessionId == 18){ 
             hash=new Hashtable(); 
-            hash.Add("section_id", 37); 
-            hash.Add("game_scene", "eyespy_blending");
-            hash.Add("game_setting", "forest_eyespy_blending" ); 
+            hash.Add("section_id", 37);  
             hash.Add("game_scene", "eyespy_alliteration");
             hash.Add("game_setting", "forest_eyespy_alliteration" ); 
             _sectionList.Add(hash); 
@@ -761,8 +759,6 @@ public class SessionMgr
 
             hash=new Hashtable(); 
             hash.Add("section_id", 45); 
-            hash.Add("game_scene", "eyespy_blending");
-            hash.Add("game_setting", "forest_eyespy_blending" ); 
             hash.Add("game_scene", "match_illustrations");
             hash.Add("game_setting", "forest_match_illustrations" ); 
             _sectionList.Add(hash); 
@@ -783,8 +779,6 @@ public class SessionMgr
             hash.Add("section_id", 47); 
             hash.Add("game_scene", "eyespy_blending");
             hash.Add("game_setting", "forest_eyespy_blending" ); 
-            hash.Add("game_scene", "eyespy_alliteration");
-            hash.Add("game_setting", "forest_eyespy_alliteration" ); 
             _sectionList.Add(hash); 
 
             hash=new Hashtable(); 

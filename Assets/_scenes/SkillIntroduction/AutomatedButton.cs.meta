@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f742e094019ae4b8ea360265ab781564
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - PressedState: {fileID: 2800000, guid: 8a7db223d748e48bb99007d49a7d6c18, type: 3}
+  - UnpressedState: {fileID: 2800000, guid: bf9924a4a7c97482fb9a2f9c289a83ee, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

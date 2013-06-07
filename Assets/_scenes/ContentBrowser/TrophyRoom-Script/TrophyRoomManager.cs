@@ -14,7 +14,13 @@ public class TrophyRoomManager : MonoBehaviour {
 	public AudioClip cAudio;
 	public AudioClip pAudio;
 	public AudioClip sAudio;
-	
+	public Transform BigShieldPrefab;
+	public Texture2D MnemonicA;
+	public Texture2D MnemonicP;
+	public Texture2D MnemonicS;
+	public Texture2D MnemonicT;
+	public OTSpriteAtlasCocos2DFnt ShieldFont;
+
 	GameManager cmsLink;
 	
 	// Use this for initialization
@@ -145,5 +151,34 @@ public class TrophyRoomManager : MonoBehaviour {
 	{
 		audio.clip=thisClip;
 		audio.Play();
+	}
+
+	public void CreateBigShield(string letter)
+	{
+		if(letter!="a"&&letter!="p"&&letter!="s"&&letter!="t")return;
+		Transform newshield=(Transform)Instantiate(BigShieldPrefab);
+		BigShield bspref=newshield.GetComponent<BigShield>();
+
+		if(letter=="a")
+		{
+			bspref.DisplayImage=MnemonicA;
+			bspref.DisplayString="angry anus";
+		}
+		else if(letter=="p")
+		{
+			bspref.DisplayImage=MnemonicP;
+			bspref.DisplayString="pasta penis";	
+		}
+		else if(letter=="s")
+		{
+			bspref.DisplayImage=MnemonicS;
+			bspref.DisplayString="squelchy sausage";		
+		}
+		else if(letter=="t")
+		{
+			bspref.DisplayImage=MnemonicT;
+			bspref.DisplayString="tasty twat";
+		}
+
 	}
 }

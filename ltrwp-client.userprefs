@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_scenes\SkillIntroduction\SkillIntroductionManager.cs">
+    <Files>
+      <File FileName="Assets\_scenes\SkillIntroduction\SkillIntroductionManager.cs" Line="13" Column="36" />
+      <File FileName="Assets\RobAnimation.cs" Line="1" Column="1" />
+      <File FileName="Assets\MoleAnimation.cs" Line="40" Column="3" />
+      <File FileName="Assets\UniversalVideoTexture\_Scripts\VideoTexture.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
