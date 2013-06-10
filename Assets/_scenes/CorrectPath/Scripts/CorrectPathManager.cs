@@ -8,6 +8,7 @@ public class CorrectPathManager : MonoBehaviour {
 	int totalScalableSections=3;
 	float sectionHeight=768.0f;
 	public OTSprite platform;
+	PipAnimation Pip;
 
 
 	// Use this for initialization
@@ -15,6 +16,10 @@ public class CorrectPathManager : MonoBehaviour {
 	
 	}
 	
+	void Awake() {
+		Pip=GameObject.Find("Pip").GetComponent<PipAnimation>();
+	}
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -58,6 +63,7 @@ public class CorrectPathManager : MonoBehaviour {
 		Go.addTween(tween);
 
 		MovePlatform();
+		AnimatePip(true);
 	}
 
 	void MovePlatform() 
@@ -71,6 +77,20 @@ public class CorrectPathManager : MonoBehaviour {
 		// Go.to(s, 0.3f, config );
 		GoTween tween=new GoTween(platform, 1.2f, config);
 		Go.addTween(tween);
+	}
+
+	void AnimatePip(bool correct)
+	{
+		Pip.SetNonePlaying();
+
+		if(correct)
+		{
+			Pip.playPositive=true;
+		}
+		else
+		{
+			Pip.playDoubt=true;
+		}
 	}
 
 	void EnableTaps()
@@ -114,6 +134,7 @@ public class CorrectPathManager : MonoBehaviour {
 
 				else
 				{
+					AnimatePip(false);
 					Debug.Log("Incorrect");
 				}
 			}
