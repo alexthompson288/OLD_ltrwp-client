@@ -15,6 +15,7 @@ public class MoleTouch : MonoBehaviour {
 	Vector2 StartPosition;
 	public int IndexNumber;
 	public Transform MyParent;
+	public bool bigSign;
 	
 	// Use this for initialization
 	void Start () {
