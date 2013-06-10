@@ -9,6 +9,7 @@ public class CurtainAnimation : MonoBehaviour {
 	public bool isOpen=false;
 	OTAnimatingSprite myself;
 	OTSprite ChildSprite;
+	OTSprite Mnemonic;
 	OTTextSprite ChildText;
 	public Texture2D ChildSpriteTexture;
 	public string ChildTextString;
@@ -34,6 +35,8 @@ public class CurtainAnimation : MonoBehaviour {
 			
 			else if(t.gameObject.name.StartsWith("ChildText"))
 				ChildText=t.gameObject.GetComponent<OTTextSprite>();
+			else if(t.gameObject.name.StartsWith("Mnemonic"))
+				Mnemonic=t.gameObject.GetComponent<OTSprite>();
 			
 		}
 		
@@ -52,9 +55,12 @@ public class CurtainAnimation : MonoBehaviour {
 			ChildText.image=ChildSpriteTexture;
 		
 		
-		if(ChildText!=null)
+		if(ChildText!=null){
 			ChildText.visible=false;
-		
+			Mnemonic.alpha=0;
+			Mnemonic.visible=false;
+		}
+
 		if(MySpotlight!=null)
 			MySpotlight.visible=false;
 	
@@ -93,6 +99,9 @@ public class CurtainAnimation : MonoBehaviour {
 			
 			if(CountdownToRevealTime<0)
 			{
+				gameManager.ShowTrumpets();
+				SwitchBetweenTextMnemonic();
+				Mnemonic.visible=true;
 				ChildText.visible=true;
 				MySpotlight.visible=true;
 				CountdownToReveal=false;
@@ -100,6 +109,28 @@ public class CurtainAnimation : MonoBehaviour {
 		}
 	}
 	
+	void SwitchBetweenTextMnemonic() {
+		var config=new GoTweenConfig()
+			.floatProp( "alpha", 1.0f )
+			.setIterations ( -1, GoLoopType.PingPong );
+
+		
+		// Go.to(s, 0.3f, config );
+		GoTween tween=new GoTween(Mnemonic, 1.5f, config);
+
+		Go.addTween(tween);
+
+		var configt=new GoTweenConfig()
+			.floatProp( "alpha", 0.0f )
+			.setIterations ( -1, GoLoopType.PingPong );
+
+		
+		// Go.to(s, 0.3f, config );
+		GoTween tweent=new GoTween(ChildText, 1.5f, configt);
+
+		Go.addTween(tweent);
+	}
+
 	void OnEnable(){
 		EasyTouch.On_SimpleTap += On_SimpleTap;
 	}
