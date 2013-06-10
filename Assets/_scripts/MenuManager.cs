@@ -8,6 +8,8 @@ public class MenuManager : MonoBehaviour {
 	public Transform BalAnimation;
 	public Transform Backmark;
 	public Transform ParentObject;
+	public bool useCustomDepth;
+	public int customDepth;
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +23,27 @@ public class MenuManager : MonoBehaviour {
 		{
 			BalBg=(Transform)Instantiate(BalHolder);
 			Bal=(Transform)Instantiate(BalAnimation);
+			
+			if(useCustomDepth)
+			{
+				OTSprite sBal=Bal.GetComponent<OTSprite>();
+				OTSprite sBalHolder=BalBg.GetComponent<OTSprite>();
+
+				if(customDepth<0)
+					sBal.depth=customDepth-10;
+				else
+					sBal.depth=customDepth+10;
+					
+				sBalHolder.depth=customDepth;
+			}
 		}
 
 		Transform Back=(Transform)Instantiate(Backmark);
-
+		
+		if(useCustomDepth){
+			OTSprite sBack=Back.GetComponent<OTSprite>();
+			sBack.depth=customDepth;
+		}
 		if(ParentObject!=null)
 		{
 			BalBg.parent=ParentObject;
