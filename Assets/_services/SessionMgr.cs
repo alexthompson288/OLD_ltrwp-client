@@ -84,199 +84,360 @@ public class SessionMgr
 		case "word_ladder":
 			loadgs="WordLadder";
 			break;
-			/*
+		case "OddOneOut":
+			loadgs="OddOneOut";
+			break;
 		case "splat":
-			loadgs = "splat";
-			break;
-                   
-		case "falling_splat":
-			loadgs = "splat";
-			break;
-                   
-		case "themed_splat":
-			loadgs = "splat";
-			break;
-                   
-		case "collect_the_same_letter":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "target_phoneme":
-			loadgs = "splat";
-			break;
-                   
-		case "collect_the_same_phoneme":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "key_word_search":
-			loadgs = "word_search";
-			break;
-                   
-		case "key_word_bridging":
-			loadgs = "segmenting";
-			break;
-                   
-		case "match_images":
-			loadgs = "matching_bonds";
-			break;
-                   
-		case "rhyming_cauldron_blending/_oral_blending":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "rhyming_odd_one_out":
-			loadgs = "mount_object";
-			break;
-                   
-		case "bridging,_(basic_segmenting/_segmenting_scaffold)":
-			loadgs = "segmenting";
-			break;
-                   
-		case "phoneme_swap":
-			loadgs = "letter_swap";
-			break;
-                   
-		case "phoneme_swap_challenge":
-			loadgs = "letter_swap";
-			break;
-                   
-		case "missing_phoneme":
-			loadgs = "letter_swap";
-			break;
-                   
-		case "eye_spy_-_oral_blending":
-			loadgs = "multi_choice";
-			break;
-                   
-		case "label_images":
-			loadgs = "segmenting";
-			break;
-                   
-		case "make_a_poem":
-			loadgs = "segmenting";
-			break;
-                   
-		case "missing_word_":
-			loadgs = "mount_object";
-			break;
-                   
-		case "word_ladder":
-			loadgs = "segmenting";
-			break;
-                   
-		case "greetings_card":
-			loadgs = "segmenting";
-			break;
-                   
-		case "learn_phoneme":
-			loadgs = "introduce_phoneme";
-			break;
-                   
-		case "help_pip_read":
-			loadgs = "true_false";
-			break;
-                   
-		case "choose_the_correct_path_(oral_blending)":
-			loadgs = "correct_path";
-			break;
-                   
-		case "learn_letter_formation":
-			loadgs = "letter_formation";
-			break;
-                   
-		case "learn_key_word":
-			loadgs = "splat_the_rat";
-			break;
-                   
-		case "make_a_sentence":
-			loadgs = "mount_object";
-			break;
-                   
-		case "alphabet_page_-_letter_formation":
-			loadgs = "alphabetbook";
-			break;
-                   
-		case "alliteration_cauldron":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "eye-spy_-_alliteration_":
-			loadgs = "splat";
-			break;
-                   
-		case "rhyming__cauldron_blend":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "rhyming_cauldron_-_segmenting":
-			loadgs = "segmenting";
-			break;
-                   
-		case "cross_the_river":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "silly/_sensible_words":
-			loadgs = "true_or_false";
-			break;
-                   
-		case "silly/_sensible_sentences":
-			loadgs = "true_or_false";
-			break;
-                   
-		case "collect_the_same_word":
-			loadgs = "different_vessels";
-			break;
-                   
-		case "learn_digraph":
-			loadgs = "true_false";
-			break;
-                   
-		case "alternative_grapheme_odd_one_out":
-			loadgs = "introdution";
-			break;
-                   
-		case "match_illustrations_":
-			loadgs = "introdution";
-			break;
-                   
-		case "highlighting":
-			loadgs = "multi_choice";
-			break;
-                   
-		case "sentence_jumble":
-			loadgs = "mount_object";
-			break;
-                   
-		case "riddles":
-			loadgs = "multi_choice";
-			break;
-                   
-		case "alliteration_odd_one_out":
-			loadgs = "multi_choice";
-			break;
-                   
-		case "learn_-_alternative_graphemes":
-			loadgs = "splat";
-			break;
-                   
-		case "intro_-_split-digraphs":
-			loadgs = "introdution";
-			break;
-                   
-		case "learn_-_alternative_pronunciation":
-			loadgs = "introdution";
-			break;
+		loadgs = "splat";
+		break;
 
-		case "alliteration_intro":
-			loadgs = "introdution";
-			break;
-                  
-		case "complete_the_sentence":
-			loadgs = "dragging_into_boxes";
-			break;
-             */      
+		case "splat_falling":
+		loadgs = "splat";
+		break;
+
+		case "collect_the_same_word_starting_with_letter":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "target_phoneme_spelling":
+		loadgs = "splat";
+		break;
+
+		case "collect_the_same_phoneme_spelling":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "keyword_search_reading":
+		loadgs = "word_search";
+		break;
+
+		case "keyword_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "match_images_and_labels":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "rhyming_cauldron_oral_blending":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "missing_rhyming_word_into_sentence_reading":
+		loadgs = "right/wrong";
+		break;
+
+		case "segmenting_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "swap_letter_in_word_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "swap_letter_in_word_challenge_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "missing_letter_into_word_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "eyespy_blending":
+		loadgs = "splat";
+		break;
+
+		case "sound_buttons_basic_reading":
+		loadgs = "";
+		break;
+
+		case "alphabet_page_blend":
+		loadgs = "";
+		break;
+
+		case "label_images_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "make_a_poem_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "missing_word_into_sentence_reading":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "word_bank_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "learn_phoneme_single_letter":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "silly_sensible_words_oral_blending_help_pip":
+		loadgs = "right/wrong";
+		break;
+
+		case "choose_correct_path_oral_blending":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "letter_formation":
+		loadgs = "follow_path";
+		break;
+
+		case "make_a_sentence":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "alphabet_page_letter_formation":
+		loadgs = "interactive_animations";
+		break;
+
+		case "alliteration_cauldron":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "eyespy_alliteration":
+		loadgs = "splat";
+		break;
+
+		case "rhyming_cauldron_blend":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "rhyming_words_spelling":
+		loadgs = "word_creation_with_segmenting_scaffold";
+		break;
+
+		case "cross_the_river_oral_blending":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "silly_sensible_words_reading":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "silly_sensible_sentences_reading":
+		loadgs = "splat";
+		break;
+
+		case "splat_alternative_grapheme":
+		loadgs = "";
+		break;
+
+		case "collect_the_same_word_spelling":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "learn_phoneme_digraph":
+		loadgs = "right/wrong";
+		break;
+
+		case "fruit_machine":
+		loadgs = "";
+		break;
+
+		case "sound_buttons_spelling":
+		loadgs = "";
+		break;
+
+		case "odd_one_out_alternative_grapheme":
+		loadgs = "splat";
+		break;
+
+		case "match_illustrations":
+		loadgs = "splat";
+		break;
+
+		case "sentence_jumble":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "the_artist_reading":
+		loadgs = "";
+		break;
+
+		case "riddles":
+		loadgs = "splat";
+		break;
+
+		case "odd_one_out_alliteration":
+		loadgs = "splat";
+		break;
+
+		case "learn_alternative_grapheme_same_as_learn_digraph":
+		loadgs = "interactive_animations";
+		break;
+
+		case "split_digraph_introduction":
+		loadgs = "interactive_animations";
+		break;
+
+		case "learn_alternative_pronunciation_of_grapheme":
+		loadgs = "interactive_animations";
+		break;
+
+		case "learn_cvcc_words":
+		loadgs = "";
+		break;
+
+		case "alliteration_introduction":
+		loadgs = "interactive_animations";
+		break;
+
+		case "phoneme_introduction":
+		loadgs = "";
+		break;
+
+		case "oral_blending_introduction":
+		loadgs = "";
+		break;
+
+		case "blending_introduction":
+		loadgs = "";
+		break;
+
+		case "segmenting_introduction":
+		loadgs = "";
+		break;
+
+		case "cvcc_introduction":
+		loadgs = "";
+		break;
+
+		case "alternative_grapheme_introduction":
+		loadgs = "";
+		break;
+
+		case "digraph_introduction":
+		loadgs = "";
+		break;
+
+		case "alternative_pronunciation_introduction":
+		loadgs = "";
+		break;
+
+		case "rhyming_introduction":
+		loadgs = "";
+		break;
+
+		case "intro_to_ck_ff_ll_ss_spelling":
+		loadgs = "";
+		break;
+
+		case "keyword_introduction":
+		loadgs = "";
+		break;
+
+		case "to_delete_digraph_phoneme_page":
+		loadgs = "";
+		break;
+
+		case "keyword_spelling_introduction":
+		loadgs = "";
+		break;
+
+		case "missing_word_in_sentence_spelling_oral_blending":
+		loadgs = "dragging_into_boxes";
+		break;
+
+		case "2_syllable_words_introduction":
+		loadgs = "";
+		break;
+
+		case "word_sort_alternative_pronunciation_reading":
+		loadgs = "";
+		break;
+
+		case "narrative_introduction":
+		loadgs = "";
+		break;
+
+		case "keyword_splat_the_rat":
+		loadgs = "splat";
+		break;
+
+		case "learn_uppercase_letters":
+		loadgs = "";
+		break;
+
+		case "learn_correct_letternames":
+		loadgs = "";
+		break;
+
+		case "correct_sound_reveal_letters":
+		loadgs = "";
+		break;
+
+		case "alternative_pronunciation_fruitmachine_choose_correct_sound":
+		loadgs = "";
+		break;
+
+		case "correct_sound_reveal_objects":
+		loadgs = "";
+		break;
+
+		case "choose_correct_image_fruitmachine_reading":
+		loadgs = "";
+		break;
+
+		case "learn_phoneme_digraph_right_wrong":
+		loadgs = "";
+		break;
+
+		case "programme_introduction":
+		loadgs = "";
+		break;
+
+		case "the_artist_oral_blending":
+		loadgs = "";
+		break;
+
+		case "letter_formation_introduction":
+		loadgs = "";
+		break;
+
+		case "alphabet_song_introduction":
+		loadgs = "";
+		break;
+
+		case "unit_progress_image":
+		loadgs = "";
+		break;
+
+		case "silly_sensible_sound_alternative_pronunciation_oral_blending_help_pip":
+		loadgs = "";
+		break;
+
+		case "alternative_grapheme_right_wrong_does_word_contain_sound_fruitmachine":
+		loadgs = "";
+		break;
+
+		case "learn_split_digraph":
+		loadgs = "";
+		break;
+
+		case "alternative_grapheme_comparison":
+		loadgs = "";
+		break;
+
+		case "learn_alternative_pronunciation_comparison":
+		loadgs = "";
+		break;
+
+		case "programme_end_narration":
+		loadgs = "";
+		break;
+
+		case "splat_the_rat_multiplayer":
+		loadgs = "";
+		break;
+
+		case "does_this_spell_the_word":
+		loadgs = "";
+		break;
 		default:
 				//load generic scene
 			loadgs = "gameinfo";
@@ -346,6 +507,16 @@ public class SessionMgr
 			hash = new Hashtable (); 
 			hash.Add ("section_id", 9); 
 			hash.Add ("game_scene", "AlphabetBook");
+			hash.Add ("game_setting", "castle_frames"); 
+			_sectionList.Add (hash); 
+		}
+		if(sessionId==9989)
+		{
+			PersistentManager.CurrentLetter="a";	
+			gotDebugSession=true;
+			hash = new Hashtable (); 
+			hash.Add ("section_id", 414); 
+			hash.Add ("game_scene", "OddOneOut");
 			hash.Add ("game_setting", "castle_frames"); 
 			_sectionList.Add (hash); 
 		}

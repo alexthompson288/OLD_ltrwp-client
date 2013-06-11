@@ -191,6 +191,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		lastMoleAni.Player=playerID;
 		lastMoleTouch.RemoveTime=Random.Range (minRemove,maxRemove);
 		lastMoleTouch.IndexNumber=moleIndex;
+		lastMoleTouch.bigSign=true;
 		
 		foreach(Transform c in lastMole.transform)
 		{

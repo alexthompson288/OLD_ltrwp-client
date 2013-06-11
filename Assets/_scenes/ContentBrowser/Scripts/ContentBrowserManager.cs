@@ -4,6 +4,7 @@ using System.Collections;
 public class ContentBrowserManager : MonoBehaviour {
 
 	public OTSprite[] Vortexes;
+	public AudioClip[] BrowserAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,17 @@ public class ContentBrowserManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void UpdateAudio(int currentIndex)
+	{
+		AudioClip newAudio=BrowserAudio[currentIndex];
+		AudioSource asrc=gameObject.GetComponent<AudioSource>();
+
+		if(newAudio==asrc.clip)return;
+
+		asrc.clip=newAudio;
+		asrc.Play();
 	}
 
 }

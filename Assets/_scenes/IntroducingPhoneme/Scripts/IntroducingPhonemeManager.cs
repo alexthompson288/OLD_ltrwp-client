@@ -1,17 +1,30 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class IntroducingPhonemeManager : MonoBehaviour {
 	
 	public Transform[] OuterCurtains;
 	PersistentObject PersistentManager;
 	public bool exitCountdown;
-	float countdownToExit=8.0f;
+	float countdownToExit=30.0f;//8.0f;
 	public bool isReadingIntro=true;
 	public SmokeAnimation Smoke;
+	public Transform[] LeftTrumpets;
+	public Transform[] RightTrumpets;
+	PhonemeData[] phoneme;
+	DataWordData[] datawords;
 	
+	void Awake() {
+		HideTrumpets();
+	}
+
 	// Use this for initialization
 	void Start () {
+
+		phoneme=GameManager.Instance.SessionMgr.CurrentPhonemes;
+		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
+
 		if(GameObject.Find ("PersistentManager")==null){
 			GameObject thisPO=new GameObject("PersistentManager");
 			thisPO.AddComponent<PersistentObject>();
@@ -95,6 +108,35 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 		}
 		
 	}
+
+	public void ShowTrumpets()
+	{
+		foreach(Transform t in LeftTrumpets)
+		{
+			OTSprite s=t.GetComponent<OTSprite>();
+			s.visible=true;
+		}
+		foreach(Transform t in RightTrumpets)
+		{
+			OTSprite s=t.GetComponent<OTSprite>();
+			s.visible=true;
+		}
+	}
+
+	public void HideTrumpets()
+	{
+		foreach(Transform t in LeftTrumpets)
+		{
+			OTSprite s=t.GetComponent<OTSprite>();
+			s.visible=false;
+		}
+		foreach(Transform t in RightTrumpets)
+		{
+			OTSprite s=t.GetComponent<OTSprite>();
+			s.visible=false;
+		}
+	}
+
 	public void PlayAudio(AudioClip thisClip)
 	{
 		audio.clip=thisClip;

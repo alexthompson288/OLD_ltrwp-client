@@ -7,12 +7,14 @@ public class MoleAnimation : MonoBehaviour {
 	public bool playJump2;
 	public bool playSplat;
 	public int Player=1;
+	bool bigSign=false;
 	
 	OTAnimatingSprite myself;
 	
 	// Use this for initialization
 	void Start () {
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
+		bigSign=gameObject.GetComponent<MoleTouch>().bigSign;
 	}
 	
 	// Update is called once per frame
@@ -47,9 +49,13 @@ public class MoleAnimation : MonoBehaviour {
 	public void SetAnimationSplat(bool repeat)
 	{
 		myself.Stop();
-		if(repeat)
+		if(repeat && bigSign)
+			myself.PlayLoop("bigsplat");
+		else if(repeat && !bigSign)
 			myself.PlayLoop("splat");
-		else
+		else if(!repeat && bigSign)
+			myself.PlayOnce("bigsplat");
+		else if(!repeat && !bigSign)
 			myself.PlayOnce("splat");
 	}
 	
@@ -57,11 +63,16 @@ public class MoleAnimation : MonoBehaviour {
 	{
 		if(!playJump&&!playJump2)playJump=true;
 		
-		if(playJump){
+		if(playJump && !bigSign){
 			myself.PlayOnce("jump1");
 			playJump=false;
 			playJump2=true;
 			
+		}
+		else if(playJump && bigSign)
+		{
+			myself.PlayOnce("bigjump");
+			playJump=false;
 		}
 		else if(playJump2)
 		{

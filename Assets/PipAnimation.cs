@@ -55,6 +55,7 @@ public class PipAnimation : MonoBehaviour {
 	
 	public void SetNonePlaying()
 	{
+		playIdleSet=false;
 		playIdle=false;
 		playBlink=false;
 		playBlink2=false;
