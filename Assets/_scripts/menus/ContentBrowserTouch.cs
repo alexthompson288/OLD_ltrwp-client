@@ -104,7 +104,6 @@ public class ContentBrowserTouch : MonoBehaviour {
 		
 		if(funZone!=null){
 		
-			Debug.Log ("pickObject name "+gesture.pickObject.name);
 			OTSprite fz=funZone.GetComponent<OTSprite>();
 			
 			if(gesture.pickObject.name=="btnFunZone" && fzVisible)

@@ -256,7 +256,7 @@ public class SegmentingManager : MonoBehaviour {
 				contpref.ExpectedLetter=slet.text;
 				contpref.MountedLetter=let;
 				
-				slet.position=s.position;
+				slet.position=new Vector2(s.position.x, s.position.y+20);
 				slet.GetComponent<SegmentingLetter>().Locked=true;
 			}
 			
@@ -324,7 +324,7 @@ public class SegmentingManager : MonoBehaviour {
 			if(thisContRect.Contains(letter.position)&&letter.text==contPref.ExpectedLetter&&contPref.MountedLetter==null&&contPref.ContainerEnabled)
 			{
 				letterPref.MyMount=contPref;
-				letter.position=s.position;
+				letter.position=new Vector2(s.position.x, s.position.y+20);
 				contPref.MountedLetter=thisLetter;
 				contPref.audio.clip=MountClip;
 				contPref.audio.Play ();

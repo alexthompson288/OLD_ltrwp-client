@@ -12,16 +12,13 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 	public SmokeAnimation Smoke;
 	public Transform[] LeftTrumpets;
 	public Transform[] RightTrumpets;
+	public string TargetPhoneme;
 	PhonemeData[] phoneme;
 	DataWordData[] datawords;
+	int currentImageIndex=0;
 	
 	void Awake() {
 		HideTrumpets();
-	}
-
-	// Use this for initialization
-	void Start () {
-
 		phoneme=GameManager.Instance.SessionMgr.CurrentPhonemes;
 		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
 
@@ -33,6 +30,10 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 		else {
 			PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
 		}
+	}
+
+	// Use this for initialization
+	void Start () {
 		
 	}
 	
@@ -107,6 +108,17 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 			}
 		}
 		
+	}
+
+	public string GetCurrentImage(){
+		DataWordData dw=datawords[currentImageIndex];
+		currentImageIndex++;
+		return dw.Word;
+	}
+
+	public PhonemeData GetCurrentPhoneme(){
+		PhonemeData pd=phoneme[0];
+		return pd;
 	}
 
 	public void ShowTrumpets()

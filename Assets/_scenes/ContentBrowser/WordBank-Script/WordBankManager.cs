@@ -51,11 +51,11 @@ public class WordBankManager : MonoBehaviour {
 		validHit=false;	
 		
 		if(gesture.pickObject!=null){
+			validHit=true;
 			
 			if(gesture.pickObject.name=="btnPlayButton" && !isPlaying){
 				audio.clip=WordClip;
 				audio.Play();
-				validHit=true;
 				isPlaying=true;
 				
 				OTSprite s=gesture.pickObject.GetComponent<OTSprite>();

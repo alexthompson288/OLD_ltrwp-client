@@ -18,6 +18,7 @@ public class SegmentingContainerButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		myContainer=transform.parent.GetComponent<SegmentingContainer>();
+		ReusableButton=true;
 	}
 	
 	void Awake () {
@@ -72,8 +73,9 @@ public class SegmentingContainerButton : MonoBehaviour {
 
 		// Debug.Log("HitBox: "+myHitBox+" gesture pos "+gesturePos);
 
-		if(myHitBox.Contains(gesturePos))
+		if(myHitBox.Contains(gesturePos)||gesture.pickObject==gameObject)
 		{
+			// Debug.Log("hit button hitbox");
 			SegmentingContainer cont=transform.parent.gameObject.GetComponent<SegmentingContainer>();
 			
 			if(!isPressed||ReusableButton)

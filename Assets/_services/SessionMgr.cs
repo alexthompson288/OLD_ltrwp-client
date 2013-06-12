@@ -87,6 +87,10 @@ public class SessionMgr
 		case "OddOneOut":
 			loadgs="OddOneOut";
 			break;
+		case "learn_phoneme_single_letter":
+			loadgs="IntroducePhoneme P newbg";
+			break;
+
 		case "splat":
 		loadgs = "splat";
 		break;
@@ -171,16 +175,12 @@ public class SessionMgr
 		loadgs = "word_creation_with_segmenting_scaffold";
 		break;
 
-		case "learn_phoneme_single_letter":
-		loadgs = "dragging_into_boxes";
-		break;
-
 		case "silly_sensible_words_oral_blending_help_pip":
 		loadgs = "right/wrong";
 		break;
 
 		case "choose_correct_path_oral_blending":
-		loadgs = "dragging_into_boxes";
+		loadgs = "CorrectPath";
 		break;
 
 		case "letter_formation":
@@ -224,7 +224,7 @@ public class SessionMgr
 		break;
 
 		case "splat_alternative_grapheme":
-		loadgs = "";
+		loadgs = "gameinfo";
 		break;
 
 		case "collect_the_same_word_spelling":
@@ -236,11 +236,11 @@ public class SessionMgr
 		break;
 
 		case "fruit_machine":
-		loadgs = "";
+		loadgs = "gameinfo";
 		break;
 
 		case "sound_buttons_spelling":
-		loadgs = "";
+		loadgs = "gameinfo";
 		break;
 
 		case "odd_one_out_alternative_grapheme":
@@ -256,7 +256,7 @@ public class SessionMgr
 		break;
 
 		case "the_artist_reading":
-		loadgs = "";
+		loadgs = "gameinfo";
 		break;
 
 		case "riddles":
@@ -264,7 +264,7 @@ public class SessionMgr
 		break;
 
 		case "odd_one_out_alliteration":
-		loadgs = "splat";
+		loadgs = "OddOneOut";
 		break;
 
 		case "learn_alternative_grapheme_same_as_learn_digraph":
@@ -510,13 +510,33 @@ public class SessionMgr
 			hash.Add ("game_setting", "castle_frames"); 
 			_sectionList.Add (hash); 
 		}
-		if(sessionId==9989)
+		else if(sessionId==9989)
 		{
 			PersistentManager.CurrentLetter="a";	
 			gotDebugSession=true;
 			hash = new Hashtable (); 
 			hash.Add ("section_id", 414); 
 			hash.Add ("game_scene", "OddOneOut");
+			hash.Add ("game_setting", "castle_frames"); 
+			_sectionList.Add (hash); 
+		}
+		else if(sessionId==9988)
+		{
+			PersistentManager.CurrentLetter="a";	
+			gotDebugSession=true;
+			hash = new Hashtable (); 
+			hash.Add ("section_id", 48); 
+			hash.Add ("game_scene", "choose_correct_path_oral_blending");
+			hash.Add ("game_setting", "castle_frames"); 
+			_sectionList.Add (hash); 
+		}
+		else if(sessionId==9987)
+		{
+			PersistentManager.CurrentLetter="a";	
+			gotDebugSession=true;
+			hash = new Hashtable (); 
+			hash.Add ("section_id", 49); 
+			hash.Add ("game_scene", "learn_phoneme_single_letter");
 			hash.Add ("game_setting", "castle_frames"); 
 			_sectionList.Add (hash); 
 		}

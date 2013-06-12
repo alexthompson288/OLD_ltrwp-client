@@ -4,16 +4,124 @@
 		"selected_items":
 		[
 			[
-				"OTSpri",
-				"OTSpriteAtlasCocos2D"
+				"curren",
+				"currentDataWordIndex"
+			],
+			[
+				"learn_",
+				"learn_phoneme_single_letter"
+			],
+			[
+				"Data",
+				"DataWordData"
+			],
+			[
+				"for",
+				"foreach"
+			],
+			[
+				"SetAc",
+				"SetCompleteAction"
+			],
+			[
+				"playI",
+				"playIdleSet"
+			],
+			[
+				"sB",
+				"sBalHolder"
+			],
+			[
+				"section",
+				"sectionHeight"
+			],
+			[
+				"ContentB",
+				"ContentBrowserManager"
+			],
+			[
+				"Coll",
+				"isCollidable"
+			],
+			[
+				"Vecto",
+				"Vector3	x, y, z"
+			],
+			[
+				"set",
+				"setOnCompleteHandler"
+			],
+			[
+				"An",
+				"AnswerFrames"
+			],
+			[
+				"Vec",
+				"Vector2	x, y"
+			],
+			[
+				"new",
+				"newBtn"
+			],
+			[
+				"Seg",
+				"SegmentingContainerButton"
+			],
+			[
+				"Segm",
+				"SegmentingContainer"
+			],
+			[
+				"Ve",
+				"Vector3	x, y, z"
+			],
+			[
+				"SegmentingC",
+				"SegmentingContainerButton"
+			],
+			[
+				"tran",
+				"Transform"
+			],
+			[
+				"GetCo",
+				"GetComponent	type"
+			],
+			[
+				"letter",
+				"letterStartYPos"
+			],
+			[
+				"Un",
+				"UnPressedState"
+			],
+			[
+				"last",
+				"lastFrame"
+			],
+			[
+				"OTSprite",
+				"OTSpriteAtlasCocos2DFnt"
 			],
 			[
 				"game",
-				"GameSetting"
+				"gameManager"
+			],
+			[
+				"Mnem",
+				"MnemonicA"
+			],
+			[
+				"Displ",
+				"DisplayString"
 			],
 			[
 				"current",
-				"currentBGIndex"
+				"currentMapIndex"
+			],
+			[
+				"OTSpri",
+				"OTSpriteAtlasCocos2D"
 			],
 			[
 				"_curren",
@@ -40,45 +148,90 @@
 	"buffers":
 	[
 		{
-			"file": "al-client.sublime-project",
+			"file": "Assets/_scenes/ContentBrowser/TrophyRoom-Script/ShieldTouch.cs",
 			"settings":
 			{
-				"buffer_size": 522,
+				"buffer_size": 2367,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/LetterFormation/Scripts/LFManager.cs",
+			"file": "Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
 			"settings":
 			{
-				"buffer_size": 8971,
+				"buffer_size": 5488,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "using UnityEngine;\nusing System.Collections;\nusing System.Collections.Generic;\nusing System;\nusing System.IO;\nusing AlTypes;\n\npublic class GameManager\n{\n	#region \"Public Static\"\n	public static GameManager Instance { get { return _instance; }}\n	#endregion\n	\n	#region \"Public Instance\"\n	public GameObject PersistentGameObject { get { return GameObject.Find(_persistentGOTag); }}\n	public SyncDataService SyncService { get { return _syncService; }}\n	public string ActivityDbPath { get { return _activityDbPath; }}\n	public string StateDbPath { get { return _stateDbPath; }}\n	public SqliteDatabase ActivityDb { get { return _activityDb; }}\n	public SqliteDatabase StateDb { get { return _stateDb; }}\n	public SqliteDatabase CmsDb {get {return _cmsDb;}}\n	public string InstallationId { get { return _installationId; }}\n	public string ActivityBatchId { get { return _activityBatchId; }}\n\n	public SessionMgr SessionMgr {get {return _sessionMgr;}}\n	\n	//info about cms\n	public int CmsWordCount=0;\n	\n	public void NewBatch ()\n	{\n		_activityBatchId = Guid.NewGuid().ToString();\n	}\n	\n	public void LogState()\n	{\n		Debug.Log(\"game manager is okay\");\n	}\n\n	public void LogEvent (string eventType, string userId, string additionalData)\n	{\n		ActivityDb.ExecuteNonQuery(String.Format(\n			\"INSERT INTO LoggedEvents(batch_id, date, event_type, user_id, additional_data) VALUES('{0}',{1},'{2}',{3},{4})\", \n			ActivityBatchId, \n			UnixDate.Now,\n			eventType,\n			userId == null ? \"null\" : String.Format(\"'{0}'\", userId),\n			additionalData == null ? \"null\" : String.Format(\"'{0}'\", additionalData)));\n	}\n	\n	public String GetCMSInfo()\n	{\n		DataTable dt = CmsDb.ExecuteQuery(\"SELECT * FROM words;\");\n		CmsWordCount=dt.Rows.Count;\n//		return \"word count: \" + dt.Rows.Count.ToString();\n		\n		String[] tests=GetUserWordIndex();\n		\n		List<String> yesp=GetSortedPhonemesForWord(\"fan\");\n		for(int i=0; i<yesp.Count; i++)\n		{\n			Debug.Log(\"phoneme returned: \" + yesp[i]);\n		}\n		\n		return \"iterate count: \" + tests.Length + \" with word: \" + tests[41];\n	}\n	\n	public String[] GetUserWordIndex()\n	{\n		DataTable dt=CmsDb.ExecuteQuery(\"select word from words where cvc='t' and diagraph='f'\");\n		String[] words=new String[dt.Rows.Count];\n		for(int i=0; i<dt.Rows.Count; i++)\n		{\n			words[i]=(String)dt.Rows[i][\"word\"];\n		}\n		return words;\n	}\n	\n	public String[] GetPhonemesForWord(String word)\n	{\n		//get the word\n		DataTable dt=CmsDb.ExecuteQuery(\"select id from words where word='\" + word + \"'\");\n		int wordid=(int)dt.Rows[0][\"id\"];\n		\n		//get the phonemes\n		DataTable dtp=CmsDb.ExecuteQuery(\"select phoneme from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=\" + wordid.ToString());\n		String[] phonemes=new String[dtp.Rows.Count];\n		for(int i=0; i<dtp.Rows.Count; i++)\n		{\n			//get phoneme and trim hyphen bits\n			String pr=(String)dtp.Rows[i][\"phoneme\"];\n			int ih=pr.IndexOf(\"-\");\n			if(ih>0) pr=pr.Substring(0, ih);\n\n			phonemes[i]=pr;\n		}\n		return phonemes;\n	}\n\n	static bool IsIPad1()\n	{\n		return (SystemInfo.deviceModel==\"iPad1,1\");\n	}\n\n	public DataWordData[] GetDataWordsForSection(int sectionId)\n	{\n		DataTable dt=CmsDb.ExecuteQuery(\"select * from data_words INNER JOIN words ON word_id=words.id WHERE section_id=\"+sectionId.ToString());\n		DataWordData[] dws=new DataWordData[dt.Rows.Count];\n		for(int i=0; i<dt.Rows.Count; i++)		\n		{\n			DataWordData dw;\n			dw.Word=(String)dt.Rows[i][\"word\"];\n			dw.WordId=(int)dt.Rows[i][\"word_id\"];\n			dw.Nonsense=IsBool((String)dt.Rows[i][\"nonsense\"]);\n			dw.IsTargetWord=IsBool((String)dt.Rows[i][\"is_target_word\"]);\n			dw.IsDummyWord=IsBool((String)dt.Rows[i][\"is_dummy_word\"]);\n			dw.LinkingIndex=(String)dt.Rows[i][\"linking_index\"];\n\n			dws[i]=dw;\n		}\n		return dws;\n	}\n	\n	public PhonemeData[] GetPhonemesForSection(int sectionId)\n	{\n		DataTable dt=CmsDb.ExecuteQuery(\"select id, phoneme, mneumonic, mneumonic_two from phonemes_sections INNER JOIN phonemes ON phoneme_id=id WHERE section_id=\"+sectionId.ToString());\n		PhonemeData[] phonemes=new PhonemeData[dt.Rows.Count];\n		for(int i=0; i<dt.Rows.Count; i++)\n		{\n			PhonemeData pd=new PhonemeData();\n			pd.Phoneme=(String)dt.Rows[i][\"phoneme\"];\n			pd.Mneumonic=(String)dt.Rows[i][\"mneumonic\"];\n			pd.MneumonicTwo=(String)dt.Rows[i][\"mneumonic_two\"];\n			pd.Id=(int)dt.Rows[i][\"id\"];\n			phonemes[i]=pd;\n		}\n		return phonemes;\n	}\n\n	public String[] AllMneumonics()\n	{\n		DataTable dt=CmsDb.ExecuteQuery(\"select mneumonic, mneumonic_two from phonemes ORDER BY mneumonic ASC\");\n		ArrayList mnary=new ArrayList();\n		for(int i=0; i<dt.Rows.Count; i++)\n		{\n			String s1=(String)dt.Rows[i][\"mneumonic\"];\n			String s2=(String)dt.Rows[i][\"mneumonic_two\"];\n\n			if(s1!=null && s1!=\"\") mnary.Add(s1);\n			//if(s2!=null && s2!=\"\") mnary.Add(s2);\n		}\n		String[] mns=new String[mnary.Count];\n		int j=0;\n		foreach(String s in mnary)\n		{\n			mns[j]=s;\n			j++;\n		}\n		Array.Sort (mns);\n		return mns;\n	}\n\n	public DataSentenceData[] GetDataSentencesForSection(int sectionId)\n	{\n		DataTable dt=CmsDb.ExecuteQuery(\"select * from sentences WHERE section_id=\"+sectionId.ToString());\n		DataSentenceData[] sentences=new DataSentenceData[dt.Rows.Count];\n		for(int i=0; i<dt.Rows.Count; i++)\n		{\n			DataSentenceData dsd;\n			dsd.Sentence=(String)dt.Rows[i][\"text\"];\n			dsd.LinkingIndex=(String)dt.Rows[i][\"linking_index\"];\n			sentences[i]=dsd;\n		}\n		return sentences;\n	}\n\n	public bool IsBool(String data)\n	{\n		if(data==\"t\")return true;\n		else return false;\n	}\n\n\n	public String[] GetUserLetters()\n	{\n		String[] letters=new String[26];\n		int current=0;\n		for(int i=97;i<123;i++)\n		{\n			char c=(char)i;\n			letters[current]=c.ToString();\n			current++;\n		}\n		\n		return letters;\n	}\n	\n	public List<String> GetSortedPhonemesForWord(String word)\n	{\n		if(word.Length==0) return null;\n		\n		String[]unsortedPhonemes=GetPhonemesForWord(word);\n		if(unsortedPhonemes.Length==0) return null;\n		\n		String wordRemainder=word;\n		\n		//get a size (desc) sorted list of phonemes\n		List<String>sizeDescPhonemes=new List<String>();\n		sizeDescPhonemes.Add(unsortedPhonemes[0]);\n		if(unsortedPhonemes.Length>1)\n		{\n			for(int j=1;j<unsortedPhonemes.Length; j++)\n			{\n				String p=unsortedPhonemes[j];\n				int insertAt=sizeDescPhonemes.Count;\n				for(int i=0; i<sizeDescPhonemes.Count; i++)\n				{\n					if(p.Length>=sizeDescPhonemes[i].Length)\n					{\n						insertAt=i;\n						break;\n					}\n				}\n				sizeDescPhonemes.Insert(insertAt, p);\n			}\n		}\n		\n		int ip=0;\n		int notFoundCount=0;\n		List<String>sortedPhonemes=new List<String>();\n		while (wordRemainder.Length>0 && notFoundCount<=sizeDescPhonemes.Count) {\n			if(wordRemainder.IndexOf(sizeDescPhonemes[ip])==0)\n			{\n				//insert this in sorted index & remove from unsorted (and front of word)\n				sortedPhonemes.Add(sizeDescPhonemes[ip]);\n				wordRemainder=wordRemainder.Substring (sizeDescPhonemes[ip].Length);\n				notFoundCount=0;\n			}\n			else\n			{\n				notFoundCount++;\n			}\n\n			ip++;\n\n			if(ip>=sizeDescPhonemes.Count) \n			{\n				ip=0;\n			}\n		}\n	\n		return sortedPhonemes;\n		// return sizeDescPhonemes;\n	}\n	\n	#endregion\n	\n	#region \"Private Static\"\n	private static readonly GameManager _instance = new GameManager();\n	#endregion\n	\n	#region \"Private Instance\"\n	private string _persistentGOTag = \"PersistentGO\";\n	private string _installationIdPath = Path.Combine(Application.persistentDataPath, \"installationid\");\n	private string _activityDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, \"activity.db\");\n	private string _stateDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, \"state.db\");\n	private string _cmsDbPath=Path.Combine(UnityEngine.Application.persistentDataPath, \"cms.db\");\n	\n	private SyncDataService _syncService;\n	private SqliteDatabase _activityDb;\n	private SqliteDatabase _stateDb;\n	private SqliteDatabase _cmsDb;\n	private string _installationId, _activityBatchId;\n\n	private SessionMgr _sessionMgr;\n	\n	private GameManager()\n	{\n		GameObject go = new GameObject(_persistentGOTag);\n		MonoBehaviour.DontDestroyOnLoad(go);\n		go.AddComponent(\"HTTPService\");\n		\n		_syncService = new SyncDataService((HTTPService)PersistentGameObject.GetComponent(\"HTTPService\"));\n		\n		if (File.Exists(_installationIdPath))\n		{\n			_installationId = File.ReadAllText(_installationIdPath);\n		}\n		else\n		{\n			_installationId = Guid.NewGuid().ToString();\n			StreamWriter sw = File.CreateText(_installationIdPath);\n			sw.Write(_installationId);\n			sw.Close();\n		}\n		\n		bool initActivityDb = !File.Exists(_activityDbPath);\n		bool initStateDb = !File.Exists(_stateDbPath);\n		bool initCmsDb=!File.Exists(_cmsDbPath);\n		\n		_activityDb = new SqliteDatabase();\n		_stateDb = new SqliteDatabase();\n		_cmsDb=new SqliteDatabase();\n		\n		_activityDb.Open(_activityDbPath);\n		_stateDb.Open(_stateDbPath);\n		\n		if (initActivityDb)\n		{\n			ActivityDb.ExecuteNonQuery(\"CREATE TABLE UserCreations(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, user_name TEXT NOT NULL, date REAL)\");\n			ActivityDb.ExecuteNonQuery(\"CREATE TABLE Attempts(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, date REAL, score INTEGER)\");\n			ActivityDb.ExecuteNonQuery(\"CREATE TABLE LoggedEvents(batch_id TEXT NOT NULL, date REAL, event_type TEXT NOT NULL, user_id TEXT, additional_data TEXT)\");\n		}\n		\n		if (initStateDb)\n		{\n			StateDb.ExecuteNonQuery(\"CREATE TABLE Users(id TEXT NOT NULL, name TEXT NOT NULL, creation_date REAL, last_attempt_date REAL, last_attempt_score INTEGER, best_attempt_date REAL, best_attempt_score INTEGER, num_attempts INTEGER, average_score REAL)\");\n		}\n\n		//always write cms db\n		TextAsset ta=(TextAsset)Resources.Load(\"cms\");\n		System.IO.File.WriteAllBytes(_cmsDbPath, ta.bytes);\n		\n		// if(initCmsDb)\n		// {\n		// 	TextAsset ta=(TextAsset)Resources.Load(\"cms\");\n		// 	System.IO.File.WriteAllBytes(_cmsDbPath, ta.bytes);\n		// }\n		\n		_cmsDb.Open(_cmsDbPath);\n		\n		//log it and get the count on the instance\n		Debug.Log(GetCMSInfo());\n	\n		\n		NewBatch();\n\n		_sessionMgr= new SessionMgr();\n		_sessionMgr.LogState();\n	}\n	#endregion\n}",
-			"file": "Assets/_services/GameManager.cs",
-			"file_size": 9938,
-			"file_write_time": 1368036274000000,
+			"file": "Assets/_scenes/OddOneOut/Scripts/OOOFrame.cs",
 			"settings":
 			{
-				"buffer_size": 9938,
+				"buffer_size": 487,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
+			"file": "Assets/_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs",
 			"settings":
 			{
-				"buffer_size": 9629,
+				"buffer_size": 3575,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
+			"file": "Assets/Plugins/GoKit/enums/GoEaseType.cs",
 			"settings":
 			{
-				"buffer_size": 3037,
+				"buffer_size": 529,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scenes/SplatTheRat/Scripts/MoleTouch.cs",
+			"settings":
+			{
+				"buffer_size": 3283,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/menus/PersistentObject.cs",
+			"settings":
+			{
+				"buffer_size": 797,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs",
+			"settings":
+			{
+				"buffer_size": 786,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Plugins/GoKit/enums/GoLoopType.cs",
+			"settings":
+			{
+				"buffer_size": 107,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_services/SessionMgr.cs",
+			"settings":
+			{
+				"buffer_size": 323147,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Plugins/GoKit/Go.cs",
+			"settings":
+			{
+				"buffer_size": 10741,
 				"line_ending": "Unix"
 			}
 		},
@@ -91,34 +244,124 @@
 			}
 		},
 		{
-			"file": "Assets/_services/SessionMgr.cs",
+			"file": "Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
 			"settings":
 			{
-				"buffer_size": 319123,
+				"buffer_size": 10297,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/LetterFormation/Scripts/LFLetterPart.cs",
+			"file": "Assets/_scenes/CorrectPath/Scripts/CorrectPathManager.cs",
 			"settings":
 			{
-				"buffer_size": 266,
+				"buffer_size": 3380,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/ContentBrowser/WordBank-Script/WordBankManager.cs",
+			"file": "Assets/_animations/curtain/CurtainAnimation.cs",
 			"settings":
 			{
-				"buffer_size": 1854,
+				"buffer_size": 4066,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/ContentBrowser/TrophyRoom-Script/TrophyRoomManager.cs",
+			"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
 			"settings":
 			{
-				"buffer_size": 3532,
+				"buffer_size": 11328,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Orthello/Standard Assets/OT/Graphics/Sprites/OTSprite.cs",
+			"settings":
+			{
+				"buffer_size": 33560,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
+			"settings":
+			{
+				"buffer_size": 3095,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/AnswerManager.cs",
+			"settings":
+			{
+				"buffer_size": 210,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/GenericContainer.cs",
+			"settings":
+			{
+				"buffer_size": 1085,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/GenericDraggable.cs",
+			"settings":
+			{
+				"buffer_size": 2347,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/GenericAnswer.cs",
+			"settings":
+			{
+				"buffer_size": 271,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Plugins/GoKit/easing/GoEaseBounce.cs",
+			"settings":
+			{
+				"buffer_size": 829,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scripts/MenuManager.cs",
+			"settings":
+			{
+				"buffer_size": 1142,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_services/GameManager.cs",
+			"settings":
+			{
+				"buffer_size": 10262,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 822 files for \"getsortedphonemesforword\"\n\n/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs:\n   75  			GameManager cmsLink=GameManager.Instance;\n   76  			\n   77: 			List<String> letters=cmsLink.GetSortedPhonemesForWord(PersistentManager.WordBankWord);\n   78  			\n   79  			CorrectLetters=new string[letters.Count];\n\n/Users/dave/xcode/ltrwp/Assets/_services/GameManager.cs:\n   57  		String[] tests=GetUserWordIndex();\n   58  		\n   59: 		List<String> yesp=GetSortedPhonemesForWord(\"fan\");\n   60  		for(int i=0; i<yesp.Count; i++)\n   61  		{\n   ..\n  196  	}\n  197  	\n  198: 	public List<String> GetSortedPhonemesForWord(String word)\n  199  	{\n  200  		if(word==\"acid\") return new List<String>{\"a\", \"c\", \"i\", \"d\"};\n\n/Users/dave/xcode/ltrwp/Assets/_services/ParseService.cs:\n   58  	}\n   59  	\n   60: 	public List<String> GetSortedPhonemesForWord(String word)\n   61  	{\n   62  		if(word==\"acid\") return new List<String>{\"a\", \"c\", \"i\", \"d\"};\n\n4 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 1002,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Plugins/GoKit/GoTween.cs",
+			"settings":
+			{
+				"buffer_size": 7459,
 				"line_ending": "Unix"
 			}
 		}
@@ -187,6 +430,41 @@
 	},
 	"file_history":
 	[
+		"/Users/dave/xcode/ltrwp/Assets/_animations/curtain/CurtainAnimation.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SplatTheRat/Scripts/SplatTheRatManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/MoleAnimation.cs",
+		"/Users/dave/xcode/ltrwp/Assets/PipAnimation.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/missing_word_sentence/scripts/MissingWordSentenceManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/menus/ContentBrowserTouch.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_services/AlTypes.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/FruitMachine/Scripts/FruitMachineManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/TrophyRoom-Script/BigShield.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/PrintGameInfo.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_animations/book/BalAnimation.cs",
+		"/Users/dave/xcode/ltrwp/Assets/MobileMovieTexture/MobileMovieTexture.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/AutomatedButton.cs",
+		"/Users/dave/xcode/ltrwp/Assets/UniversalVideoTexture/_Scripts/VideoTexture.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/LetterFormation/Scripts/LFManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericAnswer.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingContainerButton.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/properties/GoTweenUtils.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/missing_word_sentence/scripts/MissingWordSentenceDropzone.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingLetter.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/missing_word_sentence/scripts/MissingWordSentenceTouch.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_services/SessionMgr.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/TrophyRoom-Script/TrophyRoomManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/DragDropAnswer.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericDraggable.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/easing/GoEaseExponential.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/easing/GoEaseElastic.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_services/GameManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/enums/GoLoopType.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/WordBank-Script/WordBankManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/LetterFormation/Scripts/LFLetterPart.cs",
+		"/Users/dave/xcode/ltrwp/al-client.sublime-project",
 		"/Users/dave/xcode/pom/Assets/_scripts/UiButtons.cs",
 		"/Users/dave/xcode/cipher/Assets/Scripts/ClickEventReceiver.cs",
 		"/Users/dave/xcode/cipher/Assets/Scripts/MainScene.cs",
@@ -202,9 +480,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -212,6 +491,33 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"childtexts",
+			"odd_",
+			"getsortedphonemesforword",
+			"getphonemesforsection",
+			"getdatawordsforsection",
+			"GetPhonemesForWord",
+			"splat_the_r",
+			";\n",
+			"shakefram",
+			".text=",
+			"currentlett",
+			"font",
+			"=font",
+			"Transform t",
+			"for(",
+			"scaffoldstartxpos",
+			"myparent",
+			".size",
+			"containerpre",
+			"depth",
+			"loadl",
+			"Font",
+			"Font-",
+			"getcomponent<ot",
+			"getcomponent<otspritec",
+			"forceupdate",
+			"	\n",
 			"forest_splat",
 			"case",
 			"btnfz2",
@@ -236,23 +542,23 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "al-client.sublime-project",
+					"file": "Assets/_scenes/ContentBrowser/TrophyRoom-Script/ShieldTouch.cs",
 					"settings":
 					{
-						"buffer_size": 522,
+						"buffer_size": 2367,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								73,
-								73
+								1688,
+								1688
 							]
 						],
 						"settings":
@@ -260,7 +566,8 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -270,18 +577,18 @@
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/_scenes/LetterFormation/Scripts/LFManager.cs",
+					"file": "Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
 					"settings":
 					{
-						"buffer_size": 8971,
+						"buffer_size": 5488,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7534,
-								7534
+								244,
+								244
 							]
 						],
 						"settings":
@@ -289,29 +596,28 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4369.0,
+						"translation.y": 165.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "Assets/_services/GameManager.cs",
+					"file": "Assets/_scenes/OddOneOut/Scripts/OOOFrame.cs",
 					"settings":
 					{
-						"buffer_size": 9938,
+						"buffer_size": 487,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3767,
-								3767
+								279,
+								279
 							]
 						],
 						"settings":
@@ -319,38 +625,7 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 565.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
-					"settings":
-					{
-						"buffer_size": 9629,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3557,
-								3557
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -359,19 +634,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
+					"buffer": 3,
+					"file": "Assets/_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs",
 					"settings":
 					{
-						"buffer_size": 3037,
+						"buffer_size": 3575,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								905,
-								905
+								1273,
+								1273
 							]
 						],
 						"settings":
@@ -383,25 +658,56 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 42.0,
+						"translation.y": 407.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Plugins/GoKit/enums/GoEaseType.cs",
+					"settings":
+					{
+						"buffer_size": 529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "Assets/_scripts/PrintGameInfo.cs",
+					"file": "Assets/_scenes/SplatTheRat/Scripts/MoleTouch.cs",
 					"settings":
 					{
-						"buffer_size": 1835,
+						"buffer_size": 3283,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1807,
-								1807
+								1236,
+								1238
 							]
 						],
 						"settings":
@@ -412,43 +718,7 @@
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 110.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"file": "Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
-					"settings":
-					{
-						"buffer_size": 3037,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								576,
-								576
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
+						"translation.x": 8.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -456,18 +726,18 @@
 				},
 				{
 					"buffer": 6,
-					"file": "Assets/_services/SessionMgr.cs",
+					"file": "Assets/_scripts/menus/PersistentObject.cs",
 					"settings":
 					{
-						"buffer_size": 319123,
+						"buffer_size": 797,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35261,
-								35273
+								397,
+								397
 							]
 						],
 						"settings":
@@ -476,20 +746,20 @@
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 9.0,
-						"translation.y": 16495.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "Assets/_scenes/LetterFormation/Scripts/LFLetterPart.cs",
+					"file": "Assets/_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs",
 					"settings":
 					{
-						"buffer_size": 266,
+						"buffer_size": 786,
 						"regions":
 						{
 						},
@@ -515,88 +785,27 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "Assets/_scenes/LetterFormation/Scripts/LFManager.cs",
-					"settings":
-					{
-						"buffer_size": 8971,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5771,
-								5771
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2948.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/_services/GameManager.cs",
-					"settings":
-					{
-						"buffer_size": 9938,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2966,
-								2970
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1173.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 8,
-					"file": "Assets/_scenes/ContentBrowser/WordBank-Script/WordBankManager.cs",
+					"file": "Assets/Plugins/GoKit/enums/GoLoopType.cs",
 					"settings":
 					{
-						"buffer_size": 1854,
+						"buffer_size": 107,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								763,
-								763
+								107,
+								107
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
+							"incomplete_sync": true,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -606,18 +815,144 @@
 				},
 				{
 					"buffer": 9,
-					"file": "Assets/_scenes/ContentBrowser/TrophyRoom-Script/TrophyRoomManager.cs",
+					"file": "Assets/_services/SessionMgr.cs",
 					"settings":
 					{
-						"buffer_size": 3532,
+						"buffer_size": 323147,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								748,
-								748
+								8796,
+								8796
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6735.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Plugins/GoKit/Go.cs",
+					"settings":
+					{
+						"buffer_size": 10741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								972,
+								972
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 137.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Assets/_scripts/PrintGameInfo.cs",
+					"settings":
+					{
+						"buffer_size": 1835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								510,
+								510
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 94.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 12,
+					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
+					"settings":
+					{
+						"buffer_size": 10297,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9456,
+								9456
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 32.0,
+						"translation.y": 4939.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs",
+					"settings":
+					{
+						"buffer_size": 786,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								751,
+								751
 							]
 						],
 						"settings":
@@ -630,6 +965,601 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "Assets/_scenes/CorrectPath/Scripts/CorrectPathManager.cs",
+					"settings":
+					{
+						"buffer_size": 3380,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								389,
+								389
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "Assets/_animations/curtain/CurtainAnimation.cs",
+					"settings":
+					{
+						"buffer_size": 4066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1669,
+								1669
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1707.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
+					"settings":
+					{
+						"buffer_size": 11328,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9534,
+								9534
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4869.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "Assets/Orthello/Standard Assets/OT/Graphics/Sprites/OTSprite.cs",
+					"settings":
+					{
+						"buffer_size": 33560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
+					"settings":
+					{
+						"buffer_size": 3095,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								951,
+								951
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 3.0,
+						"translation.y": 812.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "Assets/_scripts/AnswerManager.cs",
+					"settings":
+					{
+						"buffer_size": 210,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								91,
+								91
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "Assets/_scripts/GenericContainer.cs",
+					"settings":
+					{
+						"buffer_size": 1085,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "Assets/_scripts/GenericDraggable.cs",
+					"settings":
+					{
+						"buffer_size": 2347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1673,
+								1673
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1184.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "Assets/_scripts/GenericAnswer.cs",
+					"settings":
+					{
+						"buffer_size": 271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								150,
+								150
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "Assets/Plugins/GoKit/easing/GoEaseBounce.cs",
+					"settings":
+					{
+						"buffer_size": 829,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "Assets/_scripts/MenuManager.cs",
+					"settings":
+					{
+						"buffer_size": 1142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								955,
+								955
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Plugins/GoKit/enums/GoEaseType.cs",
+					"settings":
+					{
+						"buffer_size": 529,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "Assets/_services/GameManager.cs",
+					"settings":
+					{
+						"buffer_size": 10262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1416,
+								1416
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"settings":
+					{
+						"buffer_size": 1002,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										234,
+										258
+									],
+									[
+										494,
+										518
+									],
+									[
+										632,
+										656
+									],
+									[
+										857,
+										881
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								111,
+								111
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"incomplete_sync": null,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
+					"settings":
+					{
+						"buffer_size": 5488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								692,
+								692
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "Assets/Plugins/GoKit/GoTween.cs",
+					"settings":
+					{
+						"buffer_size": 7459,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6274,
+								6274
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2888.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Plugins/GoKit/Go.cs",
+					"settings":
+					{
+						"buffer_size": 10741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9465,
+								9465
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4774.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/_services/SessionMgr.cs",
+					"settings":
+					{
+						"buffer_size": 323147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4146,
+								4146
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1591.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Assets/_scripts/PrintGameInfo.cs",
+					"settings":
+					{
+						"buffer_size": 1835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								326,
+								326
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 94.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -690,6 +1620,118 @@
 		"selected_items":
 		[
 			[
+				"oddone",
+				"_scenes/OddOneOut/Scripts/OddOneOutManager.cs"
+			],
+			[
+				"altypes",
+				"_services/AlTypes.cs"
+			],
+			[
+				"printm",
+				"_scripts/PrintGameInfo.cs"
+			],
+			[
+				"session",
+				"_services/SessionMgr.cs"
+			],
+			[
+				"gamein",
+				"_scripts/PrintGameInfo.cs"
+			],
+			[
+				"sessionm",
+				"_services/SessionMgr.cs"
+			],
+			[
+				"game",
+				"_services/GameManager.cs"
+			],
+			[
+				"gamem",
+				"_services/GameManager.cs"
+			],
+			[
+				"gameman",
+				"_services/GameManager.cs"
+			],
+			[
+				"go.cs",
+				"Plugins/GoKit/Go.cs"
+			],
+			[
+				"go",
+				"Plugins/GoKit/GoTween.cs"
+			],
+			[
+				"sess",
+				"_services/SessionMgr.cs"
+			],
+			[
+				"goeasety",
+				"Plugins/GoKit/enums/GoEaseType.cs"
+			],
+			[
+				"introduct",
+				"_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs"
+			],
+			[
+				"goloop",
+				"Plugins/GoKit/enums/GoLoopType.cs"
+			],
+			[
+				"contentbrow",
+				"_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs"
+			],
+			[
+				"persist",
+				"_scripts/menus/PersistentObject.cs"
+			],
+			[
+				"moletouch",
+				"_scenes/SplatTheRat/Scripts/MoleTouch.cs"
+			],
+			[
+				"menuman",
+				"_scripts/MenuManager.cs"
+			],
+			[
+				"bounce",
+				"Plugins/GoKit/easing/GoEaseBounce.cs"
+			],
+			[
+				"missingword",
+				"_scenes/missing_word_sentence/scripts/MissingWordSentenceManager.cs"
+			],
+			[
+				"genericd",
+				"_scripts/GenericDraggable.cs"
+			],
+			[
+				"goease",
+				"Plugins/GoKit/easing/GoEaseExponential.cs"
+			],
+			[
+				"looptype",
+				"Plugins/GoKit/enums/GoLoopType.cs"
+			],
+			[
+				"",
+				"_scenes/missing_word_sentence/scripts/MissingWordSentenceDropzone.cs"
+			],
+			[
+				"shieldtouch",
+				"_scenes/ContentBrowser/TrophyRoom-Script/ShieldTouch.cs"
+			],
+			[
+				"dropzon",
+				"_scenes/missing_word_sentence/scripts/MissingWordSentenceDropzone.cs"
+			],
+			[
+				"segmentingm",
+				"_scenes/Segmenting/Scripts/SegmentingManager.cs"
+			],
+			[
 				"gameinfo",
 				"_scripts/PrintGameInfo.cs"
 			],
@@ -700,10 +1742,6 @@
 			[
 				"word",
 				"_scenes/ContentBrowser/WordBank-Script/WordBankManager.cs"
-			],
-			[
-				"gameman",
-				"_services/GameManager.cs"
 			],
 			[
 				"scenem",
@@ -724,10 +1762,6 @@
 			[
 				"splatscenemana",
 				"_scenes/Splat/Scripts/SplatSceneManager.cs"
-			],
-			[
-				"gamem",
-				"_services/GameManager.cs"
 			],
 			[
 				"letterpart",

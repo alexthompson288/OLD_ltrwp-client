@@ -10,6 +10,7 @@ public class OddOneOutManager : MonoBehaviour {
 	int curShake=0;
 	Transform lastIncorrect;
 	DataWordData[] datawords;
+	int currentDataWordIndex;
 
 	public Transform[] AnswerFrames;
 
@@ -31,23 +32,20 @@ public class OddOneOutManager : MonoBehaviour {
 
 	void Awake() {
 		MoveFramesOffScreen();
+		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
 	}
 
 	// Use this for initialization
 	void Start () {
-		GameManager cmsLink=GameManager.Instance;
-		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
-		//DataWordData letters=cmsLink.GetSortedPhonemesForWord("lol");
-
-		foreach(DataWordData dw in datawords)
-		{
-			Debug.Log(dw.Word+" (target: " + dw.IsTargetWord + " nonsense: " + dw.Nonsense.ToString() + " dummy: " + dw.IsDummyWord + " linking index: " + dw.LinkingIndex + ")");
-		}
-
-
 		BringFramesIn();
 	}
 	
+	public DataWordData ReturnCurrentWordData(){
+		DataWordData dw=datawords[currentDataWordIndex];
+		currentDataWordIndex++;
+		return dw;
+	}
+
 	// Update is called once per frame
 	void Update () {
 	

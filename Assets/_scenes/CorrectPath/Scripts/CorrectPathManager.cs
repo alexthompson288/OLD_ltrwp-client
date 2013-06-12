@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class CorrectPathManager : MonoBehaviour {
 
@@ -9,11 +10,35 @@ public class CorrectPathManager : MonoBehaviour {
 	float sectionHeight=768.0f;
 	public OTSprite platform;
 	PipAnimation Pip;
+	DataWordData[] datawords;
+	ArrayList CorrectWords;
+	ArrayList DummyWords;
 
 
 	// Use this for initialization
 	void Start () {
-	
+		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
+		CorrectWords=new ArrayList();
+		DummyWords=new ArrayList();
+
+		foreach(DataWordData dw in datawords)
+		{
+			Debug.Log(dw.Word + " (target: " + dw.IsTargetWord + " nonsense: " + dw.Nonsense.ToString() + " dummy: " + dw.IsDummyWord + " linking index: " + dw.LinkingIndex);
+			if(dw.IsDummyWord)
+				DummyWords.Add(dw.Word);
+			else
+				CorrectWords.Add(dw.Word);
+			
+		}
+
+		for(int i=0;i<DummyWords.Count;i++)
+		{
+			Debug.Log("Dummy word: "+DummyWords[i]);
+		}
+		for(int i=0;i<CorrectWords.Count;i++)
+		{
+			Debug.Log("Correct word: "+CorrectWords[i]);
+		}
 	}
 	
 	void Awake() {

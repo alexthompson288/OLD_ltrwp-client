@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class CurtainAnimation : MonoBehaviour {
 
@@ -12,7 +13,6 @@ public class CurtainAnimation : MonoBehaviour {
 	OTSprite Mnemonic;
 	OTTextSprite ChildText;
 	public Texture2D ChildSpriteTexture;
-	public string ChildTextString;
 	public AudioClip MyAudio;
 	public OTSprite MySpotlight;
 	bool playedSmoke=false;
@@ -27,6 +27,7 @@ public class CurtainAnimation : MonoBehaviour {
 	void Start () {
 		gameManager=GameObject.Find ("Main Camera").GetComponent<IntroducingPhonemeManager>();
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
+		PhonemeData pd;
 		
 		foreach(Transform t in transform.parent.transform)
 		{
@@ -39,6 +40,7 @@ public class CurtainAnimation : MonoBehaviour {
 				Mnemonic=t.gameObject.GetComponent<OTSprite>();
 			
 		}
+
 		
 		if(ChildText!=null && ChildSprite==null)
 			ChildType="TEXT";
@@ -49,13 +51,18 @@ public class CurtainAnimation : MonoBehaviour {
 		
 //		Debug.Log("Started curtain. ChildType: "+ChildType);
 		
-		if(ChildType=="TEXT" && ChildTextString!=null)
-			ChildText.text=ChildTextString;
-		else if(ChildType=="IMAGE" && ChildSpriteTexture!=null)
-			ChildText.image=ChildSpriteTexture;
+		if(ChildType=="TEXT"){
+			ChildText.text=gameManager.TargetPhoneme;
+		}
+		else if(ChildType=="IMAGE"){
+			Debug.Log("this image "+gameManager.GetCurrentImage());
+			ChildSprite.image=ChildSpriteTexture;
+		}
 		
 		
 		if(ChildText!=null){
+			pd=gameManager.GetCurrentPhoneme();
+			Debug.Log("use mnemonic "+pd.Mneumonic);
 			ChildText.visible=false;
 			Mnemonic.alpha=0;
 			Mnemonic.visible=false;
