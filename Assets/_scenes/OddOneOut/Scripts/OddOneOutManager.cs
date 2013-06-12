@@ -40,10 +40,15 @@ public class OddOneOutManager : MonoBehaviour {
 		BringFramesIn();
 	}
 	
-	public DataWordData ReturnCurrentWordData(){
+	public Texture2D ReturnCurrentWordData(){
 		DataWordData dw=datawords[currentDataWordIndex];
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_150/_"+dw.Word);
+
+		if(image==null)
+			Debug.Log("load fail for "+dw.Word);
+
 		currentDataWordIndex++;
-		return dw;
+		return image;
 	}
 
 	// Update is called once per frame

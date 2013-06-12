@@ -55,8 +55,8 @@ public class CurtainAnimation : MonoBehaviour {
 			ChildText.text=gameManager.TargetPhoneme;
 		}
 		else if(ChildType=="IMAGE"){
-			Debug.Log("this image "+gameManager.GetCurrentImage());
-			ChildSprite.image=ChildSpriteTexture;
+			// Debug.Log("this image "+);
+			ChildSprite.image=gameManager.GetCurrentImage();
 		}
 		
 		
@@ -64,6 +64,10 @@ public class CurtainAnimation : MonoBehaviour {
 			pd=gameManager.GetCurrentPhoneme();
 			Debug.Log("use mnemonic "+pd.Mneumonic);
 			ChildText.visible=false;
+			string mnemonicName=pd.Mneumonic.Replace(" ", "_");
+			string filePathMnemonic="Images/word_images_png_150/"+pd.Phoneme+"_"+mnemonicName;
+			Debug.Log("file path"+filePathMnemonic);
+			Mnemonic.image=(Texture2D)Resources.Load(filePathMnemonic);
 			Mnemonic.alpha=0;
 			Mnemonic.visible=false;
 		}
