@@ -13,9 +13,18 @@ public class OOOFrame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager=GameObject.Find("Main Camera").GetComponent<OddOneOutManager>();
+		OTSprite s=null;
+
+		foreach(Transform t in transform)
+		{
+			if(t.name.StartsWith("sprite"))
+				s=t.GetComponent<OTSprite>();
+		}
+
 		
-		DataWordData dw=gameManager.ReturnCurrentWordData();
-		Debug.Log("this frame to use dw word "+dw.Word+" is dummy? "+dw.IsDummyWord);
+		//gameManager.ReturnCurrentWordData();
+		s.image=gameManager.ReturnCurrentWordData();
+		// Debug.Log("this frame to use dw word "+dw.Word+" is dummy? "+dw.IsDummyWord);
 	}
 	
 	// Update is called once per frame

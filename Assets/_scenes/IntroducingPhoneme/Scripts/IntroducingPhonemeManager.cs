@@ -110,10 +110,15 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 		
 	}
 
-	public string GetCurrentImage(){
+	public Texture2D GetCurrentImage(){
 		DataWordData dw=datawords[currentImageIndex];
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_150/_"+dw.Word);
+
+		if(image==null)
+			Debug.Log("load fail for "+dw.Word);
+
 		currentImageIndex++;
-		return dw.Word;
+		return image;
 	}
 
 	public PhonemeData GetCurrentPhoneme(){

@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System;
 using AlTypes;
 
 public class CorrectPathManager : MonoBehaviour {
@@ -9,10 +12,13 @@ public class CorrectPathManager : MonoBehaviour {
 	int totalScalableSections=3;
 	float sectionHeight=768.0f;
 	public OTSprite platform;
+	public OTSprite[] SceneImages;
 	PipAnimation Pip;
 	DataWordData[] datawords;
 	ArrayList CorrectWords;
 	ArrayList DummyWords;
+	int currentCorrectIndex=0;
+	int currentDummyIndex=0;
 
 
 	// Use this for initialization
@@ -39,6 +45,27 @@ public class CorrectPathManager : MonoBehaviour {
 		{
 			Debug.Log("Correct word: "+CorrectWords[i]);
 		}
+
+		bool thisCorrect=false;
+
+
+		// This is the image swapout shiznat.
+		foreach(OTSprite s in SceneImages)
+		{
+			GenericAnswer a=s.GetComponent<GenericAnswer>();
+
+			if(thisCorrect)	
+			{
+				s.image=NextCorrectWord();
+				a.isAnswer=true;
+			}
+			else 
+			{
+				s.image=NextDummyWord();
+				a.isAnswer=false;
+			}
+			thisCorrect=!thisCorrect;
+		}
 	}
 	
 	void Awake() {
@@ -48,6 +75,28 @@ public class CorrectPathManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public Texture2D NextCorrectWord(){
+		String w=(String)CorrectWords[currentCorrectIndex];
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w);
+
+		if(image==null)
+			Debug.Log("load fail for correct "+w);
+
+		currentCorrectIndex++;
+		return image;
+	}
+
+	public Texture2D NextDummyWord(){
+		String w=(String)DummyWords[currentDummyIndex];
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w);
+
+		if(image==null)
+			Debug.Log("load fail for dummy "+w);
+
+		currentDummyIndex++;
+		return image;
 	}
 
 	void OnEnable(){
