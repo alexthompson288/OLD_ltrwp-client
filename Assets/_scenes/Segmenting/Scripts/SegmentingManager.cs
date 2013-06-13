@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO;
+using AlTypes;
 
 public class SegmentingManager : MonoBehaviour {
 	
@@ -26,6 +27,7 @@ public class SegmentingManager : MonoBehaviour {
 	
 	// game requirements
 	public string[] LettersToUse;
+	List<PhonemeData> PhonemesToUse;
 	public string[] CorrectLetters;
 	public AudioClip[] LetterAudio;
 	public Transform LetterPrefab;
@@ -74,15 +76,24 @@ public class SegmentingManager : MonoBehaviour {
 				
 			GameManager cmsLink=GameManager.Instance;
 			
-			List<String> letters=cmsLink.GetSortedPhonemesForWord(PersistentManager.WordBankWord);
+			String word=PersistentManager.WordBankWord;
+			if(word=="non") word="vulture";
+
+			List<PhonemeData> phonemes=cmsLink.GetSortedPhonemesForWord(word);
+
+			phonemes.ForEach(delegate(PhonemeData  pd) {
+					Debug.Log(word + ": " + pd.LetterInWord + " (" + pd.Phoneme + ")");
+				});
+
+			PhonemesToUse=phonemes;
 			
-			CorrectLetters=new string[letters.Count];
+			CorrectLetters=new string[phonemes.Count];
 			
 			int curLetter=0;
 			
 			for(int i=0;i<CorrectLetters.Length;i++)
 			{
-				CorrectLetters[i]=letters[curLetter];
+				CorrectLetters[i]=phonemes[curLetter].Phoneme;
 				curLetter++;
 			}
 			
@@ -148,7 +159,11 @@ public class SegmentingManager : MonoBehaviour {
 			OTSprite scont=cont.GetComponent<OTSprite>();
 			scont.size=defaultContainerSize;
 			contprefs.ExpectedLetter=LettersToUse[i];
-			contprefs.AudioLetter=LettersToUse[i];
+
+			PhonemeData pd=PhonemesToUse[i];
+			String baclip="benny_phoneme_" + pd.Phoneme + "_" + pd.Mneumonic.Replace(" ", "_");
+			Debug.Log("AUDIO WOULD SEEK: " + baclip);
+			contprefs.AudioLetter=PhonemesToUse[i].Grapheme;
 
 			Debug.Log("scont size "+scont.size);
 
@@ -177,14 +192,14 @@ public class SegmentingManager : MonoBehaviour {
 			{
 				StartDigraph=contprefs;
 				contprefs.ExpectedLetter=contprefs.ExpectedLetter[0].ToString();
-				contprefs.AudioLetter=contprefs.ExpectedLetter;
+				// contprefs.AudioLetter=contprefs.ExpectedLetter;
 				contprefs.isSplitDigraph=true;
 				isInDigraph=true;
 			}
 			else if(contprefs.ExpectedLetter.Contains("-") && isInDigraph)
 			{
 				contprefs.firstDigraphPart=StartDigraph	;
-				contprefs.AudioLetter=contprefs.ExpectedLetter[0].ToString();
+				// contprefs.AudioLetter=contprefs.ExpectedLetter[0].ToString();
 				contprefs.ExpectedLetter=contprefs.ExpectedLetter[contprefs.ExpectedLetter.Length-1].ToString();
 				contprefs.isSplitDigraph=true;
 				isInDigraph=false;
@@ -386,6 +401,7 @@ public class SegmentingManager : MonoBehaviour {
 	
 	public AudioClip AudioLetter(string thisLetter)
 	{
+		Debug.Log("SEEKING AUDIO FOR FRAGMENT: " + thisLetter);
 		for(int i=0;i<LetterAudio.Length;i++)
 		{
 			if(LetterAudio[i].name==thisLetter)

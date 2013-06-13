@@ -8,6 +8,8 @@ namespace AlTypes
 		public String Mneumonic;
 		public String MneumonicTwo;
 		public int Id;
+		public String Grapheme;
+		public String LetterInWord;
 	}
 
 	public struct DataWordData

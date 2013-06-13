@@ -50,19 +50,21 @@ public class GameManager
 	
 	public String GetCMSInfo()
 	{
-		DataTable dt = CmsDb.ExecuteQuery("SELECT * FROM words;");
-		CmsWordCount=dt.Rows.Count;
+		// DataTable dt = CmsDb.ExecuteQuery("SELECT * FROM words;");
+		// CmsWordCount=dt.Rows.Count;
 //		return "word count: " + dt.Rows.Count.ToString();
 		
-		String[] tests=GetUserWordIndex();
+		// String[] tests=GetUserWordIndex();
 		
-		List<String> yesp=GetSortedPhonemesForWord("fan");
-		for(int i=0; i<yesp.Count; i++)
-		{
-			Debug.Log("phoneme returned: " + yesp[i]);
-		}
+		// List<String> yesp=GetSortedPhonemesForWord("fan");
+		// for(int i=0; i<yesp.Count; i++)
+		// {
+		// 	Debug.Log("phoneme returned: " + yesp[i]);
+		// }
 		
-		return "iterate count: " + tests.Length + " with word: " + tests[41];
+		// return "iterate count: " + tests.Length + " with word: " + tests[41];
+
+		return "cms info queries disabled";
 	}
 	
 	public String[] GetUserWordIndex()
@@ -76,25 +78,61 @@ public class GameManager
 		return words;
 	}
 	
-	public String[] GetPhonemesForWord(String word)
+	public List<PhonemeData> GetPhonemesForWord(String word)
 	{
 		//get the word
 		DataTable dt=CmsDb.ExecuteQuery("select id from words where word='" + word + "'");
 		int wordid=(int)dt.Rows[0]["id"];
 		
 		//get the phonemes
-		DataTable dtp=CmsDb.ExecuteQuery("select phoneme from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=" + wordid.ToString());
-		String[] phonemes=new String[dtp.Rows.Count];
+		DataTable dtp=CmsDb.ExecuteQuery("select * from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=" + wordid.ToString());
+
+		// String[] phonemes=new String[dtp.Rows.Count];
+
+		List<PhonemeData> phonemes=new List<PhonemeData>();
+
 		for(int i=0; i<dtp.Rows.Count; i++)
 		{
-			//get phoneme and trim hyphen bits
+			//get phoneme
 			String pr=(String)dtp.Rows[i]["phoneme"];
-			int ih=pr.IndexOf("-");
-			if(ih>0) pr=pr.Substring(0, ih);
 
-			phonemes[i]=pr;
+			int ih=pr.IndexOf("-");
+			if(ih>0){
+				String pr1=pr.Substring(0, ih);
+				String pr2=pr.Substring(ih+1, 1);
+
+				PhonemeData p1d=PDataForRow(dtp.Rows[i]);
+				p1d.LetterInWord=pr1;
+
+				PhonemeData p2d=PDataForRow(dtp.Rows[i]);
+				p2d.LetterInWord=pr2;
+
+				phonemes.Add(p1d);
+				phonemes.Add(p2d);
+			}
+			else
+			{
+				PhonemeData pd=PDataForRow(dtp.Rows[i]);
+				pd.LetterInWord=pr;
+				phonemes.Add(pd);
+			}
 		}
 		return phonemes;
+	}
+
+	PhonemeData PDataForRow(DataRow dr)
+	{
+		Debug.Log("dr: " + dr);
+		PhonemeData pd=new PhonemeData();
+		pd.Phoneme=(String)dr["phoneme"];
+		pd.Mneumonic=(String)dr["mneumonic"];
+		pd.MneumonicTwo=(String)dr["mneumonic_two"];
+		pd.Grapheme=(String)dr["grapheme"];
+		pd.Id=(int)dr["id"];
+
+		// Debug.Log("created pd with grapheme: " + pd.Grapheme);
+
+		return pd;
 	}
 
 	static bool IsIPad1()
@@ -131,6 +169,7 @@ public class GameManager
 			pd.Phoneme=(String)dt.Rows[i]["phoneme"];
 			pd.Mneumonic=(String)dt.Rows[i]["mneumonic"];
 			pd.MneumonicTwo=(String)dt.Rows[i]["mneumonic_two"];
+			pd.Grapheme=(String)dt.Rows[i]["grapheme"];
 			pd.Id=(int)dt.Rows[i]["id"];
 			phonemes[i]=pd;
 		}
@@ -195,70 +234,120 @@ public class GameManager
 		return letters;
 	}
 	
-	public List<String> GetSortedPhonemesForWord(String word)
+
+	public List<PhonemeData> GetSortedPhonemesForWord(String word)
 	{
-		if(word=="acid") return new List<String>{"a", "c", "i", "d"};
-		if(word=="mole") return new List<String>{"m", "o-e", "l", "o-e"};
-		if(word=="super") return new List<String>{"s", "u", "p", "er"};
-		if(word=="vulture") return new List<String>{"v", "u", "l", "t", "ure"};
-		if(word=="air") return new List<String>{"air"};
-
-
 		if(word.Length==0) return null;
-		
-		String[]unsortedPhonemes=GetPhonemesForWord(word);
-		if(unsortedPhonemes.Length==0) return null;
-		
-		String wordRemainder=word;
-		
-		//get a size (desc) sorted list of phonemes
-		List<String>sizeDescPhonemes=new List<String>();
-		sizeDescPhonemes.Add(unsortedPhonemes[0]);
-		if(unsortedPhonemes.Length>1)
-		{
-			for(int j=1;j<unsortedPhonemes.Length; j++)
-			{
-				String p=unsortedPhonemes[j];
-				int insertAt=sizeDescPhonemes.Count;
-				for(int i=0; i<sizeDescPhonemes.Count; i++)
-				{
-					if(p.Length>=sizeDescPhonemes[i].Length)
-					{
-						insertAt=i;
-						break;
-					}
-				}
-				sizeDescPhonemes.Insert(insertAt, p);
-			}
-		}
-		
-		int ip=0;
-		int notFoundCount=0;
-		List<String>sortedPhonemes=new List<String>();
-		while (wordRemainder.Length>0 && notFoundCount<=sizeDescPhonemes.Count) {
-			if(wordRemainder.IndexOf(sizeDescPhonemes[ip])==0)
-			{
-				//insert this in sorted index & remove from unsorted (and front of word)
-				sortedPhonemes.Add(sizeDescPhonemes[ip]);
-				wordRemainder=wordRemainder.Substring (sizeDescPhonemes[ip].Length);
-				notFoundCount=0;
-			}
-			else
-			{
-				notFoundCount++;
-			}
-
-			ip++;
-
-			if(ip>=sizeDescPhonemes.Count) 
-			{
-				ip=0;
-			}
-		}
 	
-		return sortedPhonemes;
-		// return sizeDescPhonemes;
+		List<PhonemeData> unsortedPhonemes=GetPhonemesForWord(word);
+		List<PhonemeData> sortedPhonemes=new List<PhonemeData>();
+
+		String remWord=word;
+
+		do {
+			bool found=false;
+
+			foreach(PhonemeData pd in unsortedPhonemes)
+			{
+				if(remWord.IndexOf(pd.LetterInWord)==0)
+				{
+					sortedPhonemes.Add(pd);
+					unsortedPhonemes.Remove(pd);
+					found=true;
+
+					//remove that letter bit from the word
+					int secLen=pd.LetterInWord.Length;
+					if(secLen<remWord.Length)
+					{
+						remWord=remWord.Substring(secLen, remWord.Length-secLen);
+					}
+					else remWord="";
+
+					break;
+				}
+			}
+
+			if(!found)
+			{
+				Debug.Log("no phoneme found to match word at remWord: " + remWord);
+				break;
+			}
+
+		} while (remWord.Length>0);
+
+		//while remaining word>0
+
+		//step each phoneme and match its lettersInWord to the begining of the remaining word (i.e. find the one that matched at pos 0)
+
+		//put that next on the sorted list, remove from unsorted
+
+		return sortedPhonemes;		
 	}
+
+	// public List<String> GetStringSortedPhonemesForWord(String word)
+	// {
+	// 	if(word=="acid") return new List<String>{"a", "c", "i", "d"};
+	// 	if(word=="mole") return new List<String>{"m", "o-e", "l", "o-e"};
+	// 	if(word=="super") return new List<String>{"s", "u", "p", "er"};
+	// 	if(word=="vulture") return new List<String>{"v", "u", "l", "t", "ure"};
+	// 	if(word=="air") return new List<String>{"air"};
+
+
+	// 	if(word.Length==0) return null;
+		
+	// 	String[]unsortedPhonemes=GetPhonemesForWord(word);
+	// 	if(unsortedPhonemes.Length==0) return null;
+		
+	// 	String wordRemainder=word;
+		
+	// 	//get a size (desc) sorted list of phonemes
+	// 	List<String>sizeDescPhonemes=new List<String>();
+	// 	sizeDescPhonemes.Add(unsortedPhonemes[0]);
+	// 	if(unsortedPhonemes.Length>1)
+	// 	{
+	// 		for(int j=1;j<unsortedPhonemes.Length; j++)
+	// 		{
+	// 			String p=unsortedPhonemes[j];
+	// 			int insertAt=sizeDescPhonemes.Count;
+	// 			for(int i=0; i<sizeDescPhonemes.Count; i++)
+	// 			{
+	// 				if(p.Length>=sizeDescPhonemes[i].Length)
+	// 				{
+	// 					insertAt=i;
+	// 					break;
+	// 				}
+	// 			}
+	// 			sizeDescPhonemes.Insert(insertAt, p);
+	// 		}
+	// 	}
+		
+	// 	int ip=0;
+	// 	int notFoundCount=0;
+	// 	List<String>sortedPhonemes=new List<String>();
+	// 	while (wordRemainder.Length>0 && notFoundCount<=sizeDescPhonemes.Count) {
+	// 		if(wordRemainder.IndexOf(sizeDescPhonemes[ip])==0)
+	// 		{
+	// 			//insert this in sorted index & remove from unsorted (and front of word)
+	// 			sortedPhonemes.Add(sizeDescPhonemes[ip]);
+	// 			wordRemainder=wordRemainder.Substring (sizeDescPhonemes[ip].Length);
+	// 			notFoundCount=0;
+	// 		}
+	// 		else
+	// 		{
+	// 			notFoundCount++;
+	// 		}
+
+	// 		ip++;
+
+	// 		if(ip>=sizeDescPhonemes.Count) 
+	// 		{
+	// 			ip=0;
+	// 		}
+	// 	}
+	
+	// 	return sortedPhonemes;
+	// 	// return sizeDescPhonemes;
+	// }
 	
 	#endregion
 	
