@@ -4,6 +4,7 @@ using System.Collections;
 public class GenericDraggable : MonoBehaviour {
 
 	public bool isPotentialAnswer=false;
+	public bool correctDropCreatesNew;
 	public string answerValue="0";
 	public OTSprite mySprite;
 	public Transform expectedDropPoint;
@@ -14,9 +15,11 @@ public class GenericDraggable : MonoBehaviour {
 	public bool inOutOfView=false;
 	public bool onOffEvents=false;
 
+	AnswerManager answerMan;
 
 	// Use this for initialization
 	void Awake () {
+		answerMan=GameObject.Find("Main Camera").GetComponent<AnswerManager>();
 		mySprite=gameObject.GetComponent<OTSprite>();
 
 		if(canInput)
@@ -100,6 +103,12 @@ public class GenericDraggable : MonoBehaviour {
 			else if(owner.dropTarget.transform == expectedDropPoint)
 			{
 				Debug.Log("dropped in right place brah");
+				GameObject.Destroy(gameObject);
+
+				if(correctDropCreatesNew)
+				{
+					answerMan.CreateNewObject();
+				}
 			}
 			else
 			{
@@ -116,7 +125,7 @@ public class GenericDraggable : MonoBehaviour {
 	// whilst colliding
 	void OnCollision(OTObject owner)
 	{
-
+		Debug.Log("collide!");
 	}
 
 	// when collision starts

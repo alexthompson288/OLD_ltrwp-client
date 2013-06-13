@@ -13,4 +13,8 @@ public class AnswerManager : MonoBehaviour {
 	
 	}
 
+	public void CreateNewObject() {
+		Debug.Log("answerMan does something funky!");
+	}
+
 }
