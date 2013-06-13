@@ -161,7 +161,7 @@ public class SegmentingManager : MonoBehaviour {
 			contprefs.ExpectedLetter=LettersToUse[i];
 
 			PhonemeData pd=PhonemesToUse[i];
-			String baclip="benny_phoneme_" + pd.Phoneme + "_" + pd.Mneumonic.Replace(" " "_");
+			String baclip="benny_phoneme_" + pd.Phoneme + "_" + pd.Mneumonic.Replace(" ", "_");
 			Debug.Log("AUDIO WOULD SEEK: " + baclip);
 			contprefs.AudioLetter=PhonemesToUse[i].Grapheme;
 
