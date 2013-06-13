@@ -1,10 +1,34 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class EyeSpyManager : MonoBehaviour {
 
-	int requiredAnswers=4;
-	int correctAnswers=0;
+	DataWordData[] datawords;
+	public Transform[] Objects;
+
+	public string[] RequiredLetters;
+
+	int currentLetterIndex=0;
+	string currentLetter="";
+
+
+	void Awake (){
+		datawords=GameManager.Instance.SessionMgr.CurrentDataWords;
+
+		if(datawords!=null)
+			Debug.Log("dws - "+datawords.Length);
+
+
+		for(int i=0;i<RequiredLetters.Length;i++)
+		{
+			Transform t=Objects[i];
+			t.gameObject.SetActive(true);
+		}
+
+		currentLetter=RequiredLetters[currentLetterIndex];
+
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -39,21 +63,33 @@ public class EyeSpyManager : MonoBehaviour {
 			if(gesture.pickObject.GetComponent<GenericAnswer>())
 			{
 				GenericAnswer a=gesture.pickObject.GetComponent<GenericAnswer>();
-				if(a.isAnswer)
+
+				if(a.answerValue==currentLetter)
 				{
-					correctAnswers++;
-					Debug.Log("correct");
 					GameObject.Destroy(gesture.pickObject);
-					if(correctAnswers==requiredAnswers)
-					{
-						Debug.Log("target met");	
-					}
+					SetNextLetter();
 				}
-				else
+				else 
 				{
-					Debug.Log("incorrect");
+					Debug.Log("Shit's whack");
 				}
 			}
 		}
 	}
+
+	void SetNextLetter()
+	{
+		currentLetterIndex++;
+		if(currentLetterIndex<RequiredLetters.Length)
+			currentLetter=RequiredLetters[currentLetterIndex];
+		else
+			EndGame();
+		Debug.Log("new letter is "+currentLetter);
+	}
+
+	void EndGame()
+	{
+		Debug.Log("we finish now.");
+	}
+
 }

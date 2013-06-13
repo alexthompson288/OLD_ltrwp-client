@@ -96,6 +96,9 @@ public class SessionMgr
 		case "choose_correct_path_oral_blending":
 			loadgs="CorrectPath";
 			break;
+		case "eyespy_alliteration":
+			loadgs="EyeSpy";
+			break;
 
 				//load generic scene
 			loadgs = "gameinfo";
@@ -181,6 +184,12 @@ public class SessionMgr
 		else if(sessionId==9988)
 		{
 			PersistentManager.CurrentLetter="a";	
+			gotDebugSession=true;
+			hash = new Hashtable (); 
+			hash.Add ("section_id", 37); 
+			hash.Add ("game_scene", "eyespy_alliteration");
+			hash.Add ("game_setting", "castle_frames"); 
+			_sectionList.Add (hash); 
 			gotDebugSession=true;
 			hash = new Hashtable (); 
 			hash.Add ("section_id", 48); 
