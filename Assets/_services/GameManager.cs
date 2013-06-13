@@ -85,7 +85,7 @@ public class GameManager
 		int wordid=(int)dt.Rows[0]["id"];
 		
 		//get the phonemes
-		DataTable dtp=CmsDb.ExecuteQuery("select phoneme from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=" + wordid.ToString());
+		DataTable dtp=CmsDb.ExecuteQuery("select * from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=" + wordid.ToString());
 
 		// String[] phonemes=new String[dtp.Rows.Count];
 
@@ -128,7 +128,9 @@ public class GameManager
 		pd.Mneumonic=(String)dr["mneumonic"];
 		pd.MneumonicTwo=(String)dr["mneumonic_two"];
 		pd.Grapheme=(String)dr["grapheme"];
-		// pd.Id=(int)dr["id"];
+		pd.Id=(int)dr["id"];
+
+		// Debug.Log("created pd with grapheme: " + pd.Grapheme);
 
 		return pd;
 	}
