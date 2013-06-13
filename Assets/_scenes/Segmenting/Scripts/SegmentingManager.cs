@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO;
+using AlTypes;
 
 public class SegmentingManager : MonoBehaviour {
 	
@@ -74,15 +75,22 @@ public class SegmentingManager : MonoBehaviour {
 				
 			GameManager cmsLink=GameManager.Instance;
 			
-			List<String> letters=cmsLink.GetSortedPhonemesForWord(PersistentManager.WordBankWord);
+			String word=PersistentManager.WordBankWord;
+			if(word=="non") word="vulture";
+
+			List<PhonemeData> phonemes=cmsLink.GetSortedPhonemesForWord(word);
+
+			phonemes.ForEach(delegate(PhonemeData  pd) {
+					Debug.Log(word + ": " + pd.LetterInWord + " (" + pd.Phoneme + ")");
+				});
 			
-			CorrectLetters=new string[letters.Count];
+			CorrectLetters=new string[phonemes.Count];
 			
 			int curLetter=0;
 			
 			for(int i=0;i<CorrectLetters.Length;i++)
 			{
-				CorrectLetters[i]=letters[curLetter];
+				CorrectLetters[i]=phonemes[curLetter].LetterInWord;
 				curLetter++;
 			}
 			
