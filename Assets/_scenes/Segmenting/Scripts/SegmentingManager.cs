@@ -161,10 +161,12 @@ public class SegmentingManager : MonoBehaviour {
 			contprefs.ExpectedLetter=LettersToUse[i];
 
 			PhonemeData pd=PhonemesToUse[i];
-			String baclip="benny_phoneme_" + pd.Phoneme + "_" + pd.Mneumonic.Replace(" ", "_");
-			Debug.Log("AUDIO WOULD SEEK: " + baclip);
-			contprefs.AudioLetter=PhonemesToUse[i].Grapheme;
+			string mnemonic=pd.Mneumonic.Replace(" ", "_");
 
+			String baclip="benny_phoneme_" + pd.Grapheme.ToLower() + "_" + pd.Phoneme.ToLower() + "_" + mnemonic.ToLower();
+			Debug.Log("AUDIO WOULD SEEK: " + baclip);
+			// contprefs.AudioLetter=PhonemesToUse[i].Grapheme;
+			contprefs.AudioLetter=baclip;
 			Debug.Log("scont size "+scont.size);
 
 			if(contprefs.ExpectedLetter.Length==1 || contprefs.ExpectedLetter.Contains("-")){

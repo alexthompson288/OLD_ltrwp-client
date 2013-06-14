@@ -4,6 +4,7 @@ using System.Collections;
 public class GenericDraggable : MonoBehaviour {
 
 	public bool isPotentialAnswer=false;
+	public bool hasAnswerValue=false;
 	public bool correctDropCreatesNew;
 	public string answerValue="0";
 	public OTSprite mySprite;
@@ -14,6 +15,7 @@ public class GenericDraggable : MonoBehaviour {
 	public bool canInput=false;
 	public bool inOutOfView=false;
 	public bool onOffEvents=false;
+	public bool isDropTarget=false;
 
 	AnswerManager answerMan;
 
@@ -28,6 +30,10 @@ public class GenericDraggable : MonoBehaviour {
 
 			mySprite.onReceiveDrop=ReceiveDrop;
 			mySprite.onInput=OnInput;
+		}
+		if(isDropTarget)
+		{
+			mySprite.onReceiveDrop=ReceiveDrop;;
 		}
 		if(isDraggable)
 		{
@@ -156,5 +162,28 @@ public class GenericDraggable : MonoBehaviour {
 	void ReceiveDrop(OTObject owner)
 	{
 		OTSprite dropSprite=owner.dropTarget.gameObject.GetComponent<OTSprite>();
+		string doAnswerValue="nil";
+		
+		if(owner.dropTarget.GetComponent<GenericAnswer>())
+			doAnswerValue=owner.dropTarget.GetComponent<GenericAnswer>().answerValue;
+
+		if(isPotentialAnswer){
+			if(doAnswerValue==answerValue)
+			{
+				Debug.Log("got correct drop");
+				GameObject.Destroy(owner.dropTarget);
+
+				if(correctDropCreatesNew)
+				{
+					answerMan.CreateNewObject();
+				}
+			}
+			else 
+			{
+				dropSprite.position=new Vector2(dropSprite.position.x, dropSprite.position.y+200);
+			}
+		}
+
+
 	}
 }
