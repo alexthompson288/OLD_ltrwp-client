@@ -18,6 +18,9 @@ public class CauldronManager : MonoBehaviour {
 			string thisWord=RequiredWords[i];
 			string thisLetter=thisWord[0].ToString();
 			Transform t=(Transform)Instantiate(objectPrefab);
+			OTSprite oS=t.GetComponent<OTSprite>();
+			oS.position=new Vector2(-200+(200*i), oS.position.y);
+
 			t.GetComponent<CauldronObject>().myWord=thisWord;
 			t.GetComponent<GenericAnswer>().answerValue=thisLetter;
 		}
@@ -25,6 +28,7 @@ public class CauldronManager : MonoBehaviour {
 		string currentWord=RequiredWords[currentWordIndex];
 		currentLetter=currentWord[0].ToString();
 		Cauldron.answerValue=currentLetter;
+		Debug.Log("new letter is "+currentLetter);
 	}
 
 	// Use this for initialization

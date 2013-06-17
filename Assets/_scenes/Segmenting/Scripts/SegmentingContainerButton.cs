@@ -19,6 +19,22 @@ public class SegmentingContainerButton : MonoBehaviour {
 	void Start () {
 		myContainer=transform.parent.GetComponent<SegmentingContainer>();
 		ReusableButton=true;
+
+		OTSprite mySprite=myContainer.GetComponent<OTSprite>();
+
+		if(myContainer.isSplitDigraph && myContainer.ExpectedLetter!=myContainer.AudioLetter)
+		{
+			OTSprite sprite=OT.CreateObject(OTObjectType.Sprite).GetComponent<OTSprite>();
+			// sprite.transform.parent=transform;
+			sprite.image=splitDigraph;
+			sprite.pivotPoint=new Vector2(0.5f,2.1f);
+			sprite.transparent=true;
+			// sprite.position=new Vector2(1.0f, 0.5f);
+			sprite.position=mySprite.position;
+			sprite.size=new Vector2(sprite.size.x-40,sprite.size.y);
+			// new Vector2(mySprite.position.x, mySprite.position.y-40);
+			sprite.depth=mySprite.depth;
+		}
 	}
 	
 	void Awake () {

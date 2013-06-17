@@ -195,7 +195,6 @@ public class SegmentingManager : MonoBehaviour {
 				StartDigraph=contprefs;
 				contprefs.ExpectedLetter=contprefs.ExpectedLetter[0].ToString();
 				// contprefs.AudioLetter=contprefs.ExpectedLetter;
-				contprefs.isSplitDigraph=true;
 				isInDigraph=true;
 			}
 			else if(contprefs.ExpectedLetter.Contains("-") && isInDigraph)
