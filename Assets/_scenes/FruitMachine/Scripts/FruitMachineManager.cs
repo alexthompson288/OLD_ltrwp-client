@@ -26,7 +26,7 @@ public class FruitMachineManager : MonoBehaviour {
 
 			// -205,113
 			SegmentingManager segMan=gameObject.GetComponent<SegmentingManager>();
-			segMan.scaffoldStartXPos=-240.0f;
+			// segMan.scaffoldStartXPos=-240.0f;
 			segMan.scaffoldStartYPos=80.0f;
 			segMan.letterStartXPos=-250.0f;
 			OTSprite SlotMac=GameObject.Find("FruitMachine").GetComponent<OTSprite>();

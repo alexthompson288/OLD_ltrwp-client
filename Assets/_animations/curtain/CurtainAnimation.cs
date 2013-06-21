@@ -27,8 +27,7 @@ public class CurtainAnimation : MonoBehaviour {
 	void Start () {
 		gameManager=GameObject.Find ("Main Camera").GetComponent<IntroducingPhonemeManager>();
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
-		PhonemeData pd;
-		
+		PhonemeData pd=gameManager.GetCurrentPhoneme();
 		foreach(Transform t in transform.parent.transform)
 		{
 			if(t.gameObject.name.StartsWith("ChildSprite"))
@@ -52,7 +51,7 @@ public class CurtainAnimation : MonoBehaviour {
 //		Debug.Log("Started curtain. ChildType: "+ChildType);
 		
 		if(ChildType=="TEXT"){
-			ChildText.text=gameManager.TargetPhoneme;
+			ChildText.text=pd.Phoneme;
 		}
 		else if(ChildType=="IMAGE"){
 			// Debug.Log("this image "+);
@@ -61,11 +60,9 @@ public class CurtainAnimation : MonoBehaviour {
 		
 		
 		if(ChildText!=null){
-			pd=gameManager.GetCurrentPhoneme();
-			Debug.Log("use mnemonic "+pd.Mneumonic);
 			ChildText.visible=false;
 			string mnemonicName=pd.Mneumonic.Replace(" ", "_");
-			string filePathMnemonic="Images/word_images_png_150/"+pd.Phoneme+"_"+mnemonicName;
+			string filePathMnemonic="Images/mnemonics_images_png_250/"+pd.Phoneme+"_"+mnemonicName;
 			Debug.Log("file path"+filePathMnemonic);
 			Mnemonic.image=(Texture2D)Resources.Load(filePathMnemonic);
 			Mnemonic.alpha=0;

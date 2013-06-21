@@ -71,8 +71,8 @@ public class SegmentingManager : MonoBehaviour {
 		CreatedLetters=new ArrayList();
 		CreatedContainers=new ArrayList();
 		
-		if(Application.loadedLevelName=="WordBank-Scaffold"||Application.loadedLevelName=="WordLadder")
-		{
+		// if(Application.loadedLevelName=="WordBank-Scaffold"||Application.loadedLevelName=="WordLadder")
+		// {
 				
 			GameManager cmsLink=GameManager.Instance;
 			
@@ -98,7 +98,7 @@ public class SegmentingManager : MonoBehaviour {
 			}
 			
 			LettersToUse=CorrectLetters;
-		}
+		// }
 		
 		StartGame();
 		

@@ -11,6 +11,10 @@ public class BalAnimation : MonoBehaviour {
 	public bool playClosing;
 	public bool playClosing2;
 	public bool loadOnFinish;
+	public bool playTalking;
+	public bool playTalking2;
+	public bool playTalking3;
+	public bool playTalking4;
 	
 	OTAnimatingSprite myself;
 	
@@ -39,6 +43,14 @@ public class BalAnimation : MonoBehaviour {
 				SetAnimationClosing();
 			else if(playClosing2)
 				SetAnimationClosing2();
+			else if(playTalking)
+				StartTalking(1);
+			else if(playTalking2)
+				StartTalking(2);
+			else if(playTalking3)
+				StartTalking(3);
+			else if(playTalking4)
+				StartTalking(4);
 			else if(loadOnFinish)
 				Application.LoadLevel(GameObject.Find("PersistentManager").GetComponent<PersistentObject>().NextLevel);
 			else
@@ -54,19 +66,27 @@ public class BalAnimation : MonoBehaviour {
 		playOpening2=false;
 		playClosing=false;
 		playClosing2=false;
+		playTalking=false;
+		playTalking2=false;
+		playTalking3=false;
+		playTalking4=false;
 	}
 
 	void StartTalking(int cycle)
 	{
 		if(cycle==1)
-			myself.Play("talk-corner-1");
+			myself.Play("talkingc1");
 		else if(cycle==2)
-			myself.Play("talk-corner-2");
+			myself.Play("talkingc2");
 		else if(cycle==3)
-			myself.Play("talk-corner-3");
+			myself.Play("talkingc3");
 		else if(cycle==4)
-			myself.Play("talk-corner-4");
+			myself.Play("talkingc4");
 		
+		playTalking=false;
+		playTalking2=false;
+		playTalking3=false;
+		playTalking4=false;
 	}
 	
 	void SetAnimationIdleSet()

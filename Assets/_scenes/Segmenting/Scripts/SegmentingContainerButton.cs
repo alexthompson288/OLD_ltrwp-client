@@ -35,6 +35,12 @@ public class SegmentingContainerButton : MonoBehaviour {
 			// new Vector2(mySprite.position.x, mySprite.position.y-40);
 			sprite.depth=mySprite.depth;
 		}
+
+		if(myContainer.isMultiPartLetter)
+		{
+			OTSprite btnSprite=gameObject.GetComponent<OTSprite>();
+			btnSprite.image=barPressedState;
+		}
 	}
 	
 	void Awake () {
@@ -60,6 +66,7 @@ public class SegmentingContainerButton : MonoBehaviour {
 		{
 			if(ReusableButton)
 			{
+				Debug.Log("touchup state");
 				OTSprite s=gameObject.GetComponent<OTSprite>();
 				
 				if(myContainer.isMultiPartLetter)
@@ -96,6 +103,7 @@ public class SegmentingContainerButton : MonoBehaviour {
 			
 			if(!isPressed||ReusableButton)
 			{
+				Debug.Log("touchdown state");
 				isPressed=true;
 
 				if(myContainer.isMultiPartLetter)
