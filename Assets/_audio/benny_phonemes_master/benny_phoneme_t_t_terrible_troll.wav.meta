@@ -2,7 +2,7 @@ fileFormatVersion: 2
 guid: c87775cdd16d044a48dbf8246c9937c5
 AudioImporter:
   serializedVersion: 4
-  format: -1
+  format: 0
   quality: .5
   stream: 2
   3D: 0
