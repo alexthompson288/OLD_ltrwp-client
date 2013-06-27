@@ -20,6 +20,8 @@ public class CorrectPathManager : MonoBehaviour {
 	int currentCorrectIndex=0;
 	int currentDummyIndex=0;
 
+	public AudioClip[] audioWords;
+
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +68,8 @@ public class CorrectPathManager : MonoBehaviour {
 			}
 			thisCorrect=!thisCorrect;
 		}
+
+		PlayAudio();
 	}
 	
 	void Awake() {
@@ -79,7 +83,7 @@ public class CorrectPathManager : MonoBehaviour {
 
 	public Texture2D NextCorrectWord(){
 		String w=(String)CorrectWords[currentCorrectIndex];
-		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w);
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w+"_350");
 
 		if(image==null)
 			Debug.Log("load fail for correct "+w);
@@ -90,7 +94,7 @@ public class CorrectPathManager : MonoBehaviour {
 
 	public Texture2D NextDummyWord(){
 		String w=(String)DummyWords[currentDummyIndex];
-		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w);
+		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_350/_"+w+"_350");
 
 		if(image==null)
 			Debug.Log("load fail for dummy "+w);
@@ -116,7 +120,12 @@ public class CorrectPathManager : MonoBehaviour {
 	}
 
 	void ReturnToMap(){
-		Debug.Log("end of sections brah");
+		Invoke("CloseSession", 2.0f);
+	}
+
+	void CloseSession()
+	{
+		GameManager.Instance.SessionMgr.CloseActivity();
 	}
 
 	void CorrectAnswer()
@@ -129,15 +138,31 @@ public class CorrectPathManager : MonoBehaviour {
 			.setEaseType( GoEaseType.ExpoOut );
 
 		GoTween tween=new GoTween(Camera.main.transform, 1.8f, config);
-		if(currentIndex>=totalScalableSections)
+		if(currentIndex>=totalScalableSections){
 			tween.setOnCompleteHandler(c => RevealTreasure());
-		else 
+		}
+		else{ 
 			tween.setOnCompleteHandler(c => EnableTaps());
-
+			PlayAudio();
+		}
 		Go.addTween(tween);
 
 		MovePlatform();
 		AnimatePip(true);
+	}
+
+	void PlayAudio()
+	{
+		String w=(String)CorrectWords[currentIndex];
+		foreach(AudioClip ac in audioWords)
+		{
+			if(ac.name==w)
+			{
+				audio.clip=ac;
+				audio.Play();
+				break;
+			}
+		}
 	}
 
 	void MovePlatform() 

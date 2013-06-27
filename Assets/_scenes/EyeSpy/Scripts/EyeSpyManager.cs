@@ -8,6 +8,7 @@ public class EyeSpyManager : MonoBehaviour {
 	public Transform[] Objects;
 
 	public string[] RequiredLetters;
+	public AudioClip[] audioLetters;
 
 	int currentLetterIndex=0;
 	string currentLetter="";
@@ -27,6 +28,7 @@ public class EyeSpyManager : MonoBehaviour {
 		}
 
 		currentLetter=RequiredLetters[currentLetterIndex];
+		PlayLetter();
 
 	}
 
@@ -80,16 +82,33 @@ public class EyeSpyManager : MonoBehaviour {
 	void SetNextLetter()
 	{
 		currentLetterIndex++;
-		if(currentLetterIndex<RequiredLetters.Length)
+		if(currentLetterIndex<RequiredLetters.Length){
 			currentLetter=RequiredLetters[currentLetterIndex];
-		else
+			PlayLetter();
+		}
+		else{
 			EndGame();
+		}
 		Debug.Log("new letter is "+currentLetter);
 	}
 
 	void EndGame()
 	{
 		Debug.Log("we finish now.");
+		GameManager.Instance.SessionMgr.CloseActivity();
+	}
+
+	void PlayLetter()
+	{
+		foreach(AudioClip ac in audioLetters)
+		{
+			if(ac.name==currentLetter)
+			{
+				audio.clip=ac;
+				audio.Play();
+				break;
+			}
+		}
 	}
 
 }

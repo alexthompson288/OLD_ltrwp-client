@@ -409,7 +409,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 		cbMan.UpdateAudio(currentMapIndex);
 
 		var config=new GoTweenConfig()
-			.position( new Vector3(0.0f, 25-(currentMapIndex*825.0f), -1000.0f) )
+			.position( new Vector3(0.0f, -(currentMapIndex*825.0f), -1000.0f) )
 			.setEaseType( GoEaseType.BounceOut );
 
 	

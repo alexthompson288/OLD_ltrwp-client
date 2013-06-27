@@ -26,29 +26,29 @@ public class RhymingSign : MonoBehaviour {
 	void Update () {
 
 		if(bat)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_bat");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_bat_350");
 		else if(cat)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_cat");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_cat_350");
 		else if(hat)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_cup");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_cup_350");
 		else if(sat)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_sat");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_sat_350");
 		else if(monsterpie)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_screw");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_screw_350");
 		else if(babylullaby)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_sleep");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_sleep_350");
 		else if(pigpinkbum)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_pig");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_pig_350");
 		else if(goldilocks)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_goblin");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_goblin_350");
 		else if(bushtailedfox)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_gnome");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_gnome_350");
 		else if(funnyhoney)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_jar");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_jar_350");
 		else if(bunny)
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_bunny");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_bunny_350");
 		else
-			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_blank");
+			mySprite.image=(Texture2D)Resources.Load("Images/word_images_png_350/_blank_350");
 
 	}
 }

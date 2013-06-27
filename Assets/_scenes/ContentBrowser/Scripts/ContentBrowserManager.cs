@@ -11,13 +11,15 @@ public class ContentBrowserManager : MonoBehaviour {
 
 		foreach(OTSprite s in Vortexes)
 		{
+			float thisTime=Random.Range(2.5f,4.0f);
 			var config=new GoTweenConfig()
 				.floatProp( "rotation", -360.0f )
-				.setIterations(-1,GoLoopType.RestartFromBeginning);
+				.setIterations(-1,GoLoopType.RestartFromBeginning)
+				.setEaseType( GoEaseType.Linear );
 
 		
 		// Go.to(s, 0.3f, config );
-		GoTween tween=new GoTween(s, 3.5f, config);
+		GoTween tween=new GoTween(s, thisTime, config);
 
 		Go.addTween(tween);
 		}

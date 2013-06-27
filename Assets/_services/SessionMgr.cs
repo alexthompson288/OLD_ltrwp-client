@@ -60,46 +60,71 @@ public class SessionMgr
 		String gs = (String)ahash ["game_scene"];
 		String loadgs = gs;
 		switch (gs) {
-		case "IntroducePhoneme A":
-			loadgs = "IntroducePhoneme A";
+		case "introduce_phoneme":
+			loadgs = "introduce_phoneme";
 			break;
-		case "IntroducePhoneme P":
-			loadgs = "IntroducePhoneme P";
+		case "video_intro":
+			loadgs = "VideoIntro";
 			break;
-		case "IntroducePhoneme S":
-			loadgs = "IntroducePhoneme S";
-			break;
-		case "IntroducePhoneme T":
-			loadgs = "IntroducePhoneme T";
-			break;
-		case "SplatTheRat PX":
-			loadgs = "SplatTheRat PX";
-			break;
-		case "Splat-SAT":
+		case "module1_intro":
 			loadgs = "Splat-SAT";
 			break;
-		case "AlphabetBook":
-			loadgs= "AlphabetBook";
+		case "splat":
+			loadgs= "Splat-SAT";
 			break;
-		case "word_ladder":
-			loadgs="WordLadder";
+		case "splat_the_rat":
+			loadgs="SplatTheRat";
 			break;
-		case "OddOneOut":
-			loadgs="OddOneOut";
+		case "splat_the_rat_keyword":
+			loadgs="SplatTheRat PX";
 			break;
 		case "learn_phoneme_single_letter":
 			loadgs="IntroducePhoneme P newbg";
 			break;
-		case "splat":
-			loadgs="Splat-SAT";
-			break;
-		case "choose_correct_path_oral_blending":
+		case "choose_correct_path":
 			loadgs="CorrectPath";
+			break;
+		case "choose_correct_path_2":
+			loadgs="CorrectPath2";
 			break;
 		case "eyespy_alliteration":
 			loadgs="EyeSpy";
 			break;
+		case "skillintroduction_alliteration":
+			loadgs="SkillIntroduction_Alliteration";
+			break;
+		case "skillintroduction_phoneme":
+			loadgs="SkillIntroduction_Phoneme";
+			break;
+		case "skillintroduction_oralblending":
+			loadgs="SkillIntroduction_OralBlending";
+			break;
+		case "skillintroduction_blending":
+			loadgs="SkillIntroduction_Blending";
+			break;
+		case "skillintroduction_keyword":
+			loadgs="SkillIntroduction_Keyword";
+			break;
+		case "skillintroduction_segmenting":
+			loadgs="SkillIntroduction_Segmenting";
+			break;
+		case "skillintroduction_letterformation":
+			loadgs="SkillIntroduction_LetterFormation";
+			break;
+		case "skillintroduction_rhyming":
+			loadgs="SkillIntroduction_Rhyming";
+			break;
+		case "word_bank":
+			loadgs="WordBank";
+			break;			
+		case "letter_formation":
+			loadgs="letter_formation";
+			break;
+		case "cross_the_river":
+			loadgs="CrossTheBridge";
+			break;
 
+		default:
 				//load generic scene
 			loadgs = "gameinfo";
 
@@ -336,7 +361,212 @@ public class SessionMgr
 			hash.Add ("game_scene", "word_ladder"); 
 			_sectionList.Add (hash); 
 		}
-		
+
+
+		// THIS IS WHERE OUR DEMO STARTS
+
+		else if(sessionId==9001)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 1); 
+            hash.Add("game_scene", "video_intro");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9002)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 1251); 
+            hash.Add("game_scene", "module1_intro");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9003)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 2); 
+            hash.Add("game_scene", "skillintroduction_alliteration");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9004)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 35); 
+            hash.Add("game_scene", "eyespy_alliteration");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9005)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 38); 
+            hash.Add("game_scene", "skillintroduction_phoneme");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9006)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 39); 
+            hash.Add("game_scene", "introduce_phoneme");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9007)
+		{
+			PersistentManager.CurrentLetter="s";
+            hash=new Hashtable(); 
+            hash.Add("section_id", 39); 
+            hash.Add("game_scene", "splat_the_rat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9008)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 43); 
+            hash.Add("game_scene", "skillintroduction_oralblending");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9009)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 44); 
+            hash.Add("game_scene", "cross_the_river");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9010)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 49); 
+            hash.Add("game_scene", "introduce_phoneme");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9011)
+		{
+			PersistentManager.CurrentLetter="a";
+            hash=new Hashtable(); 
+            hash.Add("section_id", 49); 
+            hash.Add("game_scene", "splat_the_rat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9012)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 368); 
+            hash.Add("game_scene", "splat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9013)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 48); 
+            hash.Add("game_scene", "choose_correct_path");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9014)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 373); 
+            hash.Add("game_scene", "skillintroduction_blending");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9015)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 370); 
+            hash.Add("game_scene", "introduce_phoneme");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9016)
+		{
+			PersistentManager.CurrentLetter="t";
+            hash=new Hashtable(); 
+            hash.Add("section_id", 370); 
+            hash.Add("game_scene", "splat_the_rat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9017)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 53); 
+            hash.Add("game_scene", "splat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9018)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 381); 
+            hash.Add("game_scene", "skillintroduction_keyword");
+
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9019)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 382); 
+            hash.Add("game_scene", "splat_the_rat_keyword");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9020)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 386); 
+            hash.Add("game_scene", "skillintroduction_segmenting");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9021)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 388); 
+            hash.Add("game_scene", "word_bank");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9022)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 55); 
+            hash.Add("game_scene", "introduce_phoneme");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9023)
+		{
+			PersistentManager.CurrentLetter="p";
+            hash=new Hashtable(); 
+            hash.Add("section_id", 55); 
+            hash.Add("game_scene", "splat_the_rat");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9024)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 60); 
+            hash.Add("game_scene", "choose_correct_path");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9025)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 389); 
+            hash.Add("game_scene", "skillintroduction_letterformation");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9026)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 1219); 
+            hash.Add("game_scene", "letter_formation");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9027)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 411); 
+            hash.Add("game_scene", "splat_the_rat_keyword");
+            _sectionList.Add(hash); 
+		}
+		else if(sessionId==9028)
+		{
+            hash=new Hashtable(); 
+            hash.Add("section_id", 89); 
+            hash.Add("game_scene", "skillintroduction_rhyming");
+            _sectionList.Add(hash); 
+		}
+
 		if(gotDebugSession)
 			return;
 		

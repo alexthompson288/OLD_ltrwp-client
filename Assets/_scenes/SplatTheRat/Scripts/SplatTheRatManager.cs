@@ -81,8 +81,7 @@ public class SplatTheRatManager : MonoBehaviour {
 			}
 			
 			else if(i==2){
-				DummyLetters.Add ("j");
-//				CorrectLetters.Add ("t");				
+				CorrectLetters.Add (PersistentManager.CurrentLetter);				
 			}
 		}
 		

@@ -69,12 +69,53 @@ public class GameManager
 	
 	public String[] GetUserWordIndex()
 	{
-		DataTable dt=CmsDb.ExecuteQuery("select word from words where cvc='t' and diagraph='f'");
-		String[] words=new String[dt.Rows.Count];
-		for(int i=0; i<dt.Rows.Count; i++)
-		{
-			words[i]=(String)dt.Rows[i]["word"];
-		}
+		// DataTable dt=CmsDb.ExecuteQuery("select word from words where cvc='t' and diagraph='f'");
+		// String[] words=new String[dt.Rows.Count];
+		// for(int i=0; i<dt.Rows.Count; i++)
+		// {
+		// 	words[i]=(String)dt.Rows[i]["word"];
+		// }
+
+		String[] words=new String[38];
+		words[0]="cat";
+		words[1]="sat";
+		words[2]="sit";
+		words[3]="sap";
+		words[4]="pig";	
+		words[5]="dog";
+		words[6]="rat";
+		words[7]="hen";
+		words[8]="tap";
+		words[9]="map";
+		words[10]="pot";
+		words[11]="sun";
+		words[12]="pen";
+		words[13]="bat";
+		words[14]="pip";
+		words[15]="king";
+		words[16]="sock";
+		words[17]="troll";
+		words[18]="pat";
+		words[19]="jam";
+		words[20]="van";
+		words[21]="hug";
+		words[22]="pin";
+		words[23]="tin";
+		words[24]="pit";
+		words[25]="man";
+		words[26]="mug";
+		words[27]="mad";
+		words[28]="dad";
+		words[29]="sad";
+		words[30]="hat";
+		words[31]="tag";
+		words[32]="goat";
+		words[33]="cap";
+		words[34]="kick";
+		words[35]="elf";
+		words[36]="bug";
+		words[37]="big";
+
 		return words;
 	}
 	
