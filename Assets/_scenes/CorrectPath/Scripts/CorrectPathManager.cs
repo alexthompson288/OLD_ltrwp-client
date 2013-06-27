@@ -20,6 +20,8 @@ public class CorrectPathManager : MonoBehaviour {
 	int currentCorrectIndex=0;
 	int currentDummyIndex=0;
 
+	public AudioClip completeClip;
+
 	public AudioClip[] audioWords;
 
 
@@ -143,7 +145,6 @@ public class CorrectPathManager : MonoBehaviour {
 		}
 		else{ 
 			tween.setOnCompleteHandler(c => EnableTaps());
-			PlayAudio();
 		}
 		Go.addTween(tween);
 
@@ -195,11 +196,13 @@ public class CorrectPathManager : MonoBehaviour {
 	void EnableTaps()
 	{
 		DisableTap=false;
+		PlayAudio();
 	}
 
 	void RevealTreasure()
 	{
-		Debug.Log("reveal");
+		audio.clip=completeClip;
+		audio.Play();
 		OTSprite treecover=GameObject.Find("4-treecover").GetComponent<OTSprite>();
 		
 		Vector2 newPos=new Vector2(-1000.0f, treecover.position.y);
