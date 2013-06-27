@@ -7,7 +7,7 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 	public Transform[] OuterCurtains;
 	PersistentObject PersistentManager;
 	public bool exitCountdown;
-	float countdownToExit=30.0f;//8.0f;
+	float countdownToExit=8.0f;//8.0f;
 	public bool isReadingIntro=true;
 	public SmokeAnimation Smoke;
 	public Transform[] LeftTrumpets;

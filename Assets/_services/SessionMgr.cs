@@ -73,7 +73,7 @@ public class SessionMgr
 			loadgs= "Splat-SAT";
 			break;
 		case "splat_the_rat":
-			loadgs="SplatTheRat";
+			loadgs="SplatTheRat PX";
 			break;
 		case "splat_the_rat_keyword":
 			loadgs="SplatTheRat PX";
@@ -94,7 +94,7 @@ public class SessionMgr
 			loadgs="SkillIntroduction_Alliteration";
 			break;
 		case "skillintroduction_phoneme":
-			loadgs="SkillIntroduction_Phoneme";
+			loadgs="SkillIntroduction_LearnPhoneme";
 			break;
 		case "skillintroduction_oralblending":
 			loadgs="SkillIntroduction_OralBlending";
@@ -409,6 +409,7 @@ public class SessionMgr
 		}
 		else if(sessionId==9007)
 		{
+			PersistentManager.KeywordGame=false;
 			PersistentManager.CurrentLetter="s";
             hash=new Hashtable(); 
             hash.Add("section_id", 39); 
@@ -439,6 +440,7 @@ public class SessionMgr
 		else if(sessionId==9011)
 		{
 			PersistentManager.CurrentLetter="a";
+			PersistentManager.KeywordGame=false;
             hash=new Hashtable(); 
             hash.Add("section_id", 49); 
             hash.Add("game_scene", "splat_the_rat");
@@ -474,6 +476,7 @@ public class SessionMgr
 		}
 		else if(sessionId==9016)
 		{
+			PersistentManager.KeywordGame=false;
 			PersistentManager.CurrentLetter="t";
             hash=new Hashtable(); 
             hash.Add("section_id", 370); 
@@ -497,6 +500,8 @@ public class SessionMgr
 		}
 		else if(sessionId==9019)
 		{
+			PersistentManager.KeywordGame=true;
+			PersistentManager.CurrentLetter="a";
             hash=new Hashtable(); 
             hash.Add("section_id", 382); 
             hash.Add("game_scene", "splat_the_rat_keyword");
@@ -525,6 +530,7 @@ public class SessionMgr
 		}
 		else if(sessionId==9023)
 		{
+			PersistentManager.KeywordGame=false;
 			PersistentManager.CurrentLetter="p";
             hash=new Hashtable(); 
             hash.Add("section_id", 55); 
@@ -555,6 +561,8 @@ public class SessionMgr
 		}
 		else if(sessionId==9027)
 		{
+			PersistentManager.KeywordGame=true;
+			PersistentManager.CurrentLetter="the";
             hash=new Hashtable(); 
             hash.Add("section_id", 411); 
             hash.Add("game_scene", "splat_the_rat_keyword");

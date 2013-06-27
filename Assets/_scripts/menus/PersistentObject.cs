@@ -11,6 +11,7 @@ public class PersistentObject : MonoBehaviour {
 	public string NextLevel;
 	public string CurrentLetter="a";
 	public int Players=1;
+	public bool KeywordGame=false;
 	
 	// Use this for initialization
 	void Start () {

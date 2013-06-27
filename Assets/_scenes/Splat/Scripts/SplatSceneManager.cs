@@ -34,7 +34,7 @@ public class SplatSceneManager : MonoBehaviour {
 		Debug.Log("GameSetting: '"+GameSetting+"'");
 
 		if(GameSetting==null)
-			GameSetting="school_splat";
+			GameSetting="forest_splat";
 		
 		Debug.Log("GameSetting: '"+GameSetting+"'");
 
