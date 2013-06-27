@@ -547,6 +547,7 @@ public class SessionMgr
 		}
 		else if(sessionId==9026)
 		{
+			PersistentManager.CurrentLetter="s";
             hash=new Hashtable(); 
             hash.Add("section_id", 1219); 
             hash.Add("game_scene", "letter_formation");

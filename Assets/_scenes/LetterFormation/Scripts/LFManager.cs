@@ -262,6 +262,7 @@ public class LFManager : MonoBehaviour {
 				}
 				
 			}
+
 			
 			if(!hasAutomated&&!hasToldToFollow)
 			{
@@ -314,7 +315,7 @@ public class LFManager : MonoBehaviour {
 			onTrack=true;
 			if(letterPart.ReverseSpline){
 				percOnSpline-=0.04f;
-				if(percOnSpline<0 && !letterPart.NextPart){percOnSpline=0;}
+				if(percOnSpline<0 && !letterPart.NextPart){percOnSpline=0;HasFinished();}
 				else if(percOnSpline<0&&letterPart.NextPart){
 					currentLetter=letterPart.NextPart;
 					letterPart=letterPart.NextPart.GetComponent<LFLetterPart>();
@@ -325,7 +326,7 @@ public class LFManager : MonoBehaviour {
 			}
 			else{ 
 				percOnSpline+=0.04f;
-				if(percOnSpline>1 && !letterPart.NextPart){percOnSpline=1;}
+				if(percOnSpline>1 && !letterPart.NextPart){percOnSpline=1;HasFinished();}
 				else if(percOnSpline>1 && letterPart.NextPart){
 					currentLetter=letterPart.NextPart;
 					letterPart=letterPart.NextPart.GetComponent<LFLetterPart>();
@@ -347,6 +348,12 @@ public class LFManager : MonoBehaviour {
 			}
 			fairy.image=FairyUp;
 		}
+
+	}
+
+	void HasFinished()
+	{
+		GameManager.Instance.SessionMgr.CloseActivity();
 	}
 	
 	void On_TouchUp(Gesture gesture)
