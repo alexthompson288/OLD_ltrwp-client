@@ -71,11 +71,17 @@ public class SplatTheRatManager : MonoBehaviour {
 		for(int i=0;i<3;i++)
 		{
 			if(i==0){
-				DummyLetters.Add ("d");
+				if(PersistentManager.KeywordGame)
+					DummyLetters.Add("as");
+				else
+					DummyLetters.Add ("d");
 				CorrectLetters.Add (PersistentManager.CurrentLetter);
 			}
 			else if(i==1){
-				DummyLetters.Add ("m");
+				if(PersistentManager.KeywordGame)
+					DummyLetters.Add("sat");
+				else
+					DummyLetters.Add ("m");
 //				CorrectLetters.Add ("a");				
 				CorrectLetters.Add (PersistentManager.CurrentLetter);
 			}
@@ -96,6 +102,11 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		
 		lettersRequired=8;
+
+		if(PersistentManager.KeywordGame)
+			LetterFont=GameObject.Find("PipFont-20pt").transform;
+		else
+			LetterFont=GameObject.Find("Font").transform;
 		
 		BackgroundCloud=GameObject.Find ("BackgroundCloud").GetComponent<OTSprite>();
 		
@@ -111,7 +122,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		
 		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
-		
+
 		if(PersistentManager.CurrentLetter==null)
 			PersistentManager.CurrentLetter="a";
 	}	
@@ -190,7 +201,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		lastMoleAni.Player=playerID;
 		lastMoleTouch.RemoveTime=Random.Range (minRemove,maxRemove);
 		lastMoleTouch.IndexNumber=moleIndex;
-		lastMoleTouch.bigSign=true;
+		lastMoleTouch.bigSign=PersistentManager.KeywordGame;
 		
 		foreach(Transform c in lastMole.transform)
 		{
