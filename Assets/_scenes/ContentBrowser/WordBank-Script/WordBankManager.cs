@@ -10,11 +10,18 @@ public class WordBankManager : MonoBehaviour {
 	public Texture2D playButtonPressed;
 	bool isPlaying=false;
 	bool isTouching=false;
+	PersistentObject PersistentManager;
 	
+	void Awake() {
+
+	}
+
 	// Use this for initialization
 	void Start () {
+		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
 		OTSprite Frame=GameObject.Find ("Frame").GetComponent<OTSprite>();
 		SegmentingFrame=new Rect(Frame.position.x-(Frame.size.x/2),Frame.position.y-(Frame.size.y/2),Frame.size.x,Frame.size.y);
+		WordClip=(AudioClip)Resources.Load("audio/words/"+PersistentManager.WordBankWord.ToLower());
 	}
 	
 	// Update is called once per frame

@@ -376,7 +376,8 @@ public class SessionMgr
 		{
             hash=new Hashtable(); 
             hash.Add("section_id", 1251); 
-            hash.Add("game_scene", "module1_intro");
+            // hash.Add("game_scene", "module1_intro");
+            hash.Add("game_scene", "splat");
             _sectionList.Add(hash); 
 		}
 		else if(sessionId==9003)
