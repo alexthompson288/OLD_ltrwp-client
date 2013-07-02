@@ -18,6 +18,16 @@ public class CurtainAnimation : MonoBehaviour {
 	bool playedSmoke=false;
 	bool CountdownToReveal=false;
 	float CountdownToRevealTime=2.0f;
+	string MyImageName;
+	bool playAudioSequence;
+	ArrayList AudioClipList;
+	int currentClip=0;
+	float countdownToNextClip=0;
+	string myPhoneme;
+	string myGrapheme;
+	string myMnemonic;
+	bool disabled=false;
+
 	
 	IntroducingPhonemeManager gameManager;
 	
@@ -52,10 +62,16 @@ public class CurtainAnimation : MonoBehaviour {
 		
 		if(ChildType=="TEXT"){
 			ChildText.text=pd.Phoneme;
+			AudioClipList=new ArrayList();
 		}
 		else if(ChildType=="IMAGE"){
-			// Debug.Log("this image "+);
-			ChildSprite.image=gameManager.GetCurrentImage();
+			MyImageName=gameManager.GetCurrentImage();
+
+			ChildSprite.image=(Texture2D)Resources.Load("Images/word_images_png_150/_"+MyImageName+"_150");
+			
+			if(ChildSprite.image==null)
+				Debug.Log("load fail for "+MyImageName);
+			// ChildSprite.image=gameManager.GetCurrentImage();
 		}
 		
 		
@@ -64,6 +80,9 @@ public class CurtainAnimation : MonoBehaviour {
 			string mnemonicName=pd.Mneumonic.Replace(" ", "_");
 			string filePathMnemonic="Images/mnemonics_images_png_250/"+pd.Phoneme+"_"+mnemonicName;
 			Debug.Log("file path"+filePathMnemonic);
+			myPhoneme=pd.Phoneme;
+			myMnemonic=mnemonicName;
+			myGrapheme=pd.Grapheme;
 			Mnemonic.image=(Texture2D)Resources.Load(filePathMnemonic);
 			Mnemonic.alpha=0;
 			Mnemonic.visible=false;
@@ -94,11 +113,43 @@ public class CurtainAnimation : MonoBehaviour {
 		{
 			SetAnimationOpening();
 		}
+		else if(!myself.isPlaying && isOpen && ChildType=="IMAGE")
+		{
+			gameManager.disableTouches=false;
+		}
 		else if(!myself.isPlaying && isOpen && ChildType=="TEXT" && !playedSmoke)
 		{
 			playedSmoke=true;
 			CountdownToReveal=true;
 			gameManager.Smoke.playSmoke1=true;
+			if(myGrapheme==null)myGrapheme=myPhoneme;
+			gameManager.PlayAudio((AudioClip)Resources.Load("audio/benny_mnemonics_master/benny_mnemonic_"+myPhoneme+"_"+myGrapheme+"_"+myMnemonic));
+			// AudioClip firstClip=(AudioClip)AudioClipList[0];
+			// countdownToNextClip=firstClip.length;
+			// gameManager.PlayAudio(firstClip);
+			// playAudioSequence=true;
+		}
+
+		if(playAudioSequence)
+		{
+			countdownToNextClip-=Time.deltaTime;
+			
+			if(countdownToNextClip<0)
+			{
+				currentClip++;
+				
+				if(currentClip<AudioClipList.Count)
+				{
+					AudioClip thisClip=(AudioClip)AudioClipList[currentClip];
+					countdownToNextClip=thisClip.length;
+					gameManager.PlayAudio(thisClip);
+				}
+				else 
+				{
+					playAudioSequence=false;
+				}
+
+			}
 		}
 		
 		if(CountdownToReveal)
@@ -156,8 +207,32 @@ public class CurtainAnimation : MonoBehaviour {
 	}
 	
 	void On_SimpleTap(Gesture gesture){
-		if(gesture.pickObject==gameObject&&!isOpen&&!gameManager.isReadingIntro)
+		if(disabled)return;
+		if(gesture.pickObject==gameObject&&!isOpen&&!gameManager.isReadingIntro&&!gameManager.disableTouches)
+		{
+			if(ChildType=="IMAGE"){
+				gameManager.PlayAudio((AudioClip)Resources.Load("audio/words/"+MyImageName));
+			}
+			else if(ChildType=="TEXT")
+			{
+				// string[] mnemonics=myMnemonic.Split('_');
+				// Debug.Log("look for audio/benny_phonemes_master/benny_phoneme_"+myPhoneme+"_"+myGrapheme+"_"+myMnemonic);
+				// AudioClipList.Add((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+myPhoneme+"_"+myGrapheme+"_"+myMnemonic));
+				// AudioClipList.Add((AudioClip)Resources.Load("audio/words/for"));
+
+				// foreach (string word in mnemonics)
+				// {
+				// 	Debug.Log("audio/words/"+word);
+				//     AudioClipList.Add((AudioClip)Resources.Load("audio/words/"+word));
+				// }
+			}
+
+			if(gameManager.audio.clip==null)
+				Debug.Log("failed audio load for "+MyImageName);
 			playOpening=true;
+			gameManager.disableTouches=true;
+			disabled=true;
+		}
 	}
 	
 	void SetNonePlaying()
@@ -179,7 +254,7 @@ public class CurtainAnimation : MonoBehaviour {
 		
 		if(playOpening)
 		{
-			gameManager.PlayAudio(MyAudio);
+			// gameManager.PlayAudio(MyAudio);
 			myself.PlayOnce("opening1");
 			SetNonePlaying();
 			playOpening2=true;

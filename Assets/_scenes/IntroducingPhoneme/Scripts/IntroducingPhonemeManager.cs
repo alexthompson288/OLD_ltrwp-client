@@ -13,6 +13,7 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 	public Transform[] LeftTrumpets;
 	public Transform[] RightTrumpets;
 	public string TargetPhoneme;
+	public bool disableTouches;
 	PhonemeData[] phoneme;
 	DataWordData[] datawords;
 	int currentImageIndex=0;
@@ -110,12 +111,10 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 		
 	}
 
-	public Texture2D GetCurrentImage(){
+	public string GetCurrentImage(){
 		DataWordData dw=datawords[currentImageIndex];
-		Texture2D image=(Texture2D)Resources.Load("Images/word_images_png_150/_"+dw.Word+"_150");
+		string image=(string)dw.Word;
 
-		if(image==null)
-			Debug.Log("load fail for "+dw.Word);
 
 		currentImageIndex++;
 		return image;
