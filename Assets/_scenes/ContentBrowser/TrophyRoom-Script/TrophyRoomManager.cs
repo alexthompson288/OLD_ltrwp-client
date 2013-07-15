@@ -174,29 +174,18 @@ public class TrophyRoomManager : MonoBehaviour {
 
 	public void CreateBigShield(string letter, string mnemonic)
 	{
-		if(letter!="a"&&letter!="p"&&letter!="s"&&letter!="t")return;
+		// if(letter!="a"&&letter!="p"&&letter!="s"&&letter!="t")return;
 		Transform newshield=(Transform)Instantiate(BigShieldPrefab);
 		BigShield bspref=newshield.GetComponent<BigShield>();
+		Texture2D thisImg=(Texture2D)Resources.Load("Images/mnemonics_images_png_250/"+letter+"_"+mnemonic.Replace(" ","_"));
 
 		bspref.DisplayString=mnemonic;
 		bspref.MyLetter=letter;
 
-		if(letter=="a")
-		{
-			bspref.DisplayImage=MnemonicA;
-		}
-		else if(letter=="p")
-		{
-			bspref.DisplayImage=MnemonicP;
-		}
-		else if(letter=="s")
-		{
-			bspref.DisplayImage=MnemonicS;		
-		}
-		else if(letter=="t")
-		{
-			bspref.DisplayImage=MnemonicT;
-		}
+		if(thisImg==null)
+			Debug.Log("Load failed for "+letter+"_"+mnemonic.Replace(" ","_"));
+		else 
+			bspref.DisplayImage=thisImg;
 
 	}
 }
