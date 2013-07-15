@@ -118,6 +118,24 @@ public class GameManager
 
 		return words;
 	}
+
+	public PhonemeData GetPhonemeInfoForPhoneme(String phoneme)
+	{
+		PhonemeData rdata=new PhonemeData();
+		DataTable dtp=CmsDb.ExecuteQuery("select phoneme,mneumonic,mneumonic_two,grapheme from phonemes where phoneme='"+phoneme+"'");
+		
+		rdata.Phoneme=(String)dtp.Rows[0]["phoneme"];
+		rdata.Mneumonic=(String)dtp.Rows[0]["mneumonic"];
+
+		if(dtp.Rows[0]["mneumonic_two"]!=null)
+			rdata.MneumonicTwo=(String)dtp.Rows[0]["mneumonic_two"];
+
+		rdata.Grapheme=(String)dtp.Rows[0]["grapheme"];
+
+		Debug.Log("rdata phoneme="+rdata.Phoneme+"// rdata mneumonic "+rdata.Mneumonic +"// rdata grapheme"+rdata.Grapheme);
+
+		return rdata;
+	}
 	
 	public List<PhonemeData> GetPhonemesForWord(String word)
 	{

@@ -1,5 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.IO;
+using AlTypes;
+
+
 
 public class TrophyRoomManager : MonoBehaviour {
 	
@@ -60,17 +66,25 @@ public class TrophyRoomManager : MonoBehaviour {
 			txt.size=new Vector2(1.0f, 1.0f);
 			spref.colourText=tLabel;
 			
-			string mn=mneumonics[mneumonicIndex];
-			spref.MyMnemonic=mn;
+			PhonemeData thisP;
+
+			// List<PhonemeData> pd=GameManager.Instance.GetPhonemesForWord(txt.text);
+			if(txt.text=="q")
+				thisP=GameManager.Instance.GetPhonemeInfoForPhoneme("qu");
+			else 
+				thisP=GameManager.Instance.GetPhonemeInfoForPhoneme(txt.text);
+			// string mn=mneumonics[mneumonicIndex];
+			string mn=(string)thisP.Mneumonic.ToString();
+			spref.myMnemonic=mn;
 			mn=txt.text+"_"+mn+"_0.png";
 			
-			Debug.Log ("current letter is "+txt.text+" / mneumonic is "+mn.Replace(" ", "_").ToLower ());
+			Debug.Log ("current letter is "+txt.text+" / mnemonic is "+mn.Replace(" ", "_").ToLower ());
 			
 			mneumonicIndex++;
 			
 			if(letters[i]=="p"||letters[i]=="c"||letters[i]=="s")
 			{
-				int ShieldIndex=Random.Range (0,3);
+				int ShieldIndex=UnityEngine.Random.Range (0,3);
 				Transform cshield=(Transform)Instantiate(ColourShields[ShieldIndex]);
 				cshield.parent=ShieldsHolder;
 				
@@ -165,6 +179,7 @@ public class TrophyRoomManager : MonoBehaviour {
 		BigShield bspref=newshield.GetComponent<BigShield>();
 
 		bspref.DisplayString=mnemonic;
+		bspref.MyLetter=letter;
 
 		if(letter=="a")
 		{
