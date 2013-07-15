@@ -22,9 +22,9 @@ public class SegmentingContainer : MonoBehaviour {
 	void Awake () {
 		gameManager=GameObject.Find("Main Camera").GetComponent<SegmentingManager>();
 		Transform newBtn = gameManager.CreateNewButton(transform.position, transform.rotation);
+		MyButton=newBtn.GetComponent<SegmentingContainerButton>();
 		// newBtn.position=new Vector3(newBtn.position.x, newBtn.position.y+100, newBtn.position.z);
-		OTSprite bS=newBtn.GetComponent<OTSprite>();
-		bS.size=new Vector2(0.5f,0.5f);
+
 		// bS.position=new Vector2(bS.position.x, bS.position.y+30);
 		newBtn.parent=transform;
 
@@ -47,6 +47,15 @@ public class SegmentingContainer : MonoBehaviour {
 		// SetButtonReuse(CanReuseButton);
 	}
 	
+	void Start() {
+		OTSprite bS=MyButton.GetComponent<OTSprite>();
+
+		if(isMultiPartLetter)
+			bS.size=new Vector2(0.2f,0.5f);
+		else 
+			bS.size=new Vector2(0.5f,0.5f);
+	}
+
 	// Update is called once per frame
 	void Update () {
 	

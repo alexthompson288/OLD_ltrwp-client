@@ -139,7 +139,11 @@ public class SegmentingManager : MonoBehaviour {
 		if(CorrectLetters.Length==4)
 			contXPos-=80.0f;
 		else if(CorrectLetters.Length==5)
-			contXPos-=160.0f;
+			contXPos-=260.0f;
+		else if(CorrectLetters.Length==6)
+			contXPos-=190.0f;
+		else if(CorrectLetters.Length==7)
+			contXPos-=220.0f;
 		
 		float contYPos=scaffoldStartYPos;
 		float letXPos=letterStartXPos;
@@ -177,13 +181,13 @@ public class SegmentingManager : MonoBehaviour {
 			else if(contprefs.ExpectedLetter.Length==2){
 				is2Letters=true;
 				contXPos+=(spaceFor2Letters/2);
-				// scont.size=new Vector2(scont.size.x+60, scont.size.y);
+				scont.size=new Vector2(scont.size.x+60, scont.size.y);
 				contprefs.isMultiPartLetter=true;
 			}
 			else if(contprefs.ExpectedLetter.Length==3 && !contprefs.ExpectedLetter.Contains("-")){
 				is3Letters=true;
 				contXPos+=(spaceFor3Letters/2);
-				// scont.size=new Vector2(scont.size.x+90, scont.size.y);
+				scont.size=new Vector2(scont.size.x+90, scont.size.y);
 				contprefs.isMultiPartLetter=true;
 			}
 
