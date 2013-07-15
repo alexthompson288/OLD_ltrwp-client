@@ -7,6 +7,8 @@ public class ShieldTouch : MonoBehaviour {
 	public Transform colourText;
 	public Transform Mnemonic;
 	public AudioClip MyAudio;
+	public string MyMnemonic;
+
 	TrophyRoomManager gameManager;
 	float timer=4.0f;
 	bool countdown=false;
@@ -73,12 +75,12 @@ public class ShieldTouch : MonoBehaviour {
 	
 	private void On_SimpleTap(Gesture gesture)
 	{
-		if(gesture.pickObject==gameObject)
+		if(gesture.pickObject==gameObject && !gameManager.DisableTouches)
 		{
 			if(colourText!=null){
 				OTTextSprite t=colourText.gameObject.GetComponent<OTTextSprite>();
 
-				gameManager.CreateBigShield(t.text);
+				gameManager.CreateBigShield(t.text, MyMnemonic);
 			}
 		}
 		// if(gesture.pickObject==gameObject)

@@ -20,6 +20,7 @@ public class TrophyRoomManager : MonoBehaviour {
 	public Texture2D MnemonicS;
 	public Texture2D MnemonicT;
 	public OTSpriteAtlasCocos2DFnt ShieldFont;
+	public bool DisableTouches;
 
 	GameManager cmsLink;
 	
@@ -51,7 +52,8 @@ public class TrophyRoomManager : MonoBehaviour {
 			tLabel.parent=ShieldsHolder;
 
 			OTTextSprite txt=tLabel.GetComponent<OTTextSprite>();
-			txt.spriteContainer=GameObject.Find ("Font Arial-Black-64").GetComponent<OTSpriteAtlasCocos2DFnt>();
+			// txt.spriteContainer=GameObject.Find ("Font Arial-Black-64").GetComponent<OTSpriteAtlasCocos2DFnt>();
+			txt.spriteContainer=ShieldFont;
 			txt.ForceUpdate();
 			txt.position=gs.position;
 			txt.text=letters[i];
@@ -59,6 +61,7 @@ public class TrophyRoomManager : MonoBehaviour {
 			spref.colourText=tLabel;
 			
 			string mn=mneumonics[mneumonicIndex];
+			spref.MyMnemonic=mn;
 			mn=txt.text+"_"+mn+"_0.png";
 			
 			Debug.Log ("current letter is "+txt.text+" / mneumonic is "+mn.Replace(" ", "_").ToLower ());
@@ -122,6 +125,8 @@ public class TrophyRoomManager : MonoBehaviour {
 	
 	void On_TouchDown(Gesture gesture)
 	{
+		if(DisableTouches)return;
+
 		ShieldsHolder.position=new Vector3(ShieldsHolder.position.x,ShieldsHolder.position.y+gesture.deltaPosition.y,ShieldsHolder.position.z);
 	}
 	
@@ -135,12 +140,12 @@ public class TrophyRoomManager : MonoBehaviour {
 				
 		float newYPos=0;
 		
-		if(Input.GetKey("up"))
+		if(Input.GetKey("up")&&!DisableTouches)
 		{
 			newYPos=ShieldsHolder.position.y+3.0f;
 			ShieldsHolder.position=new Vector3(ShieldsHolder.position.x, newYPos, ShieldsHolder.position.z);
 		}
-		else if(Input.GetKey ("down"))
+		else if(Input.GetKey ("down")&&!DisableTouches)
 		{
 			newYPos=ShieldsHolder.position.y-3.0f;
 			ShieldsHolder.position=new Vector3(ShieldsHolder.position.x, newYPos, ShieldsHolder.position.z);
@@ -153,31 +158,29 @@ public class TrophyRoomManager : MonoBehaviour {
 		audio.Play();
 	}
 
-	public void CreateBigShield(string letter)
+	public void CreateBigShield(string letter, string mnemonic)
 	{
 		if(letter!="a"&&letter!="p"&&letter!="s"&&letter!="t")return;
 		Transform newshield=(Transform)Instantiate(BigShieldPrefab);
 		BigShield bspref=newshield.GetComponent<BigShield>();
 
+		bspref.DisplayString=mnemonic;
+
 		if(letter=="a")
 		{
 			bspref.DisplayImage=MnemonicA;
-			bspref.DisplayString="angry anus";
 		}
 		else if(letter=="p")
 		{
 			bspref.DisplayImage=MnemonicP;
-			bspref.DisplayString="pasta penis";	
 		}
 		else if(letter=="s")
 		{
-			bspref.DisplayImage=MnemonicS;
-			bspref.DisplayString="squelchy sausage";		
+			bspref.DisplayImage=MnemonicS;		
 		}
 		else if(letter=="t")
 		{
 			bspref.DisplayImage=MnemonicT;
-			bspref.DisplayString="tasty twat";
 		}
 
 	}
