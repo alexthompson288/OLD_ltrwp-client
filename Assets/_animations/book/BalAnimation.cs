@@ -98,6 +98,7 @@ public class BalAnimation : MonoBehaviour {
 		if(playIdleSet&&playIdle){
 			SetAnimationIdle();
 			playStill=true;
+			playIdle=false;
 		}
 		else if(playIdleSet&&playStill){
 			SetAnimationStill();

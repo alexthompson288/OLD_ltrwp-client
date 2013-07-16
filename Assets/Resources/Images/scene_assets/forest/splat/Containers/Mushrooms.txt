@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Splat_Mushroom_A_0.png</key>
+            <key>forest_splat_container_0_a.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{220,798},{186,172}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{238,230}</string>
             </dict>
-            <key>Splat_Mushroom_A_1.png</key>
+            <key>forest_splat_container_1_a.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,842},{184,178}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{222,218}</string>
             </dict>
-            <key>Splat_Mushroom_A_2.png</key>
+            <key>forest_splat_container_2_a.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{214,416},{200,184}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{222,258}</string>
             </dict>
-            <key>Splat_Mushroom_A_3.png</key>
+            <key>forest_splat_container_3_a.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{236,210}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{286,282}</string>
             </dict>
-            <key>Splat_Mushroom_A_4.png</key>
+            <key>forest_splat_container_4_a.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{214,2},{208,204}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{262,258}</string>
             </dict>
-            <key>Splat_Mushroom_B_0.png</key>
+            <key>forest_splat_container_0_b.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{210,240},{220,174}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{278,266}</string>
             </dict>
-            <key>Splat_Mushroom_B_1.png</key>
+            <key>forest_splat_container_1_b.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{220,602},{190,194}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{242,230}</string>
             </dict>
-            <key>Splat_Mushroom_B_2.png</key>
+            <key>forest_splat_container_2_b.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,692},{216,148}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{246,214}</string>
             </dict>
-            <key>Splat_Mushroom_B_3.png</key>
+            <key>forest_splat_container_3_b.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,240},{226,206}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{290,278}</string>
             </dict>
-            <key>Splat_Mushroom_B_4.png</key>
+            <key>forest_splat_container_4_b.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,468},{222,210}}</string>

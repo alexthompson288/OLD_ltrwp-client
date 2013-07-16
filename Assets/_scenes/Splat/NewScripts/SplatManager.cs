@@ -20,6 +20,9 @@ public class SplatManager : MonoBehaviour {
 	public AudioClip[] audioLetters;
 	public AudioClip CorrectHit;
 	public AudioClip IncorrectHit;
+
+	public bool ContainerHasStateB=false;
+	public int NumberOfContainerVariants=0;
 	
 	ArrayList letters;
 	
@@ -82,13 +85,6 @@ public class SplatManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-//		PhonemeData[] currentData=GameManager.Instance.SessionMgr.CurrentPhonemes;
-//		
-//		foreach(PhonemeData pd in currentData)
-//		{
-//			Debug.Log ("add phoneme "+pd.Phoneme);
-//		}
-		
 		ReadPersistentObjectSettings();
 //		iTween.MoveBy(gameObject, iTween.Hash("x", 2, "easeType", "easeInOutQuad", "loopType", "pingPong", "delay", 0.1, "time", 6.0, "lookat", lookat));
 		Application.targetFrameRate=60;
@@ -101,15 +97,6 @@ public class SplatManager : MonoBehaviour {
 		StartGame ();
 	}
 	
-//	public IEnumerator LoadBundle(){
-//        using(WWW www = WWW.LoadFromCacheOrDownload("file://"+Application.dataPath+"/../backgrounds/Backgrounds.unity3d", 0)){
-//            yield return www;
-//            AssetBundle assetBundle = www.assetBundle;
-//            GameObject gameObject = assetBundle.mainAsset as GameObject;
-//            Instantiate(gameObject);
-//            assetBundle.Unload(false);
-//        }
-//    }
 	
 	public void CreateNewPersistentObject()
 	{
@@ -129,13 +116,7 @@ public class SplatManager : MonoBehaviour {
 		//scnBackground.image=(Texture2D)Resources.LoadAssetAtPath ("Assets/backgrounds/splat_"+PersistentManager.CurrentTheme+".png",typeof(Texture2D));
 		
 		Texture2D thisBkg=null;
-		
-//		if(PersistentManager.CurrentTheme=="forest")
-//			thisBkg=(Texture2D)BackgroundStore[0];
-//		else if(PersistentManager.CurrentTheme=="underwater")
-//			thisBkg=(Texture2D)BackgroundStore[0];
-	
-//		scnBackground.image=thisBkg;
+
 		
 		if(PersistentManager.CurrentTheme=="underwater")
 		{
@@ -215,10 +196,9 @@ public class SplatManager : MonoBehaviour {
 		//look to see if we have one of the current letter in play
 		bool found=ballsContainLetter(currentLetter);
 		
-		if(PersistentManager.CurrentTheme=="underwater")
-			((SplatBally)newObject.GetComponent("SplatBally")).materialIndex=Random.Range(1,3);
-		else
-			((SplatBally)newObject.GetComponent("SplatBally")).materialIndex=Random.Range(1,6);
+		
+		((SplatBally)newObject.GetComponent("SplatBally")).materialIndex=Random.Range(0,NumberOfContainerVariants);
+		
 		if(!found) ((SplatBally)newObject.GetComponent("SplatBally")).letterIndex=currentLetter;
 		
 		else ((SplatBally)newObject.GetComponent("SplatBally")).letterIndex=Random.Range(0,audioLetters.Length-1);

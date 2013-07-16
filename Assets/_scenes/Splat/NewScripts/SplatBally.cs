@@ -22,6 +22,7 @@ public class SplatBally : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
 		gameManager=(SplatManager)GameObject.Find("Main Camera").GetComponent<SplatManager>();
 		if(GameObject.Find ("PersistentManager")==null){
 			GameObject thisPO=new GameObject("PersistentManager");
@@ -30,8 +31,10 @@ public class SplatBally : MonoBehaviour {
 		}
 		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();
 		gameObject.GetComponent<OTSprite>().spriteContainer=gameManager.sceneMgr.ContainerSprites;
+		gameObject.GetComponent<OTSprite>().frameIndex=materialIndex;
 		gameObject.GetComponent<OTSprite>().ForceUpdate();
-		gameObject.GetComponent<OTSprite>().frameName="Splat_"+gameManager.sceneMgr.setting+"_A_"+materialIndex+".png";
+		// gameObject.GetComponent<OTSprite>().frameName="Splat_"+gameManager.sceneMgr.setting+"_A_"+materialIndex+".png";
+
 		MoveBall(true);
 		
 		SpriteFont.text=letterlist[letterIndex];	
@@ -115,7 +118,10 @@ public class SplatBally : MonoBehaviour {
 			{
 				rigidbody.isKinematic=true;
 				collider.isTrigger=true;
-				
+				if(gameManager.ContainerHasStateB){
+					gameObject.GetComponent<OTSprite>().frameIndex=materialIndex+gameManager.NumberOfContainerVariants;
+					gameObject.GetComponent<OTSprite>().ForceUpdate();
+				}
 				if(PersistentManager.CurrentTheme=="underwater")
 					ExplodeBubble ();
 				else if(PersistentManager.CurrentTheme=="forest")
