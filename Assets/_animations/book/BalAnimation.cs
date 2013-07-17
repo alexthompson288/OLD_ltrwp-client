@@ -96,19 +96,15 @@ public class BalAnimation : MonoBehaviour {
 	void SetAnimationIdleSet()
 	{
 		if(!playIdleSet){
-			Debug.Log("(1) playIdleSet");
 			playIdleSet=true;
 			playIdle=true;
 		}
 		if(playIdleSet&&playIdle){
-			Debug.Log("(2) playIdleSet");
 			SetAnimationIdle();
-			Debug.Log("(2) playing? "+myself.isPlaying);
 			playIdleSet=true;
 			playStill=true;
 		}
 		else if(playIdleSet&&!playIdle&&playStill){
-			Debug.Log("(3) playIdleSet");
 			SetAnimationStill();
 			
 			int rndChance=Random.Range(0,2);
