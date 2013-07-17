@@ -13,10 +13,6 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-
-	void Awake () {
 		Transform BalBg=null;
 		Transform Bal=null;
 		if(HasBook)

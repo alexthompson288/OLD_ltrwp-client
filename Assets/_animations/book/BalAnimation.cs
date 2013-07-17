@@ -4,6 +4,7 @@ using System.Collections;
 public class BalAnimation : MonoBehaviour {
 	
 	public bool playIdle;
+	public bool playBlink;
 	public bool playIdleSet;
 	public bool playStill;
 	public bool playOpening;
@@ -28,13 +29,15 @@ public class BalAnimation : MonoBehaviour {
 	void Update () {
 		if(!myself.isPlaying)
 		{
-			if(playIdleSet)
+			if(playIdleSet&&(!playIdle||!playBlink||!playStill||!playOpening||!playOpening2||!playClosing||!playClosing2||!playTalking||!playTalking2||!playTalking3||!playTalking4))
 			{
 				SetAnimationIdleSet();
 				return;
 			}
-			if(playIdle)
+			if(playIdle||playBlink)
 				SetAnimationIdle();
+			else if(playStill)
+				SetAnimationStill();
 			else if(playOpening)
 				SetAnimationOpening();
 			else if(playOpening2)
@@ -62,6 +65,7 @@ public class BalAnimation : MonoBehaviour {
 		playIdle=false;
 		playIdleSet=false;
 		playStill=false;
+		playBlink=false;
 		playOpening=false;
 		playOpening2=false;
 		playClosing=false;
@@ -92,15 +96,19 @@ public class BalAnimation : MonoBehaviour {
 	void SetAnimationIdleSet()
 	{
 		if(!playIdleSet){
+			Debug.Log("(1) playIdleSet");
 			playIdleSet=true;
 			playIdle=true;
 		}
 		if(playIdleSet&&playIdle){
+			Debug.Log("(2) playIdleSet");
 			SetAnimationIdle();
+			Debug.Log("(2) playing? "+myself.isPlaying);
+			playIdleSet=true;
 			playStill=true;
-			playIdle=false;
 		}
-		else if(playIdleSet&&playStill){
+		else if(playIdleSet&&!playIdle&&playStill){
+			Debug.Log("(3) playIdleSet");
 			SetAnimationStill();
 			
 			int rndChance=Random.Range(0,2);
@@ -124,7 +132,12 @@ public class BalAnimation : MonoBehaviour {
 	
 	void SetAnimationIdle(){
 		myself.PlayOnce("idle");
-		playIdle=false;	
+		playIdle=false;
+	}
+
+	void SetAnimationBlink(){
+		myself.PlayOnce("idle");
+		StopAll();
 	}
 	
 	void SetAnimationOpening()
