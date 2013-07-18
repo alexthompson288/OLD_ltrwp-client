@@ -38,6 +38,7 @@ public class SplatSceneManager : MonoBehaviour {
 
 		for(int i=0;i<100;i++)
 		{
+				// layer-0 is background
 				Debug.Log("This texture looking for Images/scene_assets/"+GameSetting+"/"+GameSetting+"_bg_"+currentBGIndex);
 				Texture2D t=(Texture2D)Resources.Load("Images/scene_assets/"+GameSetting+"/"+GameSetting+"_bg_"+currentBGIndex);
 				if(t==null)break;
@@ -46,6 +47,8 @@ public class SplatSceneManager : MonoBehaviour {
 				sprite.image=t;
 				sprite.depth=currentDepth;
 				sprite.transparent=true;
+
+				sprite.transform.parent=GameObject.Find("layer-"+i).transform;
 
 				currentDepth+=10;	
 				currentBGIndex++;

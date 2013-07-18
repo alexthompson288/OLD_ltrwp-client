@@ -129,7 +129,7 @@ public class SplatBally : MonoBehaviour {
 					//tell mgr to get new letter, create new sphere etc
 				gameManager.GotLetter(transform);
 				gameManager.backpackSquashAndBounce("first");
-					
+				gameManager.PlayPipPositiveHit();		
 //				gameManager.currentBalls.Remove(transform);
 				
 				haveBeenPressed=true;
@@ -137,7 +137,8 @@ public class SplatBally : MonoBehaviour {
 			else 
 			{
 				PersistentManager.PlayAudioClip(gameManager.IncorrectHit);
-					
+				gameManager.PlayBennyNegativeHit();
+
 //				OTSprite s=gameObject.GetComponent<OTSprite>();
 //				OTTween mt=new OTTween(s,0.3f, OTEasing.ElasticInOut);
 //				mt.Tween("position", new Vector2(s.position.x+1.0f,s.position.y));

@@ -5,21 +5,20 @@ using AlTypes;
 public class SplatManager : MonoBehaviour {
 	
 	public Transform SpherePrefab;
-	public Transform VortexStart;
-	public Transform VortexEnd;
-	
-	public Texture2D[] BackgroundStore;
-	
-	public Transform[] underwaterPrefabs;
-	
+
 	public bool playing=false;
-	public Transform uiSplash;
 	
 	public AudioClip audioIntro;
 	public AudioClip successClip;
 	public AudioClip[] audioLetters;
 	public AudioClip CorrectHit;
 	public AudioClip IncorrectHit;
+	public AudioClip NoInteraction;
+	public AudioClip HintSound;
+	public AudioClip[] PipReactionsPositive;
+	public AudioClip[] BennyReactionsNegative;
+	public AudioClip[] BennyReactionsComplete;
+
 
 	public bool ContainerHasStateB=false;
 	public int NumberOfContainerVariants=0;
@@ -56,6 +55,7 @@ public class SplatManager : MonoBehaviour {
 	Vector3 sackDefaultScale;
 	
 	public int tapsSinceLastCorrect=0;
+	int bookPressesSinceLastCorrect=0;
 	bool warnedAboutCorrect=false;
 	public bool allowInteraction=false;
 	
@@ -68,6 +68,7 @@ public class SplatManager : MonoBehaviour {
 	
 	void OnEnable(){
 		EasyTouch.On_TouchDown += On_TouchDown;
+		EasyTouch.On_SimpleTap += On_SimpleTap;
 	}
 
 	void OnDisable(){
@@ -80,6 +81,7 @@ public class SplatManager : MonoBehaviour {
 	
 	void UnsubscribeEvent(){
 		EasyTouch.On_TouchDown -= On_TouchDown;	
+		EasyTouch.On_SimpleTap -= On_SimpleTap;
 	}
 	
 	// Use this for initialization
@@ -118,13 +120,13 @@ public class SplatManager : MonoBehaviour {
 		Texture2D thisBkg=null;
 
 		
-		if(PersistentManager.CurrentTheme=="underwater")
-		{
-			foreach(Transform t in underwaterPrefabs)
-			{
-				Instantiate(t);
-			}
-		}
+		// if(PersistentManager.CurrentTheme=="underwater")
+		// {
+		// 	foreach(Transform t in underwaterPrefabs)
+		// 	{
+		// 		Instantiate(t);
+		// 	}
+		// }
 	}
 	
 	void RemoveSpentExplosions()
@@ -178,13 +180,14 @@ public class SplatManager : MonoBehaviour {
 		
 		pipani.playIdleSet=false;
 		pipani.SetNonePlaying();
-		pipani.playPositive=true;
+		pipani.playPositive2=true;
 		
 		getNextLetter();
 		CreateNewSphere();
 		
 		audioReqDelay=1.5f;
 		playedAudioReq=false;
+		bookPressesSinceLastCorrect=0;
 	}
 	
 	public void CreateNewSphere()
@@ -234,6 +237,25 @@ public class SplatManager : MonoBehaviour {
 	{
 		inactivetime=0;
 	}
+
+	public void On_SimpleTap(Gesture gesture)
+	{
+		if(gesture.pickObject!=null)
+		{
+			if(gesture.pickObject.name.StartsWith("BalAni"))
+			{
+				if(bookPressesSinceLastCorrect==0){
+					PlayIntroductionAudio();
+				}
+				else if(bookPressesSinceLastCorrect>0){
+					Debug.Log("GLOW THE RIGHT ONE");
+					PersistentManager.PlayAudioClip(HintSound);
+				}
+
+				bookPressesSinceLastCorrect++;
+			}
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -266,7 +288,9 @@ public class SplatManager : MonoBehaviour {
 		if(inactivetime>15.0f && allowInteraction)
 		{
 			inactivetime=0.0f;
-			PlayIntroductionAudio();
+			Invoke("PlayIntroductionAudio", 1.5f);
+			pip.audio.clip=NoInteraction;
+			pip.audio.Play();
 		}
 
 			if(EasyTouch.GetTouchCount()>0 && !playing && !exitCountdown)	
@@ -301,7 +325,6 @@ public class SplatManager : MonoBehaviour {
 	void StartGame() {
 
 		playing=true;
-		uiSplash.renderer.enabled=false;
 
 		//create array of required solutions
 		letters=new ArrayList();
@@ -326,11 +349,33 @@ public class SplatManager : MonoBehaviour {
 		audioReqDelay=3.53f;
 		playedAudioReq=false;
 	}
+
+	public void PlayPipPositiveHit() 
+	{
+		int thisIndex=Random.Range(0,PipReactionsPositive.Length);
+		AudioClip ac=PipReactionsPositive[thisIndex];
+		pip.audio.clip=ac;
+		pip.audio.Play();
+	}
+
+	public void PlayBennyNegativeHit()
+	{
+		int thisIndex=Random.Range(0,BennyReactionsNegative.Length);
+		AudioClip ac=BennyReactionsNegative[thisIndex];
+		pip.audio.clip=ac;
+		pip.audio.Play();
+	}
+
+	public void PlayBennyComplete()
+	{
+		int thisIndex=Random.Range(0,BennyReactionsComplete.Length);
+		AudioClip ac=BennyReactionsComplete[thisIndex];
+		PersistentManager.PlayAudioClip(ac);
+	}
 	
 	public void StopGame() {
 //		Bubbles.Stop();
 		playing=false;
-//		uiSplash.renderer.enabled=true;
 		inactivetime=1.0f;
 		
 		foreach(Transform t in currentBalls)
@@ -340,8 +385,10 @@ public class SplatManager : MonoBehaviour {
 		
 		currentBalls.Clear();
 		
+		if(audio.isPlaying)audio.Stop();
 		audio.clip=successClip;
 		audio.Play();
+		PlayBennyComplete();
 		exitCountdown=true;
 	}
 	
