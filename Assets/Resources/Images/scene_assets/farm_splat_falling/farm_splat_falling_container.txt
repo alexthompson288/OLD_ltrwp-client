@@ -17,19 +17,6 @@
                 <key>sourceSize</key>
                 <string>{312,258}</string>
             </dict>
-            <key>farm_splat_falling_container_0_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{308,248}}</string>
-                <key>offset</key>
-                <string>{2,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{4,5},{308,248}}</string>
-                <key>sourceSize</key>
-                <string>{312,258}</string>
-            </dict>
             <key>farm_splat_falling_container_1_a.png</key>
             <dict>
                 <key>frame</key>
@@ -43,19 +30,6 @@
                 <key>sourceSize</key>
                 <string>{312,258}</string>
             </dict>
-            <key>farm_splat_falling_container_1_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,252},{308,240}}</string>
-                <key>offset</key>
-                <string>{2,9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{4,0},{308,240}}</string>
-                <key>sourceSize</key>
-                <string>{312,258}</string>
-            </dict>
             <key>farm_splat_falling_container_2_a.png</key>
             <dict>
                 <key>frame</key>
@@ -66,6 +40,33 @@
                 <true/>
                 <key>sourceColorRect</key>
                 <string>{{67,0},{192,194}}</string>
+                <key>sourceSize</key>
+                <string>{312,258}</string>
+            </dict>
+            <key>farm_splat_falling_container_0_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{308,248}}</string>
+                <key>offset</key>
+                <string>{2,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,5},{308,248}}</string>
+                <key>sourceSize</key>
+                <string>{312,258}</string>
+            </dict>
+
+            <key>farm_splat_falling_container_1_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,252},{308,240}}</string>
+                <key>offset</key>
+                <string>{2,9}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{4,0},{308,240}}</string>
                 <key>sourceSize</key>
                 <string>{312,258}</string>
             </dict>

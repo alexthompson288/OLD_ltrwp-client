@@ -17,45 +17,6 @@
                 <key>sourceSize</key>
                 <string>{339,300}</string>
             </dict>
-            <key>forest_splat_nuts_container_0_a_470px.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{837,447},{146,153}}</string>
-                <key>offset</key>
-                <string>{10,4}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{55,24},{146,153}}</string>
-                <key>sourceSize</key>
-                <string>{236,209}</string>
-            </dict>
-            <key>forest_splat_nuts_container_0_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{339,276}}</string>
-                <key>offset</key>
-                <string>{0,12}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{339,276}}</string>
-                <key>sourceSize</key>
-                <string>{339,300}</string>
-            </dict>
-            <key>forest_splat_nuts_container_0_b_470px.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{599,299},{236,191}}</string>
-                <key>offset</key>
-                <string>{0,9}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{236,191}}</string>
-                <key>sourceSize</key>
-                <string>{236,209}</string>
-            </dict>
             <key>forest_splat_nuts_container_1_a.png</key>
             <dict>
                 <key>frame</key>
@@ -68,45 +29,6 @@
                 <string>{{74,21},{219,212}}</string>
                 <key>sourceSize</key>
                 <string>{339,300}</string>
-            </dict>
-            <key>forest_splat_nuts_container_1_a_470px.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{208,705},{152,149}}</string>
-                <key>offset</key>
-                <string>{9,17}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{51,13},{152,149}}</string>
-                <key>sourceSize</key>
-                <string>{236,209}</string>
-            </dict>
-            <key>forest_splat_nuts_container_1_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{343,2},{315,256}}</string>
-                <key>offset</key>
-                <string>{12,22}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{24,0},{315,256}}</string>
-                <key>sourceSize</key>
-                <string>{339,300}</string>
-            </dict>
-            <key>forest_splat_nuts_container_1_b_470px.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,280},{250,209}}</string>
-                <key>offset</key>
-                <string>{0,3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{250,209}}</string>
-                <key>sourceSize</key>
-                <string>{250,215}</string>
             </dict>
             <key>forest_splat_nuts_container_2_a.png</key>
             <dict>
@@ -121,19 +43,34 @@
                 <key>sourceSize</key>
                 <string>{339,300}</string>
             </dict>
-            <key>forest_splat_nuts_container_2_a_470px.png</key>
+            <key>forest_splat_nuts_container_0_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{837,299},{146,175}}</string>
+                <string>{{2,2},{339,276}}</string>
                 <key>offset</key>
-                <string>{12,3}</string>
+                <string>{0,12}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{57,14},{146,175}}</string>
+                <string>{{0,0},{339,276}}</string>
                 <key>sourceSize</key>
-                <string>{236,209}</string>
+                <string>{339,300}</string>
             </dict>
+
+            <key>forest_splat_nuts_container_1_b.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{343,2},{315,256}}</string>
+                <key>offset</key>
+                <string>{12,22}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{24,0},{315,256}}</string>
+                <key>sourceSize</key>
+                <string>{339,300}</string>
+            </dict>
+
             <key>forest_splat_nuts_container_2_b.png</key>
             <dict>
                 <key>frame</key>
@@ -146,19 +83,6 @@
                 <string>{{36,0},{295,300}}</string>
                 <key>sourceSize</key>
                 <string>{339,300}</string>
-            </dict>
-            <key>forest_splat_nuts_container_2_b_470px.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,705},{204,209}}</string>
-                <key>offset</key>
-                <string>{10,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{26,0},{204,209}}</string>
-                <key>sourceSize</key>
-                <string>{236,209}</string>
             </dict>
         </dict>
         <key>metadata</key>

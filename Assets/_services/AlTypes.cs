@@ -31,4 +31,11 @@ namespace AlTypes
 		public String Sentence;
 		public String LinkingIndex;
 	}
+
+	public struct StoryPageData
+	{
+		public String AnchorPoint;
+		public String PageText;
+		public String AudioName;
+	}
 }
