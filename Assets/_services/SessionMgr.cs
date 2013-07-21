@@ -132,6 +132,8 @@ public class SessionMgr
 			break;
 		}
 
+		GameManager.Instance.LogSection(sectionId.ToString(), gs);
+
 		Application.LoadLevel (loadgs);
 	}
 
@@ -167,6 +169,8 @@ public class SessionMgr
 		PersistentObject PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();
 		PersistentManager.ContentBrowserName="ContentBrowser-Scrolling";
 		bool gotDebugSession=false;
+
+		GameManager.Instance.LogSession(sessionId.ToString());
 		
 		if(sessionId==9991)
 		{
