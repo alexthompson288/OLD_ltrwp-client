@@ -353,7 +353,8 @@ public class SplatManager : MonoBehaviour {
 				targetPhonemes.Add(dp.Phoneme);
 			}
 		}
-		else
+		
+		if(targetPhonemes.Count==0)
 		{
 			targetPhonemes.Add("o");
 		}
