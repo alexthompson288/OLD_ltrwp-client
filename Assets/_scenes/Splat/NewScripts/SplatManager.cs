@@ -69,6 +69,7 @@ public class SplatManager : MonoBehaviour {
 	
 	ArrayList targetPhonemes;
 	ArrayList dummyPhonemes;
+	PhonemeData currentPhonemeData;
 
 	void OnEnable(){
 		EasyTouch.On_TouchDown += On_TouchDown;
@@ -167,8 +168,7 @@ public class SplatManager : MonoBehaviour {
 		//play what they just selected
 		PersistentManager.PlayAudioClip(CorrectHit);
 		
-		//TODO: FIX AUDIO
-
+		audio.clip=(AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+currentPhonemeData.Phoneme+"_"+currentPhonemeData.Grapheme+"_"+currentPhonemeData.Mneumonic.Replace(" ","_"));
 		//audio.clip=audioLetters[currentLetter];
 		playedAudioReq=false;
 		
@@ -317,6 +317,7 @@ public class SplatManager : MonoBehaviour {
 				allowInteraction=true;
 				//TODO: FIX AUDIO
 				// audio.clip=audioLetters[currentLetter];
+				audio.clip=(AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+currentPhonemeData.Phoneme+"_"+currentPhonemeData.Grapheme+"_"+currentPhonemeData.Mneumonic.Replace(" ","_"));
 				audio.Play();
 				playedAudioReq=true;
 				audioReqDelay=2.0f;
@@ -436,6 +437,7 @@ public class SplatManager : MonoBehaviour {
 		// random string out of target phonemes
 		// currentLetter=(int)letters[Random.Range(0, letters.Count-1)];
 		currentLetter=(string)targetPhonemes[Random.Range(0,targetPhonemes.Count-1)];
+		currentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(currentLetter);
 		// currentLetter="a";
 	}
 	
