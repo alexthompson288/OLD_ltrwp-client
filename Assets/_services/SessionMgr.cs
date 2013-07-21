@@ -586,7 +586,7 @@ public class SessionMgr
 		if(sessionId==9100)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 1061); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "alien_splat" ); 
 	        _sectionList.Add(hash); 
@@ -594,7 +594,7 @@ public class SessionMgr
 		else if(sessionId==9101)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 1066); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "alien_splat_falling" ); 
 	        _sectionList.Add(hash); 	
@@ -610,7 +610,7 @@ public class SessionMgr
 		else if(sessionId==9103)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 430); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "castle_splat" ); 
 	        _sectionList.Add(hash); 	
@@ -618,7 +618,7 @@ public class SessionMgr
 		else if(sessionId==9104)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 425); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "castle_splat_falling" ); 
 	        _sectionList.Add(hash); 	
@@ -626,7 +626,7 @@ public class SessionMgr
 		else if(sessionId==9105)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 766); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "farm_splat" ); 
 	        _sectionList.Add(hash); 	
@@ -634,7 +634,7 @@ public class SessionMgr
 		else if(sessionId==9106)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 771); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "farm_splat_falling" ); 
 	        _sectionList.Add(hash); 	
@@ -642,7 +642,7 @@ public class SessionMgr
 		else if(sessionId==9107)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 409); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "farm_splat_hay" ); 
 	        _sectionList.Add(hash); 	
@@ -650,7 +650,7 @@ public class SessionMgr
 		else if(sessionId==9108)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 9); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "forest_splat" ); 
 	        _sectionList.Add(hash); 	
@@ -658,7 +658,7 @@ public class SessionMgr
 		else if(sessionId==9109)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 409); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "forest_splat_falling" ); 
 	        _sectionList.Add(hash); 	
@@ -666,7 +666,7 @@ public class SessionMgr
 		else if(sessionId==9110)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 409); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "forest_splat_fircones" ); 
 	        _sectionList.Add(hash); 	
@@ -674,7 +674,7 @@ public class SessionMgr
 		else if(sessionId==9111)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 9); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "forest_splat_fireflys" ); 
 	        _sectionList.Add(hash); 	
@@ -682,7 +682,7 @@ public class SessionMgr
 		else if(sessionId==9112)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 9); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "forest_splat_nuts" ); 
 	        _sectionList.Add(hash); 	
@@ -690,7 +690,7 @@ public class SessionMgr
 		else if(sessionId==9113)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 936); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "school_splat" ); 
 	        _sectionList.Add(hash); 	
@@ -698,7 +698,7 @@ public class SessionMgr
 		else if(sessionId==9114)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 942); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "school_splat_falling" ); 
 	        _sectionList.Add(hash); 	
@@ -706,7 +706,7 @@ public class SessionMgr
 		else if(sessionId==9115)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 942); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "school_splat_notebook" ); 
 	        _sectionList.Add(hash); 	
@@ -714,7 +714,7 @@ public class SessionMgr
 		else if(sessionId==9116)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 441); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "underwater_splat" ); 
 	        _sectionList.Add(hash); 	
@@ -722,7 +722,7 @@ public class SessionMgr
 		else if(sessionId==9117)
 		{
 			hash=new Hashtable(); 
-	        hash.Add("section_id", 999999); 
+	        hash.Add("section_id", 441); 
 	        hash.Add("game_scene", "splat");
 	        hash.Add("game_setting", "underwater_splat_falling" ); 
 	        _sectionList.Add(hash); 	
