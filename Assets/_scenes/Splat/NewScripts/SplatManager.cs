@@ -363,7 +363,9 @@ public class SplatManager : MonoBehaviour {
 		dummyPhonemes=GameManager.Instance.GetDistributedDataPoints("phoneme", 0.8f, 20);
 		if(dummyPhonemes.Count==0)
 		{
-			dummyPhonemes.Add("a");
+			dummyPhonemes.Add("x");
+			dummyPhonemes.Add("y");
+			dummyPhonemes.Add("z");
 		}
 		
 	}
