@@ -117,6 +117,7 @@ public class SplatBally : MonoBehaviour {
 			
 			if(gameManager.currentLetter==currentLetter)
 			{
+				GameManager.Instance.LogDataPoint("phoneme", currentLetter, "1");
 				rigidbody.isKinematic=true;
 				collider.isTrigger=true;
 				if(gameManager.ContainerHasStateB){
@@ -137,6 +138,8 @@ public class SplatBally : MonoBehaviour {
 			}
 			else 
 			{
+				GameManager.Instance.LogDataPoint("phoneme", currentLetter, "-1");
+				GameManager.Instance.LogDataPoint("phoneme", gameManager.currentLetter, "-1");
 				PersistentManager.PlayAudioClip(gameManager.IncorrectHit);
 				gameManager.PlayBennyNegativeHit();
 
