@@ -94,9 +94,9 @@ public class GameManager
 
 		for(int i=0;i<count; i++)
 		{
-			if(UnityEngine.Random.Range(0.0f, 1f) < distPos)
+			if((UnityEngine.Random.Range(0.0f, 1f) < distPos) && pvPos.Count>0)
 				outSet.Add(pvPos[UnityEngine.Random.Range(0, pvPos.Count -1)]);
-			else
+			else if (pvNeg.Count > 0)
 				outSet.Add(pvNeg[UnityEngine.Random.Range(0, pvNeg.Count -1)]);
 		}
 
