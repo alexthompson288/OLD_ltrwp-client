@@ -22,6 +22,11 @@ public class GameManager
 	public string InstallationId { get { return _installationId; }}
 	public string ActivityBatchId { get { return _activityBatchId; }}
 
+	string lastUserId="";
+	string lastSessionId="";
+	string lastSectionId="";
+	string lastGameScene="";
+
 	public SessionMgr SessionMgr {get {return _sessionMgr;}}
 	
 	//info about cms
@@ -46,6 +51,39 @@ public class GameManager
 			eventType,
 			userId == null ? "null" : String.Format("'{0}'", userId),
 			additionalData == null ? "null" : String.Format("'{0}'", additionalData)));
+
+		lastUserId=userId;
+	}
+
+	public void LogSession(string sessionId)
+	{
+		LogEvent("SESSION_START", lastUserId, sessionId);
+		lastSessionId=sessionId;
+	}
+
+	public void LogSection(string sectionId, string gameScene)
+	{
+		LogEvent("SECTION_START", lastUserId, sectionId);
+		LogEvent("GAMESCENE_START", lastUserId, gameScene);
+		lastSectionId=sectionId;
+		lastGameScene=gameScene;
+	}
+
+	public void LogDataPoint(string pointType, string pointKey, string pointValue)
+	{
+		ActivityDb.ExecuteNonQuery(string.Format(
+				"INSERT INTO LoggedDataPoints (date, user_id, batch_id, point_type, point_key, point_value, " + 
+					"session_id, section_id, gamescene) " + 
+					"VALUES({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}') ",
+					UnixDate.Now,
+					lastUserId,
+					ActivityBatchId,
+					pointType,
+					pointKey,
+					pointValue,
+					lastSessionId,
+					lastSectionId,
+					lastGameScene));
 	}
 	
 	public String GetCMSInfo()
@@ -478,6 +516,7 @@ public class GameManager
 			ActivityDb.ExecuteNonQuery("CREATE TABLE UserCreations(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, user_name TEXT NOT NULL, date REAL)");
 			ActivityDb.ExecuteNonQuery("CREATE TABLE Attempts(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, date REAL, score INTEGER)");
 			ActivityDb.ExecuteNonQuery("CREATE TABLE LoggedEvents(batch_id TEXT NOT NULL, date REAL, event_type TEXT NOT NULL, user_id TEXT, additional_data TEXT)");
+			ActivityDb.ExecuteNonQuery("CREATE TABLE LoggedDataPoints(date REAL, user_id TEXT, batch_id TEXT, point_type TEXT, point_key TEXT, point_value TEXT, session_id TEXT, section_id TEXT, gamescene TEXT)");
 		}
 		
 		if (initStateDb)
