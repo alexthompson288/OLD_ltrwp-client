@@ -284,6 +284,24 @@ public class GameManager
 		}
 		return dws;
 	}
+
+	public DataPhonemeData[] GetTargetDataPhonemesForSection(int sectionId)
+	{
+		DataTable dt=CmsDb.ExecuteQuery("select * from data_phonemes INNER JOIN phonemes ON phoneme_id=phonemes.id WHERE section_id="+sectionId.ToString());
+		DataPhonemeData[] dws=new DataPhonemeData[dt.Rows.Count];
+		for(int i=0; i<dt.Rows.Count; i++)		
+		{
+			DataPhonemeData dpd = new DataPhonemeData();
+			dpd.Phoneme=(String)dt.Rows[i]["phoneme"];
+			dpd.PhonemeId=(int)dt.Rows[i]["phoneme_id"];
+			dpd.IsTarget=IsBool((String)dt.Rows[i]["is_target_phoneme"]);
+			dpd.IsDummy=IsBool((String)dt.Rows[i]["is_dummy_phoneme"]);
+			// dpd.LinkingIndex=(int)dt.Rows[i]["linking_index"];
+			dws[i]=dpd;
+		}
+		Debug.Log("GetTargetDataPhonemesForSection count: " + dt.Rows.Count);
+		return dws;	
+	}
 	
 	public PhonemeData[] GetPhonemesForSection(int sectionId)
 	{

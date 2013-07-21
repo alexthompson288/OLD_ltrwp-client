@@ -12,6 +12,16 @@ namespace AlTypes
 		public String LetterInWord;
 	}
 
+	public struct DataPhonemeData
+	{
+		public String Phoneme;
+		public String Grapheme;
+		public bool IsTarget;
+		public bool IsDummy;
+		public int PhonemeId;
+		public int LinkingIndex;
+	}
+
 	public struct DataWordData
 	{
 		//from the data word -- e.g. section level

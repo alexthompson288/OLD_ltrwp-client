@@ -175,7 +175,7 @@ public class SplatManager : MonoBehaviour {
 		destroyLetters.Add (ballLetter);
 		
 		//find instance of selected in letters and remove
-		letters.Remove(currentLetter);
+		// letters.Remove(currentLetter);
 		
 		currentBalls.Remove(callingBall);
 		
@@ -342,19 +342,30 @@ public class SplatManager : MonoBehaviour {
 
 		//what we would like
 		targetPhonemes=new ArrayList();
-		//these would come from data phonemes -- but for now, use it like this
-		targetPhonemes.Add("a");
-		targetPhonemes.Add("eh");
-		targetPhonemes.Add("en");
+		
+		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
+		Debug.Log("raw dpd count: " + dpd.Length);
 
-		//create array of required solutions
-		letters=new ArrayList();
-		for (int i=0; i<targetPhonemes.Count; i++)
+		foreach(DataPhonemeData dp in dpd)
 		{
-			letters.Add(targetPhonemes[i]);
-			letters.Add(targetPhonemes[i]);
-			letters.Add(targetPhonemes[i]);
+			targetPhonemes.Add(dp.Phoneme);
 		}
+
+		Debug.Log("item 1: " + targetPhonemes[0]);
+
+		if(targetPhonemes.Count==0)
+		{
+			targetPhonemes.Add("o");
+		}
+
+		// //create array of required solutions
+		// letters=new ArrayList();
+		// for (int i=0; i<targetPhonemes.Count; i++)
+		// {
+		// 	letters.Add(targetPhonemes[i]);
+		// 	letters.Add(targetPhonemes[i]);
+		// 	letters.Add(targetPhonemes[i]);
+		// }
 		
 		getNextLetter();
 		
@@ -424,8 +435,8 @@ public class SplatManager : MonoBehaviour {
 	void getNextLetter() {
 		// random string out of target phonemes
 		// currentLetter=(int)letters[Random.Range(0, letters.Count-1)];
-		// currentLetter=(string)targetPhonemes[Random.Range(0,letters.Count-1)];
-		currentLetter="a";
+		currentLetter=(string)targetPhonemes[Random.Range(0,targetPhonemes.Count-1)];
+		// currentLetter="a";
 	}
 	
 	public void backpackSquashAndBounce(string part){

@@ -11,6 +11,7 @@ public class SessionMgr
 	int activityIndex;
 	bool debugMode = false;
 	PhonemeData[] _currentPhonemes;
+	DataPhonemeData[] _currentTargetDataPhonemes;
 	DataWordData[] _currentDataWords;
 	DataSentenceData[] _currentDataSentences;
 	string _currentGameSetting;
@@ -20,6 +21,8 @@ public class SessionMgr
 	public DataWordData[] CurrentDataWords { get { return _currentDataWords; } }
 
 	public DataSentenceData[] CurrentDataSentences { get { return _currentDataSentences; } }
+
+	public DataPhonemeData[] CurrentTargetDataPhonemes {get {return _currentTargetDataPhonemes;}}
 
 	public string CurrentGameSetting { get { return _currentGameSetting; } }
 
@@ -54,6 +57,7 @@ public class SessionMgr
 		int sectionId = (int)ahash ["section_id"];
 		_currentGameSetting = (string)ahash ["game_setting"];
 		_currentPhonemes = GameManager.Instance.GetPhonemesForSection (sectionId);
+		_currentTargetDataPhonemes = GameManager.Instance.GetTargetDataPhonemesForSection(sectionId);
 		_currentDataWords = GameManager.Instance.GetDataWordsForSection (sectionId);
 		_currentDataSentences = GameManager.Instance.GetDataSentencesForSection (sectionId);
 
