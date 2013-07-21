@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using AlTypes;
 
 public class SplatManager : MonoBehaviour {
@@ -66,6 +67,9 @@ public class SplatManager : MonoBehaviour {
 	
 	PersistentObject PersistentManager;
 	
+	ArrayList targetPhonemes;
+	ArrayList dummyPhonemes;
+
 	void OnEnable(){
 		EasyTouch.On_TouchDown += On_TouchDown;
 		EasyTouch.On_SimpleTap += On_SimpleTap;
@@ -341,11 +345,17 @@ public class SplatManager : MonoBehaviour {
 
 
 		//what we would like
-		phonemes=new ArrayList();
+		targetPhonemes=new ArrayList();
 		//these would come from data phonemes -- but for now, use it like this
-		phonemes.Add("a");
-		phonemes.Add("eh");
-		phonemes.Add("en");
+		targetPhonemes.Add("a");
+		targetPhonemes.Add("eh");
+		targetPhonemes.Add("en");
+
+		dummyPhonemes=GameManager.Instance.GetDistributedDataPoints("phoneme", 0.8f, 20);
+		if(dummyPhonemes.Count==0)
+		{
+			dummyPhonemes.Add("a");
+		}
 		
 	}
 	
