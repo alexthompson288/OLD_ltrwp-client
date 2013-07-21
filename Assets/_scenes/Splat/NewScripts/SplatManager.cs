@@ -28,7 +28,7 @@ public class SplatManager : MonoBehaviour {
 	
 	public ArrayList currentBalls;
 	ArrayList destroyLetters;
-	public int currentLetter;
+	public string currentLetter;
 	
 	float audioReqDelay=0.0f;
 	bool playedAudioReq=true;
@@ -166,7 +166,10 @@ public class SplatManager : MonoBehaviour {
 		Transform ballLetter=callingBall.GetComponent<SplatBally>().MyLetter;
 		//play what they just selected
 		PersistentManager.PlayAudioClip(CorrectHit);
-		audio.clip=audioLetters[currentLetter];
+		
+		//TODO: FIX AUDIO
+
+		//audio.clip=audioLetters[currentLetter];
 		playedAudioReq=false;
 		
 		destroyLetters.Add (ballLetter);
@@ -196,6 +199,12 @@ public class SplatManager : MonoBehaviour {
 	
 	public void CreateNewSphere()
 	{
+		// get found bool
+		// ballscontain current balls on screen contain current target?
+		// so always a target phoneme
+		// audioletters = dummyletters
+
+
 		Transform newObject=(Transform)Instantiate(SpherePrefab);
 		
 		newObject.position=new Vector3(226, 123, 0);
@@ -206,9 +215,9 @@ public class SplatManager : MonoBehaviour {
 		
 		((SplatBally)newObject.GetComponent("SplatBally")).materialIndex=Random.Range(0,NumberOfContainerVariants);
 		
-		if(!found) ((SplatBally)newObject.GetComponent("SplatBally")).letterIndex=currentLetter;
+		if(!found) ((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=currentLetter;
 		
-		else ((SplatBally)newObject.GetComponent("SplatBally")).letterIndex=Random.Range(0,audioLetters.Length-1);
+		else ((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=(string)dummyPhonemes[Random.Range(0,dummyPhonemes.Count-1)];
 			
 		OTSprite s=newObject.GetComponent<OTSprite>();
 		s.size=new Vector2(1.0f,1.0f);
@@ -223,12 +232,12 @@ public class SplatManager : MonoBehaviour {
 		initedBubbles+=1;
 	}
 	
-	bool ballsContainLetter(int theLetter)
+	bool ballsContainLetter(string theLetter)
 	{
 		bool found=false;
 		foreach(Transform bt in currentBalls)
 		{
-			if(((SplatBally)bt.GetComponent("SplatBally")).letterIndex==theLetter)
+			if(((SplatBally)bt.GetComponent("SplatBally")).currentLetter==theLetter)
 			{
 				found=true;
 				break;
@@ -306,7 +315,8 @@ public class SplatManager : MonoBehaviour {
 			if(audioReqDelay<0 && !playedAudioReq && playing)
 			{
 				allowInteraction=true;
-				audio.clip=audioLetters[currentLetter];
+				//TODO: FIX AUDIO
+				// audio.clip=audioLetters[currentLetter];
 				audio.Play();
 				playedAudioReq=true;
 				audioReqDelay=2.0f;
@@ -330,26 +340,25 @@ public class SplatManager : MonoBehaviour {
 
 		playing=true;
 
-		//create array of required solutions
-		letters=new ArrayList();
-		for (int i=0; i<numberOfDifferentLetters; i++)
-		{
-			letters.Add(i);
-			letters.Add(i);
-			letters.Add(i);
-		}
-		
-		getNextLetter();
-		
-		timeToIntroductionAudio=5.0f;
-
-
 		//what we would like
 		targetPhonemes=new ArrayList();
 		//these would come from data phonemes -- but for now, use it like this
 		targetPhonemes.Add("a");
 		targetPhonemes.Add("eh");
 		targetPhonemes.Add("en");
+
+		//create array of required solutions
+		letters=new ArrayList();
+		for (int i=0; i<targetPhonemes.Count; i++)
+		{
+			letters.Add(targetPhonemes[i]);
+			letters.Add(targetPhonemes[i]);
+			letters.Add(targetPhonemes[i]);
+		}
+		
+		getNextLetter();
+		
+		timeToIntroductionAudio=5.0f;
 
 		dummyPhonemes=GameManager.Instance.GetDistributedDataPoints("phoneme", 0.8f, 20);
 		if(dummyPhonemes.Count==0)
@@ -411,7 +420,10 @@ public class SplatManager : MonoBehaviour {
 	}
 	
 	void getNextLetter() {
-		currentLetter=(int)letters[Random.Range(0, letters.Count-1)];
+		// random string out of target phonemes
+		// currentLetter=(int)letters[Random.Range(0, letters.Count-1)];
+		// currentLetter=(string)targetPhonemes[Random.Range(0,letters.Count-1)];
+		currentLetter="a";
 	}
 	
 	public void backpackSquashAndBounce(string part){

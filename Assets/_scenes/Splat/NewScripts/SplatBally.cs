@@ -8,6 +8,7 @@ public class SplatBally : MonoBehaviour {
 	SplatManager gameManager;
 	bool haveBeenPressed=false;
 	public string[] letterlist;
+	public string currentLetter;
 	public int letterIndex=0;
 	public int materialIndex=0;
 	public ParticleSystem ExplodeParticle;
@@ -37,7 +38,7 @@ public class SplatBally : MonoBehaviour {
 
 		MoveBall(true);
 		
-		SpriteFont.text=letterlist[letterIndex];	
+		SpriteFont.text=currentLetter;
 		MyLetter.GetComponent<OTTextSprite>().spriteContainer=GameObject.Find ("Font Arial-Black-64").GetComponent<OTSpriteAtlasCocos2DFnt>();
 	
 		rigidbody.freezeRotation=true;
@@ -114,7 +115,7 @@ public class SplatBally : MonoBehaviour {
 		
 			if(!haveBeenPressed){
 			
-			if(gameManager.currentLetter==letterIndex)
+			if(gameManager.currentLetter==currentLetter)
 			{
 				rigidbody.isKinematic=true;
 				collider.isTrigger=true;
