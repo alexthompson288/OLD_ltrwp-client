@@ -85,6 +85,35 @@ public class GameManager
 					lastSectionId,
 					lastGameScene));
 	}
+
+	public ArrayList GetDistributedDataPoints(string pointType, float distPos, int count)
+	{
+		ArrayList pvPos=GetDataPointsWithValue(pointType, "1");
+		ArrayList pvNeg=GetDataPointsWithValue(pointType, "-1");
+		ArrayList outSet=new ArrayList();
+
+		for(int i=0;i<count; i++)
+		{
+			if(UnityEngine.Random.Range(0.0f, 1f) < distPos)
+				outSet.Add(pvPos[UnityEngine.Random.Range(0, pvPos.Count -1)]);
+			else
+				outSet.Add(pvNeg[UnityEngine.Random.Range(0, pvNeg.Count -1)]);
+		}
+
+		return outSet;
+	}
+
+	public ArrayList GetDataPointsWithValue(string pointType, string pointValue)
+	{
+		ArrayList al=new ArrayList();
+		DataTable dt=ActivityDb.ExecuteQuery("SELECT point_key FROM LoggedDataPoints WHERE user_id='" + lastUserId 
+			+ "' AND point_type='" + pointType + "' AND point_value='" + pointValue + "'");
+		foreach(DataRow dr in dt.Rows)
+		{
+			al.Add(dr["point_key"]);
+		}
+		return al;
+	}
 	
 	public String GetCMSInfo()
 	{

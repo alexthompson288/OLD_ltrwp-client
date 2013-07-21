@@ -111,6 +111,22 @@ public class LoginRouter : MonoBehaviour
 				Application.LoadLevel("DebugSceneSelect");
 			}
 
+			if(GUI.Button(new Rect(0, 105, 200, btnHeight), "test insert dps & dist"))
+			{
+				GameManager.Instance.LogDataPoint("phoneme", "a", "1");
+				GameManager.Instance.LogDataPoint("phoneme", "a", "1");
+				GameManager.Instance.LogDataPoint("phoneme", "a", "1");
+				GameManager.Instance.LogDataPoint("phoneme", "b", "1");
+				GameManager.Instance.LogDataPoint("phoneme", "eh", "-1");
+				GameManager.Instance.LogDataPoint("phoneme", "d", "-1");
+				GameManager.Instance.LogDataPoint("phoneme", "b", "1");
+				GameManager.Instance.LogDataPoint("phoneme", "eh", "-1");
+
+				ArrayList al=GameManager.Instance.GetDistributedDataPoints("phoneme", 0f, 20);
+				foreach(string pk in al)
+					Debug.Log(pk);
+			}
+
 			GUI.EndGroup();
 		}
 		
