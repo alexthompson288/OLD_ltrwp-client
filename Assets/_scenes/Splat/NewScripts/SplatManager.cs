@@ -345,16 +345,15 @@ public class SplatManager : MonoBehaviour {
 		targetPhonemes=new ArrayList();
 		
 		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
-		Debug.Log("raw dpd count: " + dpd.Length);
 
-		foreach(DataPhonemeData dp in dpd)
+		if(dpd!=null)
 		{
-			targetPhonemes.Add(dp.Phoneme);
+			foreach(DataPhonemeData dp in dpd)
+			{
+				targetPhonemes.Add(dp.Phoneme);
+			}
 		}
-
-		Debug.Log("item 1: " + targetPhonemes[0]);
-
-		if(targetPhonemes.Count==0)
+		else
 		{
 			targetPhonemes.Add("o");
 		}
