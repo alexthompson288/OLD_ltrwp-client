@@ -338,6 +338,14 @@ public class SplatManager : MonoBehaviour {
 		getNextLetter();
 		
 		timeToIntroductionAudio=5.0f;
+
+
+		//what we would like
+		phonemes=new ArrayList();
+		//these would come from data phonemes -- but for now, use it like this
+		phonemes.Add("a");
+		phonemes.Add("eh");
+		phonemes.Add("en");
 		
 	}
 	
