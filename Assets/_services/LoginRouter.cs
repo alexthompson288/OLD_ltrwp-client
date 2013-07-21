@@ -16,6 +16,12 @@ public class LoginRouter : MonoBehaviour
 	{
 		// String[]ss=GameManager.Instance.AllMneumonics();
 		// Debug.Log(ss.Length);
+
+		string activityDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, "activity.db");
+		string stateDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, "state.db");
+		
+		Debug.Log(activityDbPath);
+		Debug.Log(stateDbPath);
 	}
 
 	private void OnGUI ()
@@ -31,7 +37,9 @@ public class LoginRouter : MonoBehaviour
 		style.fontSize = 12;
 		style.normal.textColor = Color.grey;
 		GUI.Label(new Rect(0, 0, 1024, 20), "Activity db path: " + activityDbPath, style);
+		
 		GUI.Label(new Rect(0, 15, 1024, 20), "State db path: " + stateDbPath, style);
+		
 		GUI.Label(new Rect(0, 30, 1024, 20), "ActivityBatchId: " + GameManager.Instance.ActivityBatchId, style);
 		// GUI.Label(new Rect(500,470,500,25), "CMS word count: " + GameManager.Instance.CmsWordCount.ToString());
 		
