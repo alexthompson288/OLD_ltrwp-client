@@ -15,12 +15,15 @@ public class ContentBrowserTouch : MonoBehaviour {
 	string NextSceneType="last";
 	int currentMapIndex=0;
 	ContentBrowserManager cbMan;
+	OTSprite fz;
 	
 	public Transform[] LayersToMove;
 	
 	float countdownToNewScene=1.0f;
 	bool countdown=false;
 	
+	public bool funZoneVisible {get {return fz.visible;}}
+
 	void Awake() {
 		cbMan=GameObject.Find("Main Camera").GetComponent<ContentBrowserManager>();
 	}
@@ -37,7 +40,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 		cameraMover=GameObject.Find ("Main Camera").GetComponent<MoveCamera>();
 		
 		if(funZone!=null){
-			OTSprite fz=funZone.GetComponent<OTSprite>();
+			fz=funZone.GetComponent<OTSprite>();
 			// fz.visible=false;
 		}
 	}
@@ -103,8 +106,6 @@ public class ContentBrowserTouch : MonoBehaviour {
 		if(gesture.pickObject==null)return;
 		
 		if(funZone!=null){
-		
-			OTSprite fz=funZone.GetComponent<OTSprite>();
 			
 			if(gesture.pickObject.name=="btnFunZone" && fzVisible)
 			{
@@ -152,6 +153,10 @@ public class ContentBrowserTouch : MonoBehaviour {
 			{
 				PersistentManager.NextLevel="MatchingBonds";
 				Application.LoadLevel("MultiplayerSelect");
+			}
+			else if(gesture.pickObject.name=="btnFZ3" && fz.visible)
+			{
+				Application.LoadLevel("StoryBrowser");
 			}
 			else if(gesture.pickObject.name=="btnFZ4" && fz.visible)
 			{
