@@ -16,7 +16,7 @@ public class MenuBrowser : MonoBehaviour {
 		}
 		
 		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
-		PersistentManager.ContentBrowserName="ContentBrowser-Scrolling";
+		PersistentManager.ContentBrowserName="ContentBrowser-Full";
 		PersistentManager.LastScene=PersistentManager.CurrentScene;
 		PersistentManager.CurrentScene=Application.loadedLevelName;
 		
@@ -69,7 +69,7 @@ public class MenuBrowser : MonoBehaviour {
 			audio.Play ();
 			Debug.Log ("Got pickobject "+gesture.pickObject.name);
 			bool TintPickObject=false;
-			if(gesture.pickObject.name=="btnBackmark")
+			if(gesture.pickObject.name=="btnBackmark"||gesture.pickObject.name.StartsWith("Backmark"))
 			{
 				countdown=true;
 				TintPickObject=true;

@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PersistentObject : MonoBehaviour {
 	
-	public string ContentBrowserName="ContentBrowser-Scrolling";
+	public string ContentBrowserName="ContentBrowser-Full";
 	public string CurrentTheme="Forest";
-	public string LastScene="ContentBrowser-Scrolling";
-	public string CurrentScene="ContentBrowser-Scrolling";
+	public string LastScene="ContentBrowser-Full";
+	public string CurrentScene="ContentBrowser-Full";
 	public string WordBankWord="non";
 	public string NextLevel;
 	public string CurrentLetter="a";
