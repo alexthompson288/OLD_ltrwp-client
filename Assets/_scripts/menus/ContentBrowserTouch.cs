@@ -22,7 +22,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 	float countdownToNewScene=1.0f;
 	bool countdown=false;
 	
-	public bool funZoneVisible {get {return fz.visible;}}
+	public bool funZoneVisible {get {return fzVisible;}}
 
 	void Awake() {
 		cbMan=GameObject.Find("Main Camera").GetComponent<ContentBrowserManager>();
