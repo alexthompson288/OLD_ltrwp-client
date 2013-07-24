@@ -104,7 +104,7 @@ public class BalAnimation : MonoBehaviour {
 			playIdleSet=true;
 			playStill=true;
 		}
-		else if(playIdleSet&&!playIdle&&playStill){
+		else if(playIdleSet&&!playIdle&&playStill){	
 			SetAnimationStill();
 			
 			int rndChance=Random.Range(0,2);

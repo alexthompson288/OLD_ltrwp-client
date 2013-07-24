@@ -92,6 +92,7 @@ public class MoleTouch : MonoBehaviour {
 		
 		myAnimation.SetAnimationSplat(true);
 		audio.clip=gameManager.CorrectSound;
+		gameManager.PlayVivCorrect();
 		audio.Play ();
 	}
 	

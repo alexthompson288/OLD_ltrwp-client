@@ -55,17 +55,19 @@ public class StoryManager : MonoBehaviour {
 	void GetPageText(StoryPageData thisPage)
 	{
 		string anchor=thisPage.AnchorPoint;
+		string pageText=thisPage.PageText.Replace("\\n", "\n");
+
 
 		if(anchor=="topleft"){
-			txtTL.text=thisPage.PageText;
+			txtTL.text=pageText;
 			txtTL.visible=true;
 		}
 		else if(anchor=="topcenter"){
-			txtTC.text=thisPage.PageText;
+			txtTC.text=pageText;
 			txtTC.visible=true;
 		}
 		else if(anchor=="topright"){
-			txtTR.text=thisPage.PageText;
+			txtTR.text=pageText;
 			txtTR.visible=true;
 		}
 

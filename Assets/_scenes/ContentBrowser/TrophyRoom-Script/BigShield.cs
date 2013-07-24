@@ -11,6 +11,12 @@ public class BigShield : MonoBehaviour {
 	bool IsShowing;
 	float TimeToShowMeFor=3.0f;
 	float TimeShownFor=0.0f;
+	float AudioClipLength=0.0f;
+	float TimeUntilNextAudio=0.0f;
+	AudioClip MyAudio;
+	bool PlayAudio;
+	int TimesPlayed=1;
+	int TimesExpected=4;
 
 	OTSprite Mnemonic;
 	OTTextSprite ILetter;
@@ -98,19 +104,27 @@ public class BigShield : MonoBehaviour {
 		
 		if(myAC!=null){
 			gameManager.PlayAudioClip(myAC);
-			TimeToShowMeFor=myAC.length;
+			TimeToShowMeFor=(myAC.length*TimesExpected)+(TimesExpected+1);
+			PlayAudio=true;
+			TimeUntilNextAudio=myAC.length+1;
+			AudioClipLength=myAC.length+1;
+			MyAudio=myAC;
 		}
 		else{
-			Debug.Log("audio clip failed load");
+			Debug.Log("audio clip failed load - audio/benny_mnemonics_master/benny_mnemonic_"+MyLetter+"_"+MyLetter+"_"+DisplayString.Replace(" ","_"));
 		}
 
 		IsShowing=true;
 		gameManager.DisableTouches=true;
-		SwitchBetweenTextMnemonic();
+		SwitchBetweenTextMnemonic(1.5f);
 	}
 
-	void HideAndEnableTouches()
+	public void HideAndEnableTouches()
 	{
+		if(!IsShowing)return;
+		IsShowing=false;
+		
+		TimesPlayed=TimesExpected;
 		if(!DoNotMove){
 			OTSprite mySelf=gameObject.GetComponent<OTSprite>();
 			Vector2 newPos=new Vector2(0.0f, -755.0f);
@@ -125,24 +139,24 @@ public class BigShield : MonoBehaviour {
 			Go.addTween(tween);
 		}
 
-		IsShowing=false;
-		gameManager.DisableTouches=false;
-
 	}
 
 	void DestroyMe()
 	{
+		gameManager.CurrentBigShield=null;
+		PlayAudio=false;
+		gameManager.DisableTouches=false;
 		GameObject.Destroy(gameObject);
 	}
 
-	void SwitchBetweenTextMnemonic() {
+	void SwitchBetweenTextMnemonic(float time) {
 		var config=new GoTweenConfig()
 			.floatProp( "alpha", 0.0f )
 			.setIterations ( -1, GoLoopType.PingPong );
 
 		
 		// Go.to(s, 0.3f, config );
-		GoTween tween=new GoTween(Mnemonic, 1.5f, config);
+		GoTween tween=new GoTween(Mnemonic, time, config);
 
 		Go.addTween(tween);
 
@@ -152,7 +166,7 @@ public class BigShield : MonoBehaviour {
 
 		
 		// Go.to(s, 0.3f, config );
-		GoTween tweent=new GoTween(ILetter, 1.5f, configt);
+		GoTween tweent=new GoTween(ILetter, time, configt);
 
 		Go.addTween(tweent);
 	}
@@ -167,5 +181,23 @@ public class BigShield : MonoBehaviour {
 				HideAndEnableTouches();
 			}
 		}
+
+		if(PlayAudio)
+		{
+			TimeUntilNextAudio-=Time.deltaTime;
+
+			if(TimeUntilNextAudio<0 && TimesPlayed<TimesExpected)
+			{
+				TimeUntilNextAudio=AudioClipLength;
+				gameManager.PlayAudioClip(MyAudio);
+				// Invoke("PlayMyAudio", 1.0f);
+				TimesPlayed++;
+			}
+		}
+	}
+
+	void PlayMyAudio()
+	{
+		gameManager.PlayAudioClip(MyAudio);
 	}
 }

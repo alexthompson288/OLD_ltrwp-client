@@ -18,6 +18,8 @@ public class SplatTheRatManager : MonoBehaviour {
 	
 	OTSprite BackgroundCloud;
 	
+	public AudioClip[] VivCorrectReactions;
+
 	public AudioClip IntroductionClip;
 	
 	int lettersFound=0;
@@ -291,6 +293,12 @@ public class SplatTheRatManager : MonoBehaviour {
 				break;
 			}
 		}
+	}
+
+	public void PlayVivCorrect()
+	{
+		AudioClip ac=(AudioClip)VivCorrectReactions[Random.Range(0,VivCorrectReactions.Length)];
+		PersistentManager.PlayAudioClip(ac);
 	}
 	
 	public bool CorrectLetterOnMole(string letter)
