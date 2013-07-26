@@ -29,9 +29,7 @@ public class USPlayAudioEventEditor : USEventBaseEditor
 		DrawDefaultBox(myArea, thisEvent);
 
 		GUILayout.BeginArea(myArea);
-#if (UNITY_4_0 || UNITY_4_1)
-		
-#else
+#if (UNITY_3_5)
 			if (audioEvent && audioEvent.audioClip)
 				audioWaveTexture = EditorUtility.GetAssetPreview(audioEvent.audioClip);
 #endif
