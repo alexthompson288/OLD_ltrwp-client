@@ -47,5 +47,6 @@ namespace AlTypes
 		public String AnchorPoint;
 		public String PageText;
 		public String AudioName;
+		public String ImageName;
 	}
 }

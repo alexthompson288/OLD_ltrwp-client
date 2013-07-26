@@ -21,6 +21,7 @@ public class StoryManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log("in story");
 		txtTL.visible=false;
 		txtTC.visible=false;
 		txtTR.visible=false;
@@ -36,7 +37,10 @@ public class StoryManager : MonoBehaviour {
 		txtTL.visible=false;
 		txtTC.visible=false;
 		txtTR.visible=false;
-		Texture2D nPage=(Texture2D)Resources.Load("Images/stories/"+PersistentManager.StoryID+"/"+CurrentPage);
+		int modPageIndex=CurrentPage+1;
+		StoryPageData thisPage=GameManager.Instance.GetStoryPageFor(PersistentManager.StoryID, modPageIndex);
+		Debug.Log("thisPage Image Images/storypages/"+thisPage.ImageName);
+		Texture2D nPage=(Texture2D)Resources.Load("Images/storypages/"+thisPage.ImageName);
 		if(nPage==null && !shownTheEnd)
 			ShowTheEnd();
 		else if(nPage==null && shownTheEnd)
@@ -45,8 +49,6 @@ public class StoryManager : MonoBehaviour {
 			PageSprite.image=nPage;
 
 		if(PersistentManager.StoryID<16 && !shownTheEnd){
-			int modPageIndex=CurrentPage+1;
-			StoryPageData thisPage=GameManager.Instance.GetStoryPageFor(PersistentManager.StoryID, modPageIndex);
 			GetPageText(thisPage);
 		}
 		CurrentPage++;
@@ -54,6 +56,8 @@ public class StoryManager : MonoBehaviour {
 
 	void GetPageText(StoryPageData thisPage)
 	{
+		if(thisPage.PageText=="null")return;
+
 		string anchor=thisPage.AnchorPoint;
 		string pageText=thisPage.PageText.Replace("\\n", "\n");
 
@@ -73,7 +77,7 @@ public class StoryManager : MonoBehaviour {
 
 		if(thisPage.AudioName!="")
 		{
-			AudioClip ac=(AudioClip)Resources.Load("audio/stories/"+PersistentManager.StoryID+"/"+thisPage.AudioName);
+			AudioClip ac=(AudioClip)Resources.Load("audio/stories/"+thisPage.AudioName);
 			audio.clip=ac;
 			audio.Play();
 		}
