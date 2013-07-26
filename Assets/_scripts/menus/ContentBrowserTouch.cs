@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ContentBrowserTouch : MonoBehaviour {
 	
@@ -16,6 +17,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 	int currentMapIndex=0;
 	ContentBrowserManager cbMan;
 	OTSprite fz;
+	public OTSprite[] Nodes;
 	
 	public Transform[] LayersToMove;
 	
@@ -32,6 +34,17 @@ public class ContentBrowserTouch : MonoBehaviour {
 	void Start () {
 		ReadPersistentObjectSettings();	
 		
+		List<int> CompletedSessions=GameManager.Instance.GetCompletedSessions();
+
+		foreach(OTSprite s in Nodes)
+		{
+			NodeInfo ni=s.GetComponent<NodeInfo>();
+			if(CompletedSessions.Contains(ni.sessionID))
+				s.visible=true;
+			else
+				s.visible=false;
+		}
+
 		funZone=null;
 		
 		if(GameObject.Find ("FunZoneLayer")!=null)

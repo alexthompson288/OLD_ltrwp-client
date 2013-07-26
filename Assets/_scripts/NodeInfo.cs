@@ -4,6 +4,7 @@ using System.Collections;
 public class NodeInfo : MonoBehaviour {
 	
 	public int sessionID;
+	public bool notInteractive;
 
 	ContentBrowserTouch cbTouch;
 	
@@ -37,6 +38,8 @@ public class NodeInfo : MonoBehaviour {
 	
 	void On_SimpleTap(Gesture gesture)
 	{
+		if(notInteractive)return;
+		
 		if(gesture.pickObject==gameObject && !cbTouch.funZoneVisible)
 		{
 			Debug.Log ("hit node with sessionid "+sessionID);
