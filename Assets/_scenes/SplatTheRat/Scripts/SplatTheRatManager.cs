@@ -26,6 +26,7 @@ public class SplatTheRatManager : MonoBehaviour {
 	public AudioClip[] BennyCompleteReactions;
 
 	public AudioClip IntroductionClip;
+	public AudioClip IntroductionClipKeyword;
 	
 	int lettersFound=0;
 	int p2LettersFound=0;
@@ -44,6 +45,7 @@ public class SplatTheRatManager : MonoBehaviour {
 	public AudioClip IdleAudio;
 	public AudioClip IdleAudioKeyword;
 	public AudioClip HintSound;
+	public AudioClip Trumpets;
 	
 	public Transform WinText;
 	
@@ -53,6 +55,8 @@ public class SplatTheRatManager : MonoBehaviour {
 	bool ShouldFlashKeywordSign;
 	float TimeToNextSignChange=0.6f;
 	float TimeBetweenKeywordSignChanges=0.6f;
+	float TimeSignShownFor=0.0f;
+	float TimeSignShouldShowFor=5.0f;
 	public Texture2D KeywordSignLit;
 	public Texture2D KeywordSignUnlit;
 
@@ -67,6 +71,8 @@ public class SplatTheRatManager : MonoBehaviour {
 
 	public Transform vivDance;
 	public Transform vivExit;
+	bool ShowingVivDance;
+	bool ShowingVivExit;
 	
 //	Transform lastMole;
 	
@@ -78,18 +84,11 @@ public class SplatTheRatManager : MonoBehaviour {
 		ReadPersistentObjectSettings();
 		PersistentManager.KeywordGame=true;
 		// move the sign down
+		PlayIntro();
 		if(PersistentManager.KeywordGame)
 		{
-			KeywordSign.gameObject.SetActive(true);
-			OTSprite kwSign=KeywordSign.GetComponent<OTSprite>();
-			Vector2 newPos=new Vector2(246.0f, 246.0f);
-			var config=new GoTweenConfig()
-				.vector2Prop( "position", newPos )
-				.setEaseType( GoEaseType.BounceOut );
-
-			GoTween tween=new GoTween(kwSign, 0.8f, config);
-			tween.setOnCompleteHandler(c => FlashKeywordSign());
-			Go.addTween(tween);
+			ShowKeywordSign();
+			ShowVivDance();
 		}
 
 
@@ -170,7 +169,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		else
 			LetterFont=GameObject.Find("Font").transform;
 		
-		BackgroundCloud=GameObject.Find ("BackgroundCloud").GetComponent<OTSprite>();
+		// BackgroundCloud=GameObject.Find ("BackgroundCloud").GetComponent<OTSprite>();
 		
 //		CreateMole();
 		
@@ -188,6 +187,14 @@ public class SplatTheRatManager : MonoBehaviour {
 		if(PersistentManager.CurrentLetter==null)
 			PersistentManager.CurrentLetter="a";
 	}	
+
+	public void CreateNewPersistentObject()
+	{
+		if(GameObject.Find ("PersistentManager")==null){
+			GameObject thisPO=new GameObject("PersistentManager");
+			thisPO.AddComponent<PersistentObject>();
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -203,6 +210,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		
 		if(ShouldFlashKeywordSign)
 		{
+			TimeSignShownFor+=Time.deltaTime;
 			TimeToNextSignChange-=Time.deltaTime;
 
 			if(TimeToNextSignChange<0)
@@ -214,16 +222,32 @@ public class SplatTheRatManager : MonoBehaviour {
 
 				TimeToNextSignChange=TimeBetweenKeywordSignChanges;
 			}
+
+			if(TimeSignShownFor>TimeSignShouldShowFor)
+			{
+				HideKeywordSign();
+			}
+		}
+
+		if(ShowingVivDance)
+		{
+			if(vivDance.GetComponent<ALVideoTexture>().hasFinished && playing)
+				ShowVivExit();
+		}
+		else if(ShowingVivExit)
+		{
+			if(vivExit.GetComponent<ALVideoTexture>().hasFinished)
+				HideVivExit();
 		}
 
 		if(playing){
 			TimeSinceInteraction+=Time.deltaTime;
 			creationTime-=Time.deltaTime;
 			
-			BackgroundCloud.position=new Vector2(BackgroundCloud.position.x-0.5f,BackgroundCloud.position.y);
+			// BackgroundCloud.position=new Vector2(BackgroundCloud.position.x-0.5f,BackgroundCloud.position.y);
 			
-			if(BackgroundCloud.position.x<-995.0f)
-				BackgroundCloud.position=new Vector2(995.0f,BackgroundCloud.position.y);
+			// if(BackgroundCloud.position.x<-995.0f)
+			// 	BackgroundCloud.position=new Vector2(995.0f,BackgroundCloud.position.y);
 			
 			if(TimeSinceInteraction>IdleTimeOut)
 			{
@@ -241,6 +265,71 @@ public class SplatTheRatManager : MonoBehaviour {
 				CreateMole();
 			}
 		}
+	}
+
+	void ShowVivDance()
+	{
+		ShowingVivDance=true;
+		vivDance.gameObject.SetActive(true);
+	}
+
+	void ShowVivExit()
+	{
+		ShowingVivDance=false;
+		ShowingVivExit=true;
+		vivDance.gameObject.SetActive(false);	
+		vivExit.gameObject.SetActive(true);
+	}
+
+	void HideVivExit()
+	{
+		ShowingVivExit=false;
+		vivExit.gameObject.SetActive(false);
+	}
+
+	void ShowKeywordSign()
+	{
+		KeywordSign.gameObject.SetActive(true);
+		TimeSignShownFor=0.0f;
+
+		foreach(Transform t in KeywordSign)
+		{
+			if(t.name=="Word")
+			{
+				t.GetComponent<OTTextSprite>().text=PersistentManager.CurrentLetter;
+				t.GetComponent<OTTextSprite>().depth=-150;
+
+			}
+		}
+
+		OTSprite kwSign=KeywordSign.GetComponent<OTSprite>();
+		Vector2 newPos=new Vector2(246.0f, 246.0f);
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", newPos )
+			.setEaseType( GoEaseType.BounceOut );
+
+		GoTween tween=new GoTween(kwSign, 0.8f, config);
+		tween.setOnCompleteHandler(c => FlashKeywordSign());
+		Go.addTween(tween);
+	}
+
+	void HideKeywordSign() 
+	{
+		ShouldFlashKeywordSign=false;
+		OTSprite kwSign=KeywordSign.GetComponent<OTSprite>();
+		Vector2 newPos=new Vector2(246.0f, 640.0f);
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", newPos )
+			.setEaseType( GoEaseType.BounceOut );
+
+		GoTween tween=new GoTween(kwSign, 0.8f, config);
+		tween.setOnCompleteHandler(c => DisableKeywordSign());
+		Go.addTween(tween);		
+	}
+
+	void DisableKeywordSign()
+	{
+		KeywordSign.gameObject.SetActive(false);
 	}
 
 	void FlashKeywordSign()
@@ -273,7 +362,14 @@ public class SplatTheRatManager : MonoBehaviour {
 			if(gesture.pickObject.name.StartsWith("BalAni"))
 			{
 				if(bookPressesSinceLastCorrect==0){
-					Debug.Log("show sign??");
+					if(PersistentManager.KeywordGame)
+					{
+						ShowKeywordSign();
+					}
+					else 
+					{
+						Debug.Log("first book hit");
+					}
 				}
 				else if(bookPressesSinceLastCorrect>0){
 					Debug.Log("GLOW THE RIGHT ONE");
@@ -336,6 +432,7 @@ public class SplatTheRatManager : MonoBehaviour {
 				OTTextSprite txt=c.GetComponent<OTTextSprite>();
 				txt.spriteContainer=LetterFont.GetComponent<OTSpriteAtlasCocos2DFnt>();
 				txt.text=(string)AllLetters[letterIndex];
+				txt.depth=-1;
 				lastMole.GetComponent<MoleTouch>().myLetter=txt.text;
 				txt.ForceUpdate();
 				break;
@@ -395,10 +492,18 @@ public class SplatTheRatManager : MonoBehaviour {
 	}
 	
 	public void PlayIntro(){
-		audio.clip=IntroductionClip;
+		if(PersistentManager.KeywordGame)
+		{
+			audio.clip=IntroductionClipKeyword;
+		}
+		else 
+		{
+			audio.clip=IntroductionClip;
+		}
+		
 		audio.Play();
 		hasPlayedIntroAudio=false;
-		creationTime=4.0f;
+		creationTime=audio.clip.length;
 	}
 	
 	void PlayIdle(){
@@ -424,8 +529,16 @@ public class SplatTheRatManager : MonoBehaviour {
 	
 	void PlayCorrectAudioClip(string letter)
 	{
-		CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
-		PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
+		if(PersistentManager.KeywordGame)
+		{
+			PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/words/"+PersistentManager.CurrentLetter.ToLower()));
+		}
+		else
+		{
+			CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
+			PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
+		}
+
 		// foreach(AudioClip a in LetterSounds)
 		// {
 		// 	if(a.name==letter)

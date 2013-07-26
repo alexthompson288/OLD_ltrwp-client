@@ -439,12 +439,22 @@ public class GameManager
 	{
 		StoryPageData thisPage=new StoryPageData();
 
-		DataTable dt=CmsDb.ExecuteQuery("select text,audio,textposition from storypages where story_id='"+storyID+"' and pageorder='"+pageID+"'");
+		DataTable dt=CmsDb.ExecuteQuery("select text,audio,textposition,image from storypages where story_id='"+storyID+"' and pageorder='"+pageID+"'");
 
-		thisPage.AnchorPoint=(String)dt.Rows[0]["textposition"];
-		thisPage.PageText=(String)dt.Rows[0]["text"];
-		thisPage.AudioName=(String)dt.Rows[0]["audio"];
-
+		if(dt.Rows.Count>0)
+		{
+			thisPage.AnchorPoint=(String)dt.Rows[0]["textposition"];
+			thisPage.PageText=(String)dt.Rows[0]["text"];
+			thisPage.AudioName=(String)dt.Rows[0]["audio"];
+			thisPage.ImageName=(String)dt.Rows[0]["image"];
+		}
+		else 
+		{
+			thisPage.AnchorPoint="null";
+			thisPage.PageText="null";
+			thisPage.AudioName="null";
+			thisPage.ImageName="null";
+		}
 		return thisPage;
 	}
 

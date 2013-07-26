@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class StoryBrowserManager : MonoBehaviour {
 	public OTSprite[] ActiveBooks;
@@ -29,7 +30,7 @@ public class StoryBrowserManager : MonoBehaviour {
 
 	void Start () {
 		if(PersistentManager.LastStoryBrowserPageIndex>0)currentIndex=PersistentManager.LastStoryBrowserPageIndex;
-		SetupBooks();
+			SetupBooks();
 	}
 	
 	void SetupBooks()
@@ -116,11 +117,11 @@ public class StoryBrowserManager : MonoBehaviour {
 				audio.clip=BookTap;
 				audio.Play();
 
-				Debug.Log("picked story "+thisBook.bookId);
-
 				PersistentManager.StoryID=thisBook.bookId;
+				StoryPageData thisPage=GameManager.Instance.GetStoryPageFor(thisBook.bookId, 1);
+				Debug.Log("picked story "+thisBook.bookId+"// thisPage Image "+thisPage.ImageName);
 
-				if(Resources.Load("Images/stories/"+thisBook.bookId+"/0"))
+				if(Resources.Load("Images/storypages/"+thisPage.ImageName))
 					Application.LoadLevel("Stories");
 				else
 					Debug.Log("do not have pages for story");
