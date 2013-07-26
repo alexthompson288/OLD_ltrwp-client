@@ -40,6 +40,9 @@ public class ContentBrowserTouch : MonoBehaviour {
 		{
 			NodeInfo ni=s.GetComponent<NodeInfo>();
 			if(CompletedSessions.Contains(ni.sessionID))
+				s.visible=true;
+			else
+				s.visible=false;
 		}
 
 		funZone=null;
