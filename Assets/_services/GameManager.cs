@@ -202,6 +202,15 @@ public class GameManager
 		return rdata;
 	}
 	
+	public List<int> GetCompletedSessions()
+	{
+		List<int> lret=new List<int>();
+		lret.Add(9001);
+		lret.Add(9002);
+		lret.Add(9003);
+		return lret;
+	}
+
 	public List<PhonemeData> GetPhonemesForWord(String word)
 	{
 		//get the word
