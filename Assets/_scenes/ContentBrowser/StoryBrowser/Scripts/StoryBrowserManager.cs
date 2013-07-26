@@ -119,7 +119,7 @@ public class StoryBrowserManager : MonoBehaviour {
 
 				PersistentManager.StoryID=thisBook.bookId;
 				StoryPageData thisPage=GameManager.Instance.GetStoryPageFor(thisBook.bookId, 1);
-				Debug.Log("picked story "+thisBook.bookId+"// thisPage Image "+thisPage.ImageName);
+				Debug.Log("picked story "+thisBook.bookId+"// thisPage Image Images/storypages/"+thisPage.ImageName);
 
 				if(Resources.Load("Images/storypages/"+thisPage.ImageName))
 					Application.LoadLevel("Stories");
