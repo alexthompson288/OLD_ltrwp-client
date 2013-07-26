@@ -199,8 +199,6 @@ public class GameManager
 
 		rdata.Grapheme=(String)dtp.Rows[0]["grapheme"];
 
-		Debug.Log("rdata phoneme="+rdata.Phoneme+"// rdata mneumonic "+rdata.Mneumonic +"// rdata grapheme"+rdata.Grapheme);
-
 		return rdata;
 	}
 	

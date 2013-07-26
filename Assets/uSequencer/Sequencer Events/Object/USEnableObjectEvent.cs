@@ -8,26 +8,26 @@ public class USEnableObjectEvent : USEventBase
     public bool enable = false;
 	private bool prevEnable = false;
 	
-#if (UNITY_4_0 || UNITY_4_1)
-#else
+#if (UNITY_3_5)
 	public bool enableRecursively = true;
+#else
 #endif
 	
 	public override void FireEvent()
 	{
-#if (UNITY_4_0 || UNITY_4_1)
-		prevEnable = AffectedObject.activeSelf;
-#else
+#if (UNITY_3_5)
 		prevEnable = AffectedObject.active;
+#else
+		prevEnable = AffectedObject.activeSelf;
 #endif
 		
-#if (UNITY_4_0 || UNITY_4_1)
-		AffectedObject.SetActive(enable);
-#else
+#if (UNITY_3_5)
 		if(enableRecursively)
 	        AffectedObject.SetActiveRecursively(enable);
 		else
 			AffectedObject.active = enable;
+#else
+		AffectedObject.SetActive(enable);
 #endif
 	}
 	
@@ -46,13 +46,13 @@ public class USEnableObjectEvent : USEventBase
 		if(!AffectedObject)
 			return;
 		
-#if (UNITY_4_0 || UNITY_4_1)
-		AffectedObject.SetActive(prevEnable);
-#else
+#if (UNITY_3_5)
 		if(enableRecursively)
 	        AffectedObject.SetActiveRecursively(prevEnable);
 		else
 			AffectedObject.active = prevEnable;
+#else
+		AffectedObject.SetActive(prevEnable);
 #endif
 	}
 }

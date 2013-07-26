@@ -54,7 +54,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 		}
 		
 		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
-		PersistentManager.ContentBrowserName="ContentBrowser-Scrolling";
+		PersistentManager.ContentBrowserName="ContentBrowser-Full";
 		
 	}
 	
@@ -125,24 +125,6 @@ public class ContentBrowserTouch : MonoBehaviour {
 				fzbtn.image=fzClose;
 				fzVisible=true;
 				return;
-			}
-			else if(gesture.pickObject.name=="btnMPSEasy" && fz.visible)
-			{
-				PersistentManager.Players=2;
-				PersistentManager.LastScene=Application.loadedLevelName;
-				Application.LoadLevel(PersistentManager.NextLevel);
-			}
-			else if(gesture.pickObject.name=="btnMPSMedium" && fz.visible)
-			{
-				PersistentManager.Players=2;
-				PersistentManager.LastScene=Application.loadedLevelName;
-				Application.LoadLevel(PersistentManager.NextLevel);
-			}
-			else if(gesture.pickObject.name=="btnMPSHard" && fz.visible)
-			{
-				PersistentManager.Players=2;
-				PersistentManager.LastScene=Application.loadedLevelName;
-				Application.LoadLevel(PersistentManager.NextLevel);
 			}
 			else if(gesture.pickObject.name=="btnFZ1" && fz.visible)
 			{
@@ -352,8 +334,21 @@ public class ContentBrowserTouch : MonoBehaviour {
 //			mt.Tween("position", new Vector2(gameObject.transform.position.x,gameObject.transform.position.y+100));
 			
 			// Application.LoadLevel(PersistentManager.ContentBrowserName);
+			if(PersistentManager.Players==2)
+				Application.LoadLevel(PersistentManager.ContentBrowserName);
+			else 
+				GameManager.Instance.SessionMgr.CloseActivity();
+				
+		}
+		else if(gesture.pickObject.name=="btnBackmarkCB")
+		{
+			TintPickObject=true;
+			countdown=true;
+			OTTween fo=new OTTween(gesture.pickObject.GetComponent<OTSprite>(), 0.8f, OTEasing.BounceIn);
+			fo.Tween("position", new Vector2(gesture.pickObject.GetComponent<OTSprite>().position.x,gesture.pickObject.GetComponent<OTSprite>().position.y+200.0f));	
 
-			GameManager.Instance.SessionMgr.CloseActivity();
+
+			Application.LoadLevel(PersistentManager.ContentBrowserName);
 		}
 		else if(gesture.pickObject.name=="UpBtn")
 		{
@@ -366,7 +361,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 		else if(gesture.pickObject.name=="btnBalAni")
 		{
 			Debug.Log ("loaded level name: "+Application.loadedLevelName);
-			if(Application.loadedLevelName=="ContentBrowser-Scrolling"){
+			if(Application.loadedLevelName=="ContentBrowser-Full"){
 				Application.LoadLevel("BookMenu");
 			}
 			else if(Application.loadedLevelName=="SplatTheRat PX"){

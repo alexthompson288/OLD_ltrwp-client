@@ -84,7 +84,7 @@ public class MenuBrowser : MonoBehaviour {
 				Debug.Log ("Content browser backnmark: "+PersistentManager.ContentBrowserName);
 				OTTween fo=new OTTween(gesture.pickObject.GetComponent<OTSprite>(), 0.8f, OTEasing.BounceIn);
 				fo.Tween("position", new Vector2(gesture.pickObject.GetComponent<OTSprite>().position.x,gesture.pickObject.GetComponent<OTSprite>().position.y+200.0f));	
-				PersistentManager.LastScene="ContentBrowser-Scrolling";	
+				PersistentManager.LastScene="ContentBrowser-Full";	
 			}
 			else if(gesture.pickObject.name=="btnTrophyRoom")
 			{

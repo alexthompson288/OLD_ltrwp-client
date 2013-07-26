@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class SplatTheRatManager : MonoBehaviour {
 	
@@ -15,9 +16,15 @@ public class SplatTheRatManager : MonoBehaviour {
 	float maxCreate=2.0f;
 	float minRemove=1.0f;
 	float maxRemove=2.5f;
+
+	float TimeSinceInteraction=0.0f;
+	float IdleTimeOut=15.0f;
 	
 	OTSprite BackgroundCloud;
 	
+	public AudioClip[] VivCorrectReactions;
+	public AudioClip[] BennyCompleteReactions;
+
 	public AudioClip IntroductionClip;
 	
 	int lettersFound=0;
@@ -34,14 +41,32 @@ public class SplatTheRatManager : MonoBehaviour {
 	public AudioClip CorrectSound;
 	public AudioClip IncorrectSound;
 	public AudioClip SuccessClip;
+	public AudioClip IdleAudio;
+	public AudioClip IdleAudioKeyword;
+	public AudioClip HintSound;
 	
 	public Transform WinText;
 	
 	public AudioClip[] LetterSounds;
+
+	public Transform KeywordSign;
+	bool ShouldFlashKeywordSign;
+	float TimeToNextSignChange=0.6f;
+	float TimeBetweenKeywordSignChanges=0.6f;
+	public Texture2D KeywordSignLit;
+	public Texture2D KeywordSignUnlit;
+
+	string GameType="phoneme";
+
+	PhonemeData CurrentPhonemeData;
 	
 	bool exitCountdown;
 	float countdownToExit=4.0f;
 	bool hasPlayedIntroAudio=false;
+	int bookPressesSinceLastCorrect=0;
+
+	public Transform vivDance;
+	public Transform vivExit;
 	
 //	Transform lastMole;
 	
@@ -51,7 +76,23 @@ public class SplatTheRatManager : MonoBehaviour {
 	void Start () {
 		
 		ReadPersistentObjectSettings();
-		
+		PersistentManager.KeywordGame=true;
+		// move the sign down
+		if(PersistentManager.KeywordGame)
+		{
+			KeywordSign.gameObject.SetActive(true);
+			OTSprite kwSign=KeywordSign.GetComponent<OTSprite>();
+			Vector2 newPos=new Vector2(246.0f, 246.0f);
+			var config=new GoTweenConfig()
+				.vector2Prop( "position", newPos )
+				.setEaseType( GoEaseType.BounceOut );
+
+			GoTween tween=new GoTween(kwSign, 0.8f, config);
+			tween.setOnCompleteHandler(c => FlashKeywordSign());
+			Go.addTween(tween);
+		}
+
+
 		if(PersistentManager.Players==2)
 		{
 			OTSprite ProgressP2=GameObject.Find ("ProgressBarP2").GetComponent<OTSprite>();
@@ -63,37 +104,58 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		
 //		creationTime=Random.Range(minCreate,maxCreate);
-		DummyLetters=new ArrayList();
+		// DummyLetters=new ArrayList();
 		CorrectLetters=new ArrayList();
 		AllLetters=new ArrayList();
 		ActiveMoles=new ArrayList();
-		
-		for(int i=0;i<3;i++)
+
+		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
+
+		if(dpd!=null)
 		{
-			if(i==0){
-				if(PersistentManager.KeywordGame)
-					DummyLetters.Add("as");
-				else
-					DummyLetters.Add ("d");
-				CorrectLetters.Add (PersistentManager.CurrentLetter);
-			}
-			else if(i==1){
-				if(PersistentManager.KeywordGame)
-					DummyLetters.Add("sat");
-				else
-					DummyLetters.Add ("m");
-//				CorrectLetters.Add ("a");				
-				CorrectLetters.Add (PersistentManager.CurrentLetter);
-			}
-			
-			else if(i==2){
-				CorrectLetters.Add (PersistentManager.CurrentLetter);				
+			foreach(DataPhonemeData dp in dpd)
+			{
+				CorrectLetters.Add(dp.Phoneme);
+				CorrectLetters.Add(dp.Phoneme);
 			}
 		}
+
+		if(CorrectLetters.Count==0)
+		{
+			CorrectLetters.Add("empty");
+		}
+
+		DummyLetters=GameManager.Instance.GetDistributedDataPoints(GameType, 0.8f, 20);
+
+		if(DummyLetters.Count==0)
+		{
+			DummyLetters.Add("empty");
+		}		
+// 		for(int i=0;i<3;i++)
+// 		{
+// 			if(i==0){
+// 				if(PersistentManager.KeywordGame)
+// 					DummyLetters.Add("as");
+// 				else
+// 					DummyLetters.Add ("d");
+// 				CorrectLetters.Add (PersistentManager.CurrentLetter);
+// 			}
+// 			else if(i==1){
+// 				if(PersistentManager.KeywordGame)
+// 					DummyLetters.Add("sat");
+// 				else
+// 					DummyLetters.Add ("m");
+// //				CorrectLetters.Add ("a");				
+// 				CorrectLetters.Add (PersistentManager.CurrentLetter);
+// 			}
+			
+// 			else if(i==2){
+// 				CorrectLetters.Add (PersistentManager.CurrentLetter);				
+// 			}
+// 		}
 		
 		for(int i=0;i<CorrectLetters.Count;i++)
 		{
-			AllLetters.Add (CorrectLetters[i]);
 			AllLetters.Add (CorrectLetters[i]);
 		}
 		for(int i=0;i<DummyLetters.Count;i++)
@@ -139,7 +201,23 @@ public class SplatTheRatManager : MonoBehaviour {
 //			Application.LoadLevel(PersistentManager.ContentBrowserName);
 		}
 		
+		if(ShouldFlashKeywordSign)
+		{
+			TimeToNextSignChange-=Time.deltaTime;
+
+			if(TimeToNextSignChange<0)
+			{
+				if(KeywordSign.GetComponent<OTSprite>().image==KeywordSignUnlit)
+					KeywordSign.GetComponent<OTSprite>().image=KeywordSignLit;
+				else 
+					KeywordSign.GetComponent<OTSprite>().image=KeywordSignUnlit;
+
+				TimeToNextSignChange=TimeBetweenKeywordSignChanges;
+			}
+		}
+
 		if(playing){
+			TimeSinceInteraction+=Time.deltaTime;
 			creationTime-=Time.deltaTime;
 			
 			BackgroundCloud.position=new Vector2(BackgroundCloud.position.x-0.5f,BackgroundCloud.position.y);
@@ -147,6 +225,12 @@ public class SplatTheRatManager : MonoBehaviour {
 			if(BackgroundCloud.position.x<-995.0f)
 				BackgroundCloud.position=new Vector2(995.0f,BackgroundCloud.position.y);
 			
+			if(TimeSinceInteraction>IdleTimeOut)
+			{
+				// PersistentManager.PlayAudioClip(IdleAudio);
+				PlayIdle();
+			}
+
 			if(creationTime<0)
 			{
 				if(!hasPlayedIntroAudio)
@@ -155,6 +239,48 @@ public class SplatTheRatManager : MonoBehaviour {
 					hasPlayedIntroAudio=true;
 				}
 				CreateMole();
+			}
+		}
+	}
+
+	void FlashKeywordSign()
+	{
+		ShouldFlashKeywordSign=true;
+	}
+
+	void OnEnable(){
+		EasyTouch.On_TouchDown += On_TouchDown;
+		EasyTouch.On_SimpleTap += On_SimpleTap;
+	}
+
+	void OnDisable(){
+		UnsubscribeEvent();
+	}
+	
+	void OnDestroy(){
+		UnsubscribeEvent();
+	}
+	
+	void UnsubscribeEvent(){
+		EasyTouch.On_TouchDown -= On_TouchDown;
+		EasyTouch.On_SimpleTap -= On_SimpleTap;
+	}
+
+	public void On_SimpleTap(Gesture gesture)
+	{
+		if(gesture.pickObject!=null)
+		{
+			if(gesture.pickObject.name.StartsWith("BalAni"))
+			{
+				if(bookPressesSinceLastCorrect==0){
+					Debug.Log("show sign??");
+				}
+				else if(bookPressesSinceLastCorrect>0){
+					Debug.Log("GLOW THE RIGHT ONE");
+					PersistentManager.PlayAudioClip(HintSound);
+				}
+
+				bookPressesSinceLastCorrect++;
 			}
 		}
 	}
@@ -211,7 +337,6 @@ public class SplatTheRatManager : MonoBehaviour {
 				txt.spriteContainer=LetterFont.GetComponent<OTSpriteAtlasCocos2DFnt>();
 				txt.text=(string)AllLetters[letterIndex];
 				lastMole.GetComponent<MoleTouch>().myLetter=txt.text;
-
 				txt.ForceUpdate();
 				break;
 			}
@@ -241,6 +366,8 @@ public class SplatTheRatManager : MonoBehaviour {
 //		RemoveLastMole();
 		exitCountdown=true;
 		
+		PlayBennyComplete();
+
 		if(PersistentManager.Players==2)
 		{	
 //			GameObject newlabel=new GameObject("WinLabel");
@@ -274,6 +401,20 @@ public class SplatTheRatManager : MonoBehaviour {
 		creationTime=4.0f;
 	}
 	
+	void PlayIdle(){
+		if(PersistentManager.KeywordGame)
+		{
+			audio.clip=IdleAudio;
+		}
+		else 
+		{
+			audio.clip=IdleAudioKeyword;
+		}
+
+		audio.Play();
+		TimeSinceInteraction=0.0f;
+	}
+
 	void PlayPopup(){
 		if(hasPlayedIntroAudio){
 			audio.clip=PopUpSound;
@@ -283,14 +424,28 @@ public class SplatTheRatManager : MonoBehaviour {
 	
 	void PlayCorrectAudioClip(string letter)
 	{
-		foreach(AudioClip a in LetterSounds)
-		{
-			if(a.name==letter)
-			{
-				PersistentManager.PlayAudioClip(a);
-				break;
-			}
-		}
+		CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
+		PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
+		// foreach(AudioClip a in LetterSounds)
+		// {
+		// 	if(a.name==letter)
+		// 	{
+		// 		PersistentManager.PlayAudioClip(a);
+		// 		break;
+		// 	}
+		// }
+	}
+
+	public void PlayVivCorrect()
+	{
+		AudioClip ac=(AudioClip)VivCorrectReactions[Random.Range(0,VivCorrectReactions.Length)];
+		PersistentManager.PlayAudioClip(ac);
+	}
+
+	public void PlayBennyComplete()
+	{
+		AudioClip ac=(AudioClip)BennyCompleteReactions[Random.Range(0,BennyCompleteReactions.Length)];
+		PersistentManager.PlayAudioClip(ac);
 	}
 	
 	public bool CorrectLetterOnMole(string letter)
@@ -318,11 +473,20 @@ public class SplatTheRatManager : MonoBehaviour {
 			}
 			if(lettersFound==lettersRequired||p2LettersFound==lettersRequired)
 				StopPlaying();
-
+			int bookPressesSinceLastCorrect=0;
+			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "1");
 			return true;	
 		}
 		else{
+			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "-1");
+			GameManager.Instance.LogDataPoint(GameType, letter, "-1");
 			return false;
 		}
 	}
+
+	void On_TouchDown(Gesture gesture)
+	{
+		TimeSinceInteraction=0.0f;
+	}
 }
+

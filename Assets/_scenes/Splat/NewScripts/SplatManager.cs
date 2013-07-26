@@ -291,9 +291,10 @@ public class SplatManager : MonoBehaviour {
 		if(exitCountdown)
 			countdownToExit-=Time.deltaTime;
 		
-		if(countdownToExit<0)
+		if(countdownToExit<0 && PersistentManager.Players==2)
+			Application.LoadLevel(PersistentManager.ContentBrowserName);
+		else 
 			GameManager.Instance.SessionMgr.CloseActivity();
-//			Application.LoadLevel(PersistentManager.ContentBrowserName);
 				
 		if(playing)
 			inactivetime+=Time.deltaTime;

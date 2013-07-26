@@ -92,12 +92,13 @@ public class MoleTouch : MonoBehaviour {
 		
 		myAnimation.SetAnimationSplat(true);
 		audio.clip=gameManager.CorrectSound;
+		gameManager.PlayVivCorrect();
 		audio.Play ();
 	}
 	
 	void UserRemoveIncorrect(){
 //		gameManager.RemoveMoleFromTouch(gameObject.transform, "incorrect");
-		
+
 		Destroying=true;
 		DestroyCountdown=0.3f;
 		OTTween mt=new OTTween(s,0.3f, OTEasing.ExpoIn);
