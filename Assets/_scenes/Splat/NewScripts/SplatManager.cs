@@ -179,6 +179,7 @@ public class SplatManager : MonoBehaviour {
 		
 		currentBalls.Remove(callingBall);
 		
+
 		if(currentCorrectLetters==expectedCorrectLetters)
 		{
 			StopGame();
@@ -293,7 +294,7 @@ public class SplatManager : MonoBehaviour {
 		
 		if(countdownToExit<0 && PersistentManager.Players==2)
 			Application.LoadLevel(PersistentManager.ContentBrowserName);
-		else 
+		else if(countdownToExit<0 && PersistentManager.Players==1)
 			GameManager.Instance.SessionMgr.CloseActivity();
 				
 		if(playing)
