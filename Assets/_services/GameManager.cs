@@ -59,6 +59,9 @@ public class GameManager
 	{
 		LogEvent("SESSION_START", lastUserId, sessionId);
 		lastSessionId=sessionId;
+
+		//currently faking completion by starting a session
+		CompleteSession(sessionId);
 	}
 
 	public void LogSection(string sectionId, string gameScene)
@@ -202,12 +205,23 @@ public class GameManager
 		return rdata;
 	}
 	
+	public void CompleteSession(string sessionId)
+	{
+		LogDataPoint("session", sessionId, "1");
+	}
+
 	public List<int> GetCompletedSessions()
 	{
 		List<int> lret=new List<int>();
-		lret.Add(9001);
-		lret.Add(9002);
-		lret.Add(9003);
+
+		ArrayList alcomp=GetDataPointsWithValue("session", "1");
+		foreach(string pk in alcomp)
+		{
+			int pki=Convert.ToInt32(pk);
+			if(!lret.Contains(pki))
+				lret.Add(pki);
+		}
+
 		return lret;
 	}
 
