@@ -23,7 +23,8 @@ public class ContentBrowserManager : MonoBehaviour {
 				Debug.Log("set this session visible"+ni.sessionID);
 				s.visible=true;
 
-				lastNode=s;
+				if(!ni.notInteractive)
+					lastNode=s;
 
 			}
 			else{
