@@ -22,6 +22,7 @@ public class BalAnimation : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
+		myself.spriteContainer=GameObject.Find("BookIdle").GetComponent<OTSpriteAtlasCocos2D>();
 //		myself.PlayOnce("goingback2");
 	}
 	

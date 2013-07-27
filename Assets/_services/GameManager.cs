@@ -461,6 +461,8 @@ public class GameManager
 			thisPage.PageText=(String)dt.Rows[0]["text"];
 			thisPage.AudioName=(String)dt.Rows[0]["audio"];
 			thisPage.ImageName=(String)dt.Rows[0]["image"];
+
+			thisPage.ImageName=thisPage.ImageName.Replace(".png", "");
 		}
 		else 
 		{

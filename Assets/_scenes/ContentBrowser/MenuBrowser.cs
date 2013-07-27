@@ -112,7 +112,7 @@ public class MenuBrowser : MonoBehaviour {
 			}
 			else if(gesture.pickObject.name=="btnStories")
 			{
-				Application.LoadLevel ("Stories");
+				Application.LoadLevel ("StoryBrowser");
 			}
 			else if(gesture.pickObject.name=="btnWordBank")
 			{

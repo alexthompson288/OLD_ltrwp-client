@@ -16,6 +16,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 	int currentMapIndex=0;
 	ContentBrowserManager cbMan;
 	OTSprite fz;
+	Transform Pip;
 	
 	
 	public Transform[] LayersToMove;
@@ -27,6 +28,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 
 	void Awake() {
 		cbMan=GameObject.Find("Main Camera").GetComponent<ContentBrowserManager>();
+		Pip=GameObject.Find("PipThing").transform;
 	}
 
 	// Use this for initialization
@@ -111,7 +113,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 			if(gesture.pickObject.name=="btnFunZone" && fzVisible)
 			{
 				OTSprite fzbtn=gesture.pickObject.GetComponent<OTSprite>();
-				
+				Pip.gameObject.SetActive(true);
 				iTween.MoveTo(fz.gameObject, iTween.Hash("position", new Vector3(1024.0f,0.0f,-100.1024f), "easetype",iTween.EaseType.easeInOutSine, "time",0.5f));
 				fzbtn.position=new Vector2(475,0);
 				fzbtn.image=fzOpen;
@@ -121,6 +123,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 			else if(gesture.pickObject.name=="btnFunZone" && !fzVisible)
 			{
 				OTSprite fzbtn=gesture.pickObject.GetComponent<OTSprite>();
+				Pip.gameObject.SetActive(false);
 				iTween.MoveTo(fz.gameObject, iTween.Hash("position", new Vector3(0.0f,0.0f,-100.0f), "easetype",iTween.EaseType.easeInOutSine, "time",0.5f));
 				fzbtn.position=new Vector2(-475,0);
 				fzbtn.image=fzClose;
