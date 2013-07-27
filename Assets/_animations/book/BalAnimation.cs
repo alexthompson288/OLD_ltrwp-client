@@ -23,6 +23,7 @@ public class BalAnimation : MonoBehaviour {
 	void Awake () {
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
 		myself.spriteContainer=GameObject.Find("BookIdle").GetComponent<OTSpriteAtlasCocos2D>();
+		Debug.Log("bal spritecont "+myself.spriteContainer.gameObject.name);
 //		myself.PlayOnce("goingback2");
 	}
 	

@@ -326,7 +326,7 @@ public class ContentBrowserTouch : MonoBehaviour {
 			TintPickObject=true;
 			Application.LoadLevel("IntroducePhoneme");
 		}
-		else if(gesture.pickObject.name=="btnExit"||gesture.pickObject.name=="btnBackmark"||gesture.pickObject.name.StartsWith("Backmark"))
+		else if(gesture.pickObject.name=="btnExit"||gesture.pickObject.name=="btnBackmark"||gesture.pickObject.name.StartsWith("btnBackmark"))
 		{
 			TintPickObject=true;
 			countdown=true;
