@@ -1,3 +1,6 @@
+
+using UnityEngine;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +11,9 @@ public class User
 	public static List<User> AllUsers { get { return _allUsers; }}
 	public static User CurrentUser
 	{
-		get { return _currentUser; }
+		get {
+			Debug.Log("_currentUser getter");
+			return _currentUser; }
 		set
 		{
 			_currentUser = value;
@@ -109,9 +114,15 @@ public class User
 	
 	public static void PopulateAllUsers ()
 	{
+		Debug.Log("start pop");
 		AllUsers.Clear();
 		
+		Debug.Log("cleared");
+
 		DataTable dt = GameManager.Instance.StateDb.ExecuteQuery("SELECT * FROM Users;");
+
+		Debug.Log("got user query");
+
 		foreach(DataRow dr in dt.Rows)
 		{
 			User u = new User();
@@ -144,6 +155,8 @@ public class User
 			
 			AllUsers.Add(u);
 		}
+
+		Debug.Log("done iterate");
 		
 		if (CurrentUser != null)
 		{
@@ -180,6 +193,8 @@ public class User
 	
 	static User ()
 	{	
+		Debug.Log("in static user");
 		User.PopulateAllUsers();
+		Debug.Log("out of static user");
 	}
 }

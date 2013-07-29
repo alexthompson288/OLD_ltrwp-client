@@ -20,8 +20,8 @@ public class LoginRouter : MonoBehaviour
 		string activityDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, "activity.db");
 		string stateDbPath = Path.Combine(UnityEngine.Application.persistentDataPath, "state.db");
 		
-		Debug.Log(activityDbPath);
-		Debug.Log(stateDbPath);
+		// Debug.Log(activityDbPath);
+		// Debug.Log(stateDbPath);
 	}
 
 	private void OnGUI ()

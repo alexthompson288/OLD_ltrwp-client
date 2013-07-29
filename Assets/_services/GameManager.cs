@@ -8,7 +8,9 @@ using AlTypes;
 public class GameManager
 {
 	#region "Public Static"
-	public static GameManager Instance { get { return _instance; }}
+	public static GameManager Instance { get { 
+		Debug.Log("getting instance for game manager");
+		return _instance; }}
 	#endregion
 	
 	#region "Public Instance"
@@ -562,37 +564,57 @@ public class GameManager
 	
 	private GameManager()
 	{
+		Debug.Log("start GM new");
+
 		GameObject go = new GameObject(_persistentGOTag);
 		MonoBehaviour.DontDestroyOnLoad(go);
+
+		Debug.Log("about to add httpservice component");
+
 		go.AddComponent("HTTPService");
+
+		Debug.Log("added httpservice");
 		
 		_syncService = new SyncDataService((HTTPService)PersistentGameObject.GetComponent("HTTPService"));
+
+		Debug.Log("got sync service");
 		
 		if (File.Exists(_installationIdPath))
 		{
 			_installationId = File.ReadAllText(_installationIdPath);
+
+			Debug.Log("got install id read");
 		}
 		else
 		{
+			Debug.Log("creating install id path");
+
 			_installationId = Guid.NewGuid().ToString();
 			StreamWriter sw = File.CreateText(_installationIdPath);
 			sw.Write(_installationId);
 			sw.Close();
 		}
 		
+		Debug.Log("checking install db paths");
+
 		bool initActivityDb = !File.Exists(_activityDbPath);
 		bool initStateDb = !File.Exists(_stateDbPath);
 		bool initCmsDb=!File.Exists(_cmsDbPath);
+
+		Debug.Log("creating SqliteDatabase-s");
 		
 		_activityDb = new SqliteDatabase();
 		_stateDb = new SqliteDatabase();
 		_cmsDb=new SqliteDatabase();
 		
+		Debug.Log("opening activity and state");
+
 		_activityDb.Open(_activityDbPath);
 		_stateDb.Open(_stateDbPath);
 		
 		if (initActivityDb)
 		{
+			Debug.Log("initialising acitivity db");
 			ActivityDb.ExecuteNonQuery("CREATE TABLE UserCreations(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, user_name TEXT NOT NULL, date REAL)");
 			ActivityDb.ExecuteNonQuery("CREATE TABLE Attempts(batch_id TEXT NOT NULL, id TEXT NOT NULL, user_id TEXT NOT NULL, date REAL, score INTEGER)");
 			ActivityDb.ExecuteNonQuery("CREATE TABLE LoggedEvents(batch_id TEXT NOT NULL, date REAL, event_type TEXT NOT NULL, user_id TEXT, additional_data TEXT)");
@@ -601,27 +623,36 @@ public class GameManager
 		
 		if (initStateDb)
 		{
+			Debug.Log("initialising state db");
 			StateDb.ExecuteNonQuery("CREATE TABLE Users(id TEXT NOT NULL, name TEXT NOT NULL, creation_date REAL, last_attempt_date REAL, last_attempt_score INTEGER, best_attempt_date REAL, best_attempt_score INTEGER, num_attempts INTEGER, average_score REAL)");
 		}
 
-		//always write cms db
-		TextAsset ta=(TextAsset)Resources.Load("cms");
+		// //always write cms db
+		Debug.Log("reading cms db from resources");
+		TextAsset ta=(TextAsset)Resources.Load("cms-small");
+
+		// Debug.Log("writing cms file");
+		// Debug.Log("writing cms file to " + _cmsDbPath);
 		System.IO.File.WriteAllBytes(_cmsDbPath, ta.bytes);
-		
+
+
 		// if(initCmsDb)
 		// {
 		// 	TextAsset ta=(TextAsset)Resources.Load("cms");
 		// 	System.IO.File.WriteAllBytes(_cmsDbPath, ta.bytes);
 		// }
 		
+		Debug.Log("opening cms db");
 		_cmsDb.Open(_cmsDbPath);
+
 		
 		//log it and get the count on the instance
 		Debug.Log(GetCMSInfo());
 	
-		
+		Debug.Log("start new batch");
 		NewBatch();
 
+		Debug.Log("create session mgr");
 		_sessionMgr= new SessionMgr();
 		_sessionMgr.LogState();
 	}
