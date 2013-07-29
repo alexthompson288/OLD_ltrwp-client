@@ -629,7 +629,7 @@ public class GameManager
 
 		// //always write cms db
 		Debug.Log("reading cms db from resources");
-		TextAsset ta=(TextAsset)Resources.Load("cms-small");
+		TextAsset ta=(TextAsset)Resources.Load("local-store");
 
 		// Debug.Log("writing cms file");
 		// Debug.Log("writing cms file to " + _cmsDbPath);

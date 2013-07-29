@@ -108,8 +108,7 @@ public class SplatTheRatManager : MonoBehaviour {
 		AllLetters=new ArrayList();
 		ActiveMoles=new ArrayList();
 
-		//DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
-		DataPhonemeData[] dpd=new DataPhonemeData[2];
+		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
 		if(dpd!=null)
 		{
 			foreach(DataPhonemeData dp in dpd)
@@ -121,16 +120,15 @@ public class SplatTheRatManager : MonoBehaviour {
 
 		if(CorrectLetters.Count==0)
 		{
-			CorrectLetters.Add("empty");
+			CorrectLetters.Add("a");
 		}
 
-		//DummyLetters=GameManager.Instance.GetDistributedDataPoints(GameType, 0.8f, 20);
-
-		DummyLetters=new ArrayList();
+		DummyLetters=GameManager.Instance.GetDistributedDataPoints(GameType, 0.8f, 20);
 
 		if(DummyLetters.Count==0)
 		{
-			DummyLetters.Add("empty");
+			DummyLetters.Add("s");
+			DummyLetters.Add("p");
 		}		
 // 		for(int i=0;i<3;i++)
 // 		{
@@ -206,7 +204,7 @@ public class SplatTheRatManager : MonoBehaviour {
 
 		if(countdownToExit<0){
 			PersistentManager.Players=1;
-			//GameManager.Instance.SessionMgr.CloseActivity();
+			GameManager.Instance.SessionMgr.CloseActivity();
 //			Application.LoadLevel(PersistentManager.ContentBrowserName);
 		}
 		
@@ -537,8 +535,8 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		else
 		{
-			//CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
-			CurrentPhonemeData=new PhonemeData();
+			CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
+			//CurrentPhonemeData=new PhonemeData();
 			PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
 		}
 
@@ -590,12 +588,12 @@ public class SplatTheRatManager : MonoBehaviour {
 			if(lettersFound==lettersRequired||p2LettersFound==lettersRequired)
 				StopPlaying();
 			int bookPressesSinceLastCorrect=0;
-			//GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "1");
+			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "1");
 			return true;	
 		}
 		else{
-			//GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "-1");
-			//GameManager.Instance.LogDataPoint(GameType, letter, "-1");
+			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "-1");
+			GameManager.Instance.LogDataPoint(GameType, letter, "-1");
 			return false;
 		}
 	}

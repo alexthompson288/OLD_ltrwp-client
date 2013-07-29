@@ -52,7 +52,7 @@ public class SessionMgr
 	public void StartActivity ()
 	{
 		Hashtable ahash = (Hashtable)_sectionList [activityIndex];
-		Debug.Log ("starting activity " + ahash ["test_id"]);
+		Debug.Log ("starting activity " + ahash ["test_id"] + "(session: "+ahash["section_id"]+") with game_setting "+ahash["game_setting"]);
 
 		int sectionId = (int)ahash ["section_id"];
 		_currentGameSetting = (string)ahash ["game_setting"];
@@ -172,7 +172,7 @@ public class SessionMgr
 		
 		PersistentObject PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();
 
-		PersistentManager.ContentBrowserName="ContentBrowser-Scrolling";
+		PersistentManager.ContentBrowserName="ContentBrowser-Full";
 	
 		bool gotDebugSession=false;
 
@@ -1187,7 +1187,7 @@ public class SessionMgr
 
         hash=new Hashtable(); 
         hash.Add("section_id", 381); 
-        hash.Add("game_scene", "phoneme_splat_the_rat");
+        hash.Add("game_scene", "splat_the_rat");
         hash.Add("game_setting", "castle_frames" ); 
         _sectionList.Add(hash); 
 
