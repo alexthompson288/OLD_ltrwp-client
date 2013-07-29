@@ -127,15 +127,26 @@ public class IntroducingPhonemeManager : MonoBehaviour {
 
 	public void ShowTrumpets()
 	{
+		Vector2 newSize=new Vector2(371,407);
+		var config=new GoTweenConfig()
+			.vector2Prop( "size", newSize )
+			.setEaseType( GoEaseType.Punch );
+
 		foreach(Transform t in LeftTrumpets)
 		{
 			OTSprite s=t.GetComponent<OTSprite>();
 			s.visible=true;
+
+			GoTween tween=new GoTween(s, 0.2f, config);
+			Go.addTween(tween);
 		}
 		foreach(Transform t in RightTrumpets)
 		{
 			OTSprite s=t.GetComponent<OTSprite>();
 			s.visible=true;
+
+			GoTween tween=new GoTween(s, 0.2f, config);
+			Go.addTween(tween);
 		}
 	}
 

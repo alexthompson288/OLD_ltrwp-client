@@ -14,6 +14,7 @@ public class CurtainAnimation : MonoBehaviour {
 	OTTextSprite ChildText;
 	public Texture2D ChildSpriteTexture;
 	public AudioClip MyAudio;
+	public AudioClip SmokeAudio;
 	public OTSprite MySpotlight;
 	bool playedSmoke=false;
 	bool CountdownToReveal=false;
@@ -30,12 +31,14 @@ public class CurtainAnimation : MonoBehaviour {
 
 	
 	IntroducingPhonemeManager gameManager;
+	PersistentObject PersistentManager;
 	
 	string ChildType;
 	
 	// Use this for initialization
 	void Start () {
 		gameManager=GameObject.Find ("Main Camera").GetComponent<IntroducingPhonemeManager>();
+		PersistentManager=GameObject.Find("PersistentManager").GetComponent<PersistentObject>();
 		myself=gameObject.GetComponent<OTAnimatingSprite>();
 		PhonemeData pd=gameManager.GetCurrentPhoneme();
 		foreach(Transform t in transform.parent.transform)
@@ -124,6 +127,7 @@ public class CurtainAnimation : MonoBehaviour {
 			gameManager.Smoke.playSmoke1=true;
 			if(myGrapheme==null)myGrapheme=myPhoneme;
 			gameManager.PlayAudio((AudioClip)Resources.Load("audio/benny_mnemonics_master/benny_mnemonic_"+myPhoneme+"_"+myGrapheme+"_"+myMnemonic));
+			PersistentManager.PlayAudioClip(SmokeAudio);
 			// AudioClip firstClip=(AudioClip)AudioClipList[0];
 			// countdownToNextClip=firstClip.length;
 			// gameManager.PlayAudio(firstClip);
