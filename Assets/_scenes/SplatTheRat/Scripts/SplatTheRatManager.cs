@@ -82,7 +82,7 @@ public class SplatTheRatManager : MonoBehaviour {
 	void Start () {
 		
 		ReadPersistentObjectSettings();
-		PersistentManager.KeywordGame=true;
+		PersistentManager.KeywordGame=false;
 		// move the sign down
 		PlayIntro();
 		if(PersistentManager.KeywordGame)
@@ -103,13 +103,13 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		
 //		creationTime=Random.Range(minCreate,maxCreate);
-		// DummyLetters=new ArrayList();
+		// new ArrayList();
 		CorrectLetters=new ArrayList();
 		AllLetters=new ArrayList();
 		ActiveMoles=new ArrayList();
 
-		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
-
+		//DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
+		DataPhonemeData[] dpd=new DataPhonemeData[2];
 		if(dpd!=null)
 		{
 			foreach(DataPhonemeData dp in dpd)
@@ -124,7 +124,9 @@ public class SplatTheRatManager : MonoBehaviour {
 			CorrectLetters.Add("empty");
 		}
 
-		DummyLetters=GameManager.Instance.GetDistributedDataPoints(GameType, 0.8f, 20);
+		//DummyLetters=GameManager.Instance.GetDistributedDataPoints(GameType, 0.8f, 20);
+
+		DummyLetters=new ArrayList();
 
 		if(DummyLetters.Count==0)
 		{
@@ -204,7 +206,7 @@ public class SplatTheRatManager : MonoBehaviour {
 
 		if(countdownToExit<0){
 			PersistentManager.Players=1;
-			GameManager.Instance.SessionMgr.CloseActivity();
+			//GameManager.Instance.SessionMgr.CloseActivity();
 //			Application.LoadLevel(PersistentManager.ContentBrowserName);
 		}
 		
@@ -259,7 +261,7 @@ public class SplatTheRatManager : MonoBehaviour {
 			{
 				if(!hasPlayedIntroAudio)
 				{
-					PlayCorrectAudioClip(PersistentManager.CurrentLetter);
+					//PlayCorrectAudioClip(PersistentManager.CurrentLetter);
 					hasPlayedIntroAudio=true;
 				}
 				CreateMole();
@@ -535,7 +537,8 @@ public class SplatTheRatManager : MonoBehaviour {
 		}
 		else
 		{
-			CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
+			//CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
+			CurrentPhonemeData=new PhonemeData();
 			PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
 		}
 
@@ -587,12 +590,12 @@ public class SplatTheRatManager : MonoBehaviour {
 			if(lettersFound==lettersRequired||p2LettersFound==lettersRequired)
 				StopPlaying();
 			int bookPressesSinceLastCorrect=0;
-			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "1");
+			//GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "1");
 			return true;	
 		}
 		else{
-			GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "-1");
-			GameManager.Instance.LogDataPoint(GameType, letter, "-1");
+			//GameManager.Instance.LogDataPoint(GameType, PersistentManager.CurrentLetter, "-1");
+			//GameManager.Instance.LogDataPoint(GameType, letter, "-1");
 			return false;
 		}
 	}

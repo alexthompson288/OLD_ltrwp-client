@@ -21,7 +21,7 @@ public class SplatSceneManager : MonoBehaviour {
 		Debug.Log("GameSetting: '"+GameSetting+"'");
 
 		if(GameSetting==null)
-			GameSetting="underwater_splat_falling";
+			GameSetting="forest_splat";
 		
 		Debug.Log("GameSetting: '"+GameSetting+"'");
 
