@@ -104,6 +104,30 @@ public class DebugSceneSelect : MonoBehaviour {
 		{
 			sessionID=9117;
 		}
+		if (GUI.Button(new Rect(125,190,120,25), "splat_the_rat_alien"))
+		{
+			sessionID=9118;
+		}
+		if (GUI.Button(new Rect(250,190,120,25), "splat_the_rat_castle"))
+		{
+			sessionID=9119;
+		}
+		if (GUI.Button(new Rect(375,190,120,25), "splat_the_rat_farm"))
+		{
+			sessionID=9120;
+		}
+		if (GUI.Button(new Rect(125,220,120,25), "splat_the_rat_forest"))
+		{
+			sessionID=9121;
+		}
+		if (GUI.Button(new Rect(250,220,120,25), "splat_the_rat_school"))
+		{
+			sessionID=9122;
+		}
+		if (GUI.Button(new Rect(375,220,120,25), "splat_the_rat_underwater"))
+		{
+			sessionID=9123;
+		}
 		
 		StartIt(sessionID);
 

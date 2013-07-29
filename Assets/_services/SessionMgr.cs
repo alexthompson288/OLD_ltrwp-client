@@ -731,6 +731,55 @@ public class SessionMgr
 	        hash.Add("game_setting", "underwater_splat_falling" ); 
 	        _sectionList.Add(hash); 	
 		}
+		else if(sessionId==9118)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_alien" ); 
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9119)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_castle" ); 
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9120)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_farm" ); 
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9121)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_forest" ); 
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9122)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_school" ); 
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9123)
+		{
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "splat_the_rat");
+	        hash.Add("game_setting", "splat_the_rat_underwater" ); 
+	        _sectionList.Add(hash); 	
+		}
+
 
 
 		if(gotDebugSession)
