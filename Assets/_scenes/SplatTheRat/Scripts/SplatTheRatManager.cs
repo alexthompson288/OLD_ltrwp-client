@@ -259,7 +259,7 @@ public class SplatTheRatManager : MonoBehaviour {
 			{
 				if(!hasPlayedIntroAudio)
 				{
-					//PlayCorrectAudioClip(PersistentManager.CurrentLetter);
+					PlayCorrectAudioClip(PersistentManager.CurrentLetter);
 					hasPlayedIntroAudio=true;
 				}
 				CreateMole();
@@ -536,7 +536,6 @@ public class SplatTheRatManager : MonoBehaviour {
 		else
 		{
 			CurrentPhonemeData=GameManager.Instance.GetPhonemeInfoForPhoneme(letter);
-			//CurrentPhonemeData=new PhonemeData();
 			PersistentManager.PlayAudioClip((AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+CurrentPhonemeData.Phoneme+"_"+CurrentPhonemeData.Grapheme+"_"+CurrentPhonemeData.Mneumonic.Replace(" ","_")));
 		}
 
