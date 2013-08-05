@@ -53,10 +53,11 @@ public class ContentBrowserTouch : MonoBehaviour {
 		if(GameObject.Find ("PersistentManager")==null){
 			GameObject thisPO=new GameObject("PersistentManager");
 			thisPO.AddComponent<PersistentObject>();
+			thisPO.GetComponent<PersistentObject>().ContentBrowserName="ContentBrowser-Full";
 		}
 		
 		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
-		PersistentManager.ContentBrowserName="ContentBrowser-Full";
+		
 		
 	}
 	
@@ -329,19 +330,19 @@ public class ContentBrowserTouch : MonoBehaviour {
 		else if(gesture.pickObject.name=="btnExit"||gesture.pickObject.name=="btnBackmark"||gesture.pickObject.name.StartsWith("btnBackmark"))
 		{
 			TintPickObject=true;
-			countdown=true;
-			OTTween fo=new OTTween(gesture.pickObject.GetComponent<OTSprite>(), 0.8f, OTEasing.BounceIn);
-			fo.Tween("position", new Vector2(gesture.pickObject.GetComponent<OTSprite>().position.x,gesture.pickObject.GetComponent<OTSprite>().position.y+200.0f));	
-//			OTSprite s=gesture.pickObject.GetComponent<OTSprite>();
-//			OTTween mt=new OTTween(s,0.4f, OTEasing.BackIn);
-//			mt.Tween("position", new Vector2(gameObject.transform.position.x,gameObject.transform.position.y+100));
+			// countdown=true;
+			// OTTween fo=new OTTween(gesture.pickObject.GetComponent<OTSprite>(), 0.8f, OTEasing.BounceIn);
+			// fo.Tween("position", new Vector2(gesture.pickObject.GetComponent<OTSprite>().position.x,gesture.pickObject.GetComponent<OTSprite>().position.y+200.0f));	
 			
 			// Application.LoadLevel(PersistentManager.ContentBrowserName);
 			if(PersistentManager.Players==2)
+			{
 				Application.LoadLevel(PersistentManager.ContentBrowserName);
+			}
 			else 
+			{
 				GameManager.Instance.SessionMgr.CloseActivity();
-				
+			}	
 		}
 		else if(gesture.pickObject.name=="btnBackmarkCB")
 		{

@@ -9,6 +9,7 @@ using System.Linq;
 public class User
 {
 	public static List<User> AllUsers { get { return _allUsers; }}
+	public static User LastCreatedUser;
 	public static User CurrentUser
 	{
 		get {
@@ -34,6 +35,7 @@ public class User
 	
 	public static void CreateNew (string name, System.Action<string> callback)
 	{
+		//Debug.Log("CREATENEWUSER: "+name);
 		if (User.AllUsers.FirstOrDefault(ur => ur.Name == name) != null)
 		{
 			callback(String.Format(@"A user named ""{0}"" already exists locally", name));
@@ -65,6 +67,10 @@ public class User
 				u.CreationDate = UnixDate.Now;
 				
 				_allUsers.Add(u);
+
+				User.LastCreatedUser=u;
+
+				//Debug.Log("created user: "+u.Id);
 				
 				GameManager.Instance.ActivityDb.ExecuteNonQuery(String.Format(
 					"INSERT INTO UserCreations(batch_id, id, user_id, user_name, date) VALUES('{0}','{1}','{2}','{3}','{4}')", 

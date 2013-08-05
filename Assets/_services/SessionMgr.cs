@@ -15,6 +15,7 @@ public class SessionMgr
 	DataWordData[] _currentDataWords;
 	DataSentenceData[] _currentDataSentences;
 	string _currentGameSetting;
+	public string ReturnSceneForActivityClose="ContentBrowser-Full";
 
 	public PhonemeData[] CurrentPhonemes { get { return _currentPhonemes; } }
 
@@ -150,9 +151,9 @@ public class SessionMgr
 		} else {
 			if (activityIndex >= _sectionList.Count) {
 				//todo: unload session, bail to menu
-				Debug.Log ("run out of activities");
+				Debug.Log ("run out of activities. return scene is "+ReturnSceneForActivityClose);
 				
-				Application.LoadLevel ("contentbrowser-full");
+				Application.LoadLevel (ReturnSceneForActivityClose);
 			} else {
 				//goto next activity
 				StartActivity ();
@@ -172,7 +173,7 @@ public class SessionMgr
 		
 		PersistentObject PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();
 
-		PersistentManager.ContentBrowserName="ContentBrowser-Full";
+		// PersistentManager.ContentBrowserName=ReturnSceneForActivityClose;
 	
 		bool gotDebugSession=false;
 
