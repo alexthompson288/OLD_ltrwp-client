@@ -41,8 +41,17 @@ public class MoleTouch : MonoBehaviour {
 		
 		float timeToTweenUp=(RemoveTime/4)*3;
 		
-		OTTween mt=new OTTween(s,RemoveTime, OTEasing.ExpoOut);
-		mt.Tween("position", new Vector2(gameObject.transform.position.x,gameObject.transform.position.y+posYOffset));
+		Vector2 newPos=new Vector2(gameObject.transform.position.x,gameObject.transform.position.y+posYOffset);
+
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", newPos )
+			.setEaseType( GoEaseType.ExpoOut );
+
+		GoTween tween=new GoTween(s, RemoveTime, config);
+		Go.addTween(tween);		
+
+		// OTTween mt=new OTTween(s,RemoveTime, OTEasing.ExpoOut);
+		// mt.Tween("position", new Vector2(gameObject.transform.position.x,gameObject.transform.position.y+posYOffset));
 	}
 	
 	// Update is called once per frame
@@ -68,8 +77,15 @@ public class MoleTouch : MonoBehaviour {
 		Destroying=true;
 		DestroyCountdown=0.6f;
 		
-		OTTween mt=new OTTween(s,0.5f, OTEasing.ExpoIn);
-		mt.Tween("position", StartPosition);
+		// OTTween mt=new OTTween(s,0.5f, OTEasing.ExpoIn);
+		// mt.Tween("position", StartPosition);
+
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", StartPosition )
+			.setEaseType( GoEaseType.ExpoIn );
+
+		GoTween tween=new GoTween(s, 0.5f, config);
+		Go.addTween(tween);		
 		
 	}
 	
@@ -81,14 +97,36 @@ public class MoleTouch : MonoBehaviour {
 			if(t.GetComponent<OTTextSprite>())
 			{
 				OTTextSprite txt=t.GetComponent<OTTextSprite>();
-				OTTween fot=new OTTween(txt, 1.0f, OTEasing.Linear);
-				fot.Tween ("alpha",0.3f);
+
+				var config=new GoTweenConfig()
+					.floatProp( "alpha", 0.3f )
+					.setEaseType( GoEaseType.Linear );
+
+				GoTween tween=new GoTween(txt, 1.0f, config);
+				Go.addTween(tween);		
+
+				// OTTween fot=new OTTween(txt, 1.0f, OTEasing.Linear);
+				// fot.Tween ("alpha",0.3f);
 			}
 		}
-		OTTween mt=new OTTween(s,0.8f, OTEasing.ElasticIn);
-		OTTween fo=new OTTween(s, 0.5f, OTEasing.Linear);
-		mt.Tween("size", new Vector2(0,0));	
-		fo.Tween("alpha", 0.5f);
+		var configfo=new GoTweenConfig()
+			.floatProp( "alpha", 0.5f )
+			.setEaseType( GoEaseType.Linear );
+
+		GoTween fo=new GoTween(s, 0.5f, configfo);
+		Go.addTween(fo);		
+
+		var configmt=new GoTweenConfig()
+			.vector2Prop( "size", new Vector2(0, 0) )
+			.setEaseType( GoEaseType.ElasticIn );
+
+		GoTween mt=new GoTween(s, 0.8f, configmt);
+		Go.addTween(mt);		
+
+		// OTTween mt=new OTTween(s,0.8f, OTEasing.ElasticIn);
+		// OTTween fo=new OTTween(s, 0.5f, OTEasing.Linear);
+		// mt.Tween("size", new Vector2(0,0));	
+		// fo.Tween("alpha", 0.5f);
 		
 		myAnimation.SetAnimationSplat(true);
 		audio.clip=gameManager.CorrectSound;
@@ -101,8 +139,16 @@ public class MoleTouch : MonoBehaviour {
 
 		Destroying=true;
 		DestroyCountdown=0.3f;
-		OTTween mt=new OTTween(s,0.3f, OTEasing.ExpoIn);
-		mt.Tween("position", StartPosition);
+
+		var config=new GoTweenConfig()
+			.vector2Prop( "position", StartPosition )
+			.setEaseType( GoEaseType.ExpoIn );
+
+		GoTween tween=new GoTween(s, 0.3f, config);
+		Go.addTween(tween);		
+
+		// OTTween mt=new OTTween(s,0.3f, OTEasing.ExpoIn);
+		// mt.Tween("position", StartPosition);
 		audio.clip=gameManager.IncorrectSound;
 		audio.Play ();
 	}
