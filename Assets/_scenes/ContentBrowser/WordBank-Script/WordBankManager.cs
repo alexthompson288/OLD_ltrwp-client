@@ -18,7 +18,7 @@ public class WordBankManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
+		// PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
 		OTSprite Frame=GameObject.Find ("Frame").GetComponent<OTSprite>();
 		SegmentingFrame=new Rect(Frame.position.x-(Frame.size.x/2),Frame.position.y-(Frame.size.y/2),Frame.size.x,Frame.size.y);
 		WordClip=(AudioClip)Resources.Load("audio/words/"+PersistentManager.WordBankWord.ToLower());
@@ -72,7 +72,7 @@ public class WordBankManager : MonoBehaviour {
 	}
 	
 	void On_TouchUp(Gesture gesture){
-		if(!SegmentingFrame.Contains(new Vector2(gesture.position.x-512,gesture.position.y-384)) && !validHit)
+		// if(!SegmentingFrame.Contains(new Vector2(gesture.position.x-512,gesture.position.y-384)) && !validHit)
 			Application.LoadLevel ("WordBank");
 		
 		isTouching=false;

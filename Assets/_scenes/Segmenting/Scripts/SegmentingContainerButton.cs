@@ -30,16 +30,16 @@ public class SegmentingContainerButton : MonoBehaviour {
 			sprite.pivotPoint=new Vector2(0.5f,2.1f);
 			sprite.transparent=true;
 			// sprite.position=new Vector2(1.0f, 0.5f);
-			sprite.position=mySprite.position;
-			sprite.size=new Vector2(sprite.size.x-40,sprite.size.y);
-			// new Vector2(mySprite.position.x, mySprite.position.y-40);
+			sprite.position=new Vector2(mySprite.position.x, mySprite.position.y-20);
+			sprite.size=new Vector2(sprite.size.x-150,sprite.size.y);
+			// 
 			sprite.depth=mySprite.depth;
 		}
 
 		if(myContainer.isMultiPartLetter)
 		{
 			OTSprite btnSprite=gameObject.GetComponent<OTSprite>();
-			btnSprite.image=barPressedState;
+			btnSprite.image=barUnpressedState;
 		}
 	}
 	
@@ -49,10 +49,10 @@ public class SegmentingContainerButton : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(gameObject.GetComponent<OTSprite>().image==pressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
-			gameObject.GetComponent<OTSprite>().image=unpressedState;
-		else if(gameObject.GetComponent<OTSprite>().image==barPressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
-				gameObject.GetComponent<OTSprite>().image=barUnpressedState;
+		// if(gameObject.GetComponent<OTSprite>().image==pressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
+		// 	gameObject.GetComponent<OTSprite>().image=unpressedState;
+		// else if(gameObject.GetComponent<OTSprite>().image==barPressedState && !transform.parent.GetComponent<AudioSource>().isPlaying)
+		// 		gameObject.GetComponent<OTSprite>().image=barUnpressedState;
 	}
 	
 	void OnEnable(){
@@ -92,11 +92,11 @@ public class SegmentingContainerButton : MonoBehaviour {
 		float bottomMost=s.worldPosition.y-(s.worldSize.y/2);
 		Vector2 gesturePos=new Vector2(gesture.position.x-(Screen.width/2), gesture.position.y-(Screen.height/2));
 		// Vector2 gesturePos=new Vector2(gesture.position.x, gesture.position.y);
-		 Rect myHitBox=new Rect(leftMost-10,bottomMost-10,s.worldSize.x+20,s.worldSize.y+20);
+		Rect myHitBox=new Rect(leftMost-10,bottomMost-10,s.worldSize.x+20,s.worldSize.y+20);
 
 		// Debug.Log("HitBox: "+myHitBox+" gesture pos "+gesturePos);
-
-		if(myHitBox.Contains(gesturePos)||gesture.pickObject==gameObject)
+		//myHitBox.Contains(gesturePos)||
+		if(gesture.pickObject==gameObject)
 		{
 			// Debug.Log("hit button hitbox");
 			SegmentingContainer cont=transform.parent.gameObject.GetComponent<SegmentingContainer>();
@@ -151,15 +151,15 @@ public class SegmentingContainerButton : MonoBehaviour {
 
 		if(myContainer.isMultiPartLetter)
 		{
-			float scaleX=0;
-			if(myContainer.ExpectedLetter.Length==2)
-				scaleX=0.46875f;
-			else if(myContainer.ExpectedLetter.Length==3)
-				scaleX=0.703125f;
-
+			// float scaleX=0;
+			// if(myContainer.ExpectedLetter.Length==2)
+			// 	scaleX=0.46875f;
+			// else if(myContainer.ExpectedLetter.Length==3)
+			// 	scaleX=0.703125f;
+			Debug.Log("show container");
 			OTSprite s=gameObject.GetComponent<OTSprite>();
 			s.image=barUnpressedState;
-			s.size=new Vector2(s.size.x*(1-scaleX), s.size.y);
+			// s.size=new Vector2(s.size.x*(1-scaleX), s.size.y);
 		}
 
 		renderer.enabled=true;

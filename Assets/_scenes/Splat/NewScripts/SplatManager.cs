@@ -415,6 +415,12 @@ public class SplatManager : MonoBehaviour {
 		AudioClip ac=BennyReactionsComplete[thisIndex];
 		PersistentManager.PlayAudioClip(ac);
 	}
+
+	public void PlayAudio(AudioClip thisClip)
+	{
+		audio.clip=thisClip;
+		audio.Play();
+	}
 	
 	public void StopGame() {
 //		Bubbles.Stop();

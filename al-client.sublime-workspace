@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"Persist",
+				"PersistentManager"
+			],
+			[
+				"Return",
+				"ReturnSceneForActivityClose"
+			],
+			[
+				"Persi",
+				"PersistentManager"
+			],
+			[
+				"Retu",
+				"ReturnSceneForActivityClose"
+			],
+			[
+				"Content",
+				"ContentBrowser-Full"
+			],
+			[
 				"conf",
 				"configr1"
 			],
@@ -244,160 +264,6 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
-			"settings":
-			{
-				"buffer_size": 5633,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/OddOneOut/Scripts/OOOFrame.cs",
-			"settings":
-			{
-				"buffer_size": 657,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_animations/curtain/CurtainAnimation.cs",
-			"settings":
-			{
-				"buffer_size": 4235,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_services/GameManager.cs",
-			"settings":
-			{
-				"buffer_size": 12385,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_services/AlTypes.cs",
-			"settings":
-			{
-				"buffer_size": 580,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
-			"settings":
-			{
-				"buffer_size": 10973,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/FruitMachine/Scripts/FruitMachineManager.cs",
-			"settings":
-			{
-				"buffer_size": 1737,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionFruitMachineDrop.cs",
-			"settings":
-			{
-				"buffer_size": 535,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionReadingSignDrop.cs",
-			"settings":
-			{
-				"buffer_size": 522,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/SkillIntroduction/RhymingSign.cs",
-			"settings":
-			{
-				"buffer_size": 1709,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionEyeSpyImageTween.cs",
-			"settings":
-			{
-				"buffer_size": 2305,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/Cauldron/Scripts/CauldronManager.cs",
-			"settings":
-			{
-				"buffer_size": 1790,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/Cauldron/Scripts/CauldronObject.cs",
-			"settings":
-			{
-				"buffer_size": 424,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scripts/GenericDraggable.cs",
-			"settings":
-			{
-				"buffer_size": 3254,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainerButton.cs",
-			"settings":
-			{
-				"buffer_size": 4532,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 834 files for \"seeking audio for fragment\"\n\n/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs:\n  403  	public AudioClip AudioLetter(string thisLetter)\n  404  	{\n  405: 		Debug.Log(\"SEEKING AUDIO FOR FRAGMENT: \" + thisLetter);\n  406  		for(int i=0;i<LetterAudio.Length;i++)\n  407  		{\n\n1 match in 1 file\n",
-			"settings":
-			{
-				"buffer_size": 342,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "Assets/UniversalVideoTexture/_Scripts/VideoTexture.cs",
-			"settings":
-			{
-				"buffer_size": 10545,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/UniversalVideoTexture/_Scripts/ALVideoTexture.cs",
-			"settings":
-			{
-				"buffer_size": 3260,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Assets/_scenes/vortex/VortexManager.cs",
-			"settings":
-			{
-				"buffer_size": 1286,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"contents": "using UnityEngine;\nusing System.Collections;\n\npublic class DotAnimation : MonoBehaviour {\n\n	public bool playIdleSet;\n	public bool playIdle;\n	public bool playBlink;\n	public bool playDoubt;\n	public bool playPositive;\n	public bool playPositive2;\n	public bool playTalking;\n	public bool playTalking2;\n	\n	// blink\n	// doubt\n	// positive1\n	// positive2\n	// talking1\n	// talking2\n\n	OTAnimatingSprite myself;\n	\n	// Use this for initialization\n	void Start () {\n		myself=gameObject.GetComponent<OTAnimatingSprite>();\n	}\n	\n	// Update is called once per frame\n	void Update () {\n		if(!myself.isPlaying)\n		{\n			if(playIdleSet&&(!playBlink||!playDoubt||!playPositive||!playPositive2||!playTalking||!playTalking2))\n			{\n				SetAnimationIdleSet();\n				return;\n			}\n			else if(playBlink){\n				SetAnimationBlink();\n			}\n			else if(playDoubt){\n				SetAnimationDoubt();\n			}\n			else if(playIdle)\n			{\n				SetAnimationIdle();	\n			}\n			else if(playPositive){\n				SetAnimationPositive();\n			}\n			else if(playPositive2){\n				SetAnimationPositive2();\n			}\n			else if(playTalking){\n				SetAnimationTalking();\n			}\n			else if(playTalking2){\n				SetAnimationTalking2();\n			}\n			else{\n				SetAnimationIdleSet();\n			}\n		}\n	}\n	\n	public void SetNonePlaying()\n	{\n		playIdleSet=false;\n		playIdle=false;\n		playBlink=false;\n		playDoubt=false;\n		playPositive=false;\n		playPositive2=false;\n		playTalking=false;\n		playTalking2=false;\n	}\n	\n	void SetAnimationIdleSet()\n	{\n		if(!playIdleSet){\n			playIdleSet=true;\n			playBlink=true;\n		}\n		if(playIdleSet&&playBlink){\n			SetAnimationBlink();\n			playIdle=true;\n		}\n		else if(playIdleSet&&playIdle){\n			SetAnimationIdle();\n			playIdle=true;\n		}\n	}\n	\n	void SetAnimationIdle(){\n		myself.PlayOnce(\"idle\");\n		SetNonePlaying();\n	}\n	\n	void SetAnimationBlink()\n	{\n		myself.PlayOnce(\"blink\");\n		SetNonePlaying();\n	}\n	\n	void SetAnimationDoubt()\n	{\n		myself.PlayOnce(\"doubt\");\n		SetNonePlaying();\n	}\n	\n	void SetAnimationPositive()\n	{\n		myself.PlayOnce(\"positive\");\n		SetNonePlaying();\n	}	\n	\n	void SetAnimationPositive2()\n	{\n		myself.PlayOnce(\"positive2\");\n		SetNonePlaying();\n	}\n\n	void SetAnimationTalking()\n	{\n		myself.PlayOnce(\"talking\");\n		SetNonePlaying();\n	}\n	\n	void SetAnimationTalking2()\n	{\n		myself.PlayOnce(\"talking2\");\n		SetNonePlaying();\n			\n	}\n}\n",
 			"file": "Assets/_animations/dot/DotAnimation.cs",
 			"file_size": 2251,
@@ -417,6 +283,30 @@
 			}
 		},
 		{
+			"file": "Assets/_scripts/MiniRouter.cs",
+			"settings":
+			{
+				"buffer_size": 2338,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_scenes/SplatTheRat/Scripts/SplatTheRatManager.cs",
+			"settings":
+			{
+				"buffer_size": 13914,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_services/SessionMgr.cs",
+			"settings":
+			{
+				"buffer_size": 304906,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "Assets/_animations/troll/TrollAnimation.cs",
 			"settings":
 			{
@@ -428,7 +318,7 @@
 			"file": "Assets/_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs",
 			"settings":
 			{
-				"buffer_size": 3721,
+				"buffer_size": 3923,
 				"line_ending": "Unix"
 			}
 		},
@@ -436,7 +326,7 @@
 			"file": "Assets/_animations/book/BalAnimation.cs",
 			"settings":
 			{
-				"buffer_size": 2872,
+				"buffer_size": 3392,
 				"line_ending": "Unix"
 			}
 		},
@@ -444,7 +334,7 @@
 			"file": "Assets/_scenes/EyeSpy/Scripts/EyeSpyManager.cs",
 			"settings":
 			{
-				"buffer_size": 1580,
+				"buffer_size": 1870,
 				"line_ending": "Unix"
 			}
 		},
@@ -460,7 +350,7 @@
 			"file": "Assets/_scenes/CrossTheBridge/Scripts/CrossTheBridgeManager.cs",
 			"settings":
 			{
-				"buffer_size": 2378,
+				"buffer_size": 4908,
 				"line_ending": "Unix"
 			}
 		},
@@ -473,58 +363,66 @@
 			}
 		},
 		{
-			"file": "Assets/_services/SessionMgr.cs",
+			"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
 			"settings":
 			{
-				"buffer_size": 317170,
+				"buffer_size": 11300,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/KeywordSearch/Scripts/KeywordSearchManager.cs",
+			"file": "Assets/_scripts/MenuManager.cs",
 			"settings":
 			{
-				"buffer_size": 974,
+				"buffer_size": 1119,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scripts/GenericAnswer.cs",
+			"file": "Assets/_scenes/SplatTheRat/Scripts/SplatTheRatSceneManager.cs",
 			"settings":
 			{
-				"buffer_size": 271,
+				"buffer_size": 1567,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/Segmenting/Scripts/ContainerButton.cs",
+			"file": "Assets/_scripts/GenericDraggable.cs",
 			"settings":
 			{
-				"buffer_size": 1337,
+				"buffer_size": 3254,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
+			"file": "Assets/_services/GameManager.cs",
 			"settings":
 			{
-				"buffer_size": 2467,
+				"buffer_size": 18492,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Plugins/GoKit/enums/GoEaseType.cs",
+			"file": "Assets/_scripts/NodeInfo.cs",
 			"settings":
 			{
-				"buffer_size": 529,
+				"buffer_size": 1028,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Plugins/GoKit/GoTweenChain.cs",
+			"file": "Assets/_services/User.cs",
 			"settings":
 			{
-				"buffer_size": 2536,
+				"buffer_size": 6481,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/_services/LoginRouter.cs",
+			"settings":
+			{
+				"buffer_size": 6916,
 				"line_ending": "Unix"
 			}
 		}
@@ -593,28 +491,45 @@
 	},
 	"file_history":
 	[
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/vortex/VortexManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/UniversalVideoTexture/_Scripts/ALVideoTexture.cs",
+		"/Users/dave/xcode/ltrwp/Assets/UniversalVideoTexture/_Scripts/VideoTexture.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingContainerButton.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericDraggable.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Cauldron/Scripts/CauldronObject.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Cauldron/Scripts/CauldronManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/SkillIntroductionEyeSpyImageTween.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/RhymingSign.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/SkillIntroductionReadingSignDrop.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/SkillIntroductionFruitMachineDrop.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/FruitMachine/Scripts/FruitMachineManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_services/AlTypes.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_services/GameManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_animations/curtain/CurtainAnimation.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/OddOneOut/Scripts/OOOFrame.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/ChallengeMenuTouch.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/KeywordSearch/Scripts/KeywordSearchManager.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericAnswer.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/ContainerButton.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/GoTweenChain.cs",
+		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/enums/GoEaseType.cs",
+		"/Users/dave/xcode/ltrwp/Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_animations/curtain/curtainopening-1.xml",
 		"/Users/dave/xcode/ltrwp/Assets/Orthello/Standard Assets/OT/Graphics/Sprites/OTSprite.cs",
 		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/Go.cs",
 		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/GoTween.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/PrintGameInfo.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/menus/PersistentObject.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_services/GameManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/enums/GoEaseType.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/MenuManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/easing/GoEaseBounce.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericAnswer.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericDraggable.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/GenericContainer.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/AnswerManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scripts/menus/ContentBrowserTouch.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_animations/curtain/CurtainAnimation.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/CorrectPath/Scripts/CorrectPathManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/Scripts/ContentBrowserManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingContainerButton.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/WordBank-Script/WordBankManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/Segmenting/Scripts/SegmentingLetter.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_services/SessionMgr.cs",
@@ -626,14 +541,10 @@
 		"/Users/dave/xcode/ltrwp/Assets/MoleAnimation.cs",
 		"/Users/dave/xcode/ltrwp/Assets/PipAnimation.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/missing_word_sentence/scripts/MissingWordSentenceManager.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_services/AlTypes.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/FruitMachine/Scripts/FruitMachineManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/ContentBrowser/TrophyRoom-Script/BigShield.cs",
-		"/Users/dave/xcode/ltrwp/Assets/_scenes/Splat/Scripts/SplatSceneManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_animations/book/BalAnimation.cs",
 		"/Users/dave/xcode/ltrwp/Assets/MobileMovieTexture/MobileMovieTexture.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/SkillIntroduction/AutomatedButton.cs",
-		"/Users/dave/xcode/ltrwp/Assets/UniversalVideoTexture/_Scripts/VideoTexture.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/LetterFormation/Scripts/LFManager.cs",
 		"/Users/dave/xcode/ltrwp/Assets/Plugins/GoKit/properties/GoTweenUtils.cs",
 		"/Users/dave/xcode/ltrwp/Assets/_scenes/missing_word_sentence/scripts/MissingWordSentenceDropzone.cs",
@@ -670,6 +581,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"contentbrowser",
+			"allusers",
+			"getting ins",
 			"\"+curImg+\"",
 			"audioletter",
 			"seeking audio for fragment",
@@ -742,593 +656,11 @@
 	"groups":
 	[
 		{
-			"selected": 10,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/_scenes/OddOneOut/Scripts/OddOneOutManager.cs",
-					"settings":
-					{
-						"buffer_size": 5633,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								371,
-								371
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/_scenes/OddOneOut/Scripts/OOOFrame.cs",
-					"settings":
-					{
-						"buffer_size": 657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								186,
-								186
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/_animations/curtain/CurtainAnimation.cs",
-					"settings":
-					{
-						"buffer_size": 4235,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1819,
-								1819
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 264.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/_services/GameManager.cs",
-					"settings":
-					{
-						"buffer_size": 12385,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7902,
-								7906
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4174.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "Assets/_services/AlTypes.cs",
-					"settings":
-					{
-						"buffer_size": 580,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								522,
-								522
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
-					"settings":
-					{
-						"buffer_size": 10973,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1984,
-								1985
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 827.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "Assets/_scenes/FruitMachine/Scripts/FruitMachineManager.cs",
-					"settings":
-					{
-						"buffer_size": 1737,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1146,
-								776
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionFruitMachineDrop.cs",
-					"settings":
-					{
-						"buffer_size": 535,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								468,
-								161
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionReadingSignDrop.cs",
-					"settings":
-					{
-						"buffer_size": 522,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								263,
-								263
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "Assets/_scenes/SkillIntroduction/RhymingSign.cs",
-					"settings":
-					{
-						"buffer_size": 1709,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1699,
-								1699
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionEyeSpyImageTween.cs",
-					"settings":
-					{
-						"buffer_size": 2305,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								471,
-								471
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "Assets/_scenes/Cauldron/Scripts/CauldronManager.cs",
-					"settings":
-					{
-						"buffer_size": 1790,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								909,
-								909
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "Assets/_scenes/Cauldron/Scripts/CauldronObject.cs",
-					"settings":
-					{
-						"buffer_size": 424,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								208,
-								208
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "Assets/_scripts/GenericDraggable.cs",
-					"settings":
-					{
-						"buffer_size": 3254,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1994,
-								1994
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 427.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainerButton.cs",
-					"settings":
-					{
-						"buffer_size": 4532,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2479,
-								2479
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 623.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"settings":
-					{
-						"buffer_size": 342,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										220,
-										246
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"incomplete_sync": null,
-							"output_tag": 1,
-							"remote_loading": false,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"synced": false,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "Assets/UniversalVideoTexture/_Scripts/VideoTexture.cs",
-					"settings":
-					{
-						"buffer_size": 10545,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1163,
-								1163
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 212.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "Assets/UniversalVideoTexture/_Scripts/ALVideoTexture.cs",
-					"settings":
-					{
-						"buffer_size": 3260,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								98,
-								98
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "Assets/_scenes/vortex/VortexManager.cs",
-					"settings":
-					{
-						"buffer_size": 1286,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								323,
-								323
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 19,
 					"file": "Assets/_animations/dot/DotAnimation.cs",
 					"settings":
 					{
@@ -1345,8 +677,111 @@
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1358,7 +793,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 1,
 					"file": "Assets/Plugins/LiveTexture/VideoTextureManager.cs",
 					"settings":
 					{
@@ -1375,8 +810,111 @@
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1386,15 +924,414 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/_scripts/MiniRouter.cs",
+					"settings":
+					{
+						"buffer_size": 2338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								434,
+								434
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/_scenes/SplatTheRat/Scripts/SplatTheRatManager.cs",
+					"settings":
+					{
+						"buffer_size": 13914,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4839,
+								4853
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3228.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/_services/SessionMgr.cs",
+					"settings":
+					{
+						"buffer_size": 304906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4724,
+								4724
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2492.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 12,
+			"selected": 7,
 			"sheets":
 			[
 				{
-					"buffer": 21,
+					"buffer": 5,
 					"file": "Assets/_animations/troll/TrollAnimation.cs",
 					"settings":
 					{
@@ -1411,8 +1348,111 @@
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1424,25 +1464,128 @@
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 6,
 					"file": "Assets/_scenes/IntroducingPhoneme/Scripts/IntroducingPhonemeManager.cs",
 					"settings":
 					{
-						"buffer_size": 3721,
+						"buffer_size": 3923,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2737,
-								2737
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1454,25 +1597,128 @@
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 7,
 					"file": "Assets/_animations/book/BalAnimation.cs",
 					"settings":
 					{
-						"buffer_size": 2872,
+						"buffer_size": 3392,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1910,
-								1910
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1484,25 +1730,128 @@
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 8,
 					"file": "Assets/_scenes/EyeSpy/Scripts/EyeSpyManager.cs",
 					"settings":
 					{
-						"buffer_size": 1580,
+						"buffer_size": 1870,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								445,
-								445
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1514,7 +1863,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 9,
 					"file": "Assets/_scenes/EyeSpy/Scripts/EyeSpyObject.cs",
 					"settings":
 					{
@@ -1531,8 +1880,111 @@
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1544,25 +1996,128 @@
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 10,
 					"file": "Assets/_scenes/CrossTheBridge/Scripts/CrossTheBridgeManager.cs",
 					"settings":
 					{
-						"buffer_size": 2378,
+						"buffer_size": 4908,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1631,
-								1631
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1574,7 +2129,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 27,
+					"buffer": 11,
 					"file": "Assets/PipAnimation.cs",
 					"settings":
 					{
@@ -1591,98 +2146,111 @@
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 28,
-					"file": "Assets/_services/SessionMgr.cs",
-					"settings":
-					{
-						"buffer_size": 317170,
-						"regions":
-						{
-						},
-						"selection":
-						[
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
 							[
-								111907,
-								111907
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingManager.cs",
-					"settings":
-					{
-						"buffer_size": 10973,
-						"regions":
-						{
-						},
-						"selection":
-						[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
 							[
-								5337,
-								5337
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1943.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 29,
-					"file": "Assets/_scenes/KeywordSearch/Scripts/KeywordSearchManager.cs",
-					"settings":
-					{
-						"buffer_size": 974,
-						"regions":
-						{
-						},
-						"selection":
-						[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
 							[
-								72,
-								72
-							]
-						],
-						"settings":
-						{
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1695,40 +2263,276 @@
 				},
 				{
 					"buffer": 4,
-					"file": "Assets/_services/AlTypes.cs",
+					"file": "Assets/_services/SessionMgr.cs",
 					"settings":
 					{
-						"buffer_size": 580,
+						"buffer_size": 304906,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								480,
-								480
+								2167,
+								2167
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3815.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 30,
-					"file": "Assets/_scripts/GenericAnswer.cs",
+					"buffer": 12,
+					"file": "Assets/_scripts/menus/ContentBrowserTouch.cs",
 					"settings":
 					{
-						"buffer_size": 271,
+						"buffer_size": 11300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8938,
+								8938
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5072.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "Assets/_scripts/MenuManager.cs",
+					"settings":
+					{
+						"buffer_size": 1119,
 						"regions":
 						{
 						},
@@ -1741,8 +2545,111 @@
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1754,7 +2661,140 @@
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 14,
+					"file": "Assets/_scenes/SplatTheRat/Scripts/SplatTheRatSceneManager.cs",
+					"settings":
+					{
+						"buffer_size": 1567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
 					"file": "Assets/_scripts/GenericDraggable.cs",
 					"settings":
 					{
@@ -1765,8 +2805,8 @@
 						"selection":
 						[
 							[
-								2563,
-								2563
+								2434,
+								2434
 							]
 						],
 						"settings":
@@ -1778,31 +2818,134 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2150.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 31,
-					"file": "Assets/_scenes/Segmenting/Scripts/ContainerButton.cs",
+					"buffer": 16,
+					"file": "Assets/_services/GameManager.cs",
 					"settings":
 					{
-						"buffer_size": 1337,
+						"buffer_size": 18492,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								236,
+								247
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1814,57 +2957,131 @@
 					"type": "text"
 				},
 				{
-					"buffer": 32,
-					"file": "Assets/_scenes/Segmenting/Scripts/SegmentingContainer.cs",
+					"buffer": 17,
+					"file": "Assets/_scripts/NodeInfo.cs",
 					"settings":
 					{
-						"buffer_size": 2467,
+						"buffer_size": 1028,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1842,
-								1842
+								383,
+								383
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2247.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "Assets/_scenes/SkillIntroduction/SkillIntroductionReadingSignDrop.cs",
-					"settings":
-					{
-						"buffer_size": 522,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								522,
-								522
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1873,62 +3090,267 @@
 					"type": "text"
 				},
 				{
-					"buffer": 33,
-					"file": "Assets/Plugins/GoKit/enums/GoEaseType.cs",
+					"buffer": 18,
+					"file": "Assets/_services/User.cs",
 					"settings":
 					{
-						"buffer_size": 529,
+						"buffer_size": 6481,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								412,
-								412
+								1793,
+								1793
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 34,
-					"file": "Assets/Plugins/GoKit/GoTweenChain.cs",
-					"settings":
-					{
-						"buffer_size": 2536,
-						"regions":
-						{
-						},
-						"selection":
-						[
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
 							[
-								1557,
-								1557
-							]
-						],
-						"settings":
-						{
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
 							"incomplete_sync": null,
 							"remote_loading": false,
+							"sublime_auto_complete": true,
 							"synced": false,
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 345.0,
+						"translation.y": 386.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "Assets/_services/LoginRouter.cs",
+					"settings":
+					{
+						"buffer_size": 6916,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2663,
+								2644
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"sublime_auto_complete": true,
+							"synced": false,
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1964,7 +3386,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.482295482295,
 			1.0
 		],
 		"rows":
@@ -1988,6 +3410,46 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"session",
+				"_services/SessionMgr.cs"
+			],
+			[
+				"challen",
+				"_scenes/ChallengeMenuTouch.cs"
+			],
+			[
+				"splatthe",
+				"_scenes/SplatTheRat/Scripts/SplatTheRatManager.cs"
+			],
+			[
+				"sessionm",
+				"_services/SessionMgr.cs"
+			],
+			[
+				"loginrou",
+				"_services/LoginRouter.cs"
+			],
+			[
+				"user",
+				"_services/User.cs"
+			],
+			[
+				"minirou",
+				"_scripts/MiniRouter.cs"
+			],
+			[
+				"nodein",
+				"_scripts/NodeInfo.cs"
+			],
+			[
+				"gameman",
+				"_services/GameManager.cs"
+			],
+			[
+				"splat",
+				"_scenes/Splat/Scripts/SplatSceneManager.cs"
+			],
 			[
 				"gotweench",
 				"Plugins/GoKit/GoTweenChain.cs"
@@ -2045,10 +3507,6 @@
 				"_scenes/OddOneOut/Scripts/OddOneOutManager.cs"
 			],
 			[
-				"sessionm",
-				"_services/SessionMgr.cs"
-			],
-			[
 				"segmen",
 				"_scenes/Segmenting/Scripts/SegmentingManager.cs"
 			],
@@ -2059,10 +3517,6 @@
 			[
 				"altyp",
 				"_services/AlTypes.cs"
-			],
-			[
-				"gameman",
-				"_services/GameManager.cs"
 			],
 			[
 				"gamema",
@@ -2087,10 +3541,6 @@
 			[
 				"printm",
 				"_scripts/PrintGameInfo.cs"
-			],
-			[
-				"session",
-				"_services/SessionMgr.cs"
 			],
 			[
 				"gamein",

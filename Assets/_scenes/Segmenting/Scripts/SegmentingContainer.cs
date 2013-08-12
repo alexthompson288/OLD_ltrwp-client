@@ -78,7 +78,7 @@ public class SegmentingContainer : MonoBehaviour {
 	}
 	
 	public void ShowButton() {
-		
+
 		if(MyButton==null)
 			SetMyButton();
 		

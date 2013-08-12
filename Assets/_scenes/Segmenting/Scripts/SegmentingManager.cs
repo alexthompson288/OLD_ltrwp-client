@@ -45,6 +45,8 @@ public class SegmentingManager : MonoBehaviour {
 	public float spaceFor2Letters=200;
 	public float spaceFor3Letters=240;
 	public Vector2 defaultContainerSize=new Vector2(128.0f,128.0f);
+
+	bool recreateAssets=false;
 	
 	
 	
@@ -67,41 +69,52 @@ public class SegmentingManager : MonoBehaviour {
 		else {
 			PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
 		}
+
+		Setup();
 		
+	}
+
+	void OnEnable() {
+		if(recreateAssets){
+			Setup();
+			recreateAssets=false;
+		}
+	}
+
+	void Setup() {
 		CreatedLetters=new ArrayList();
 		CreatedContainers=new ArrayList();
 		
 		// if(Application.loadedLevelName=="WordBank-Scaffold"||Application.loadedLevelName=="WordLadder")
 		// {
 				
-			GameManager cmsLink=GameManager.Instance;
-			
-			String word=PersistentManager.WordBankWord;
-			if(word=="non") word="vulture";
+		GameManager cmsLink=GameManager.Instance;
+		
+		String word=PersistentManager.WordBankWord;
+		if(word=="non") word="vulture";
 
-			List<PhonemeData> phonemes=cmsLink.GetSortedPhonemesForWord(word);
+		List<PhonemeData> phonemes=cmsLink.GetSortedPhonemesForWord(word);
 
-			phonemes.ForEach(delegate(PhonemeData  pd) {
-					Debug.Log(word + ": " + pd.LetterInWord + " (" + pd.Phoneme + ")");
-				});
+		phonemes.ForEach(delegate(PhonemeData  pd) {
+				Debug.Log(word + ": " + pd.LetterInWord + " (" + pd.Phoneme + ")");
+			});
 
-			PhonemesToUse=phonemes;
-			
-			CorrectLetters=new string[phonemes.Count];
-			
-			int curLetter=0;
-			
-			for(int i=0;i<CorrectLetters.Length;i++)
-			{
-				CorrectLetters[i]=phonemes[curLetter].Phoneme;
-				curLetter++;
-			}
-			
-			LettersToUse=CorrectLetters;
+		PhonemesToUse=phonemes;
+		
+		CorrectLetters=new string[phonemes.Count];
+		
+		int curLetter=0;
+		
+		for(int i=0;i<CorrectLetters.Length;i++)
+		{
+			CorrectLetters[i]=phonemes[curLetter].Phoneme;
+			curLetter++;
+		}
+		
+		LettersToUse=CorrectLetters;
 		// }
 		
 		StartGame();
-		
 	}
 	
 	// Update is called once per frame
@@ -114,6 +127,9 @@ public class SegmentingManager : MonoBehaviour {
 		
 		if(EvalProblem() && !exitCountdown)
 		{
+			if(gameObject.GetComponent<FruitMachineManager>())
+				gameObject.GetComponent<FruitMachineManager>().SlideMachine("down");
+
 			exitCountdown=true;
 			audio.clip=SuccessClip;
 			audio.Play ();
@@ -121,6 +137,23 @@ public class SegmentingManager : MonoBehaviour {
 		
 		if(!showingLetters && EnabledContainerIndex==CreatedContainers.Count)
 			ShowLetters();
+	}
+
+	void OnDisable () {
+		foreach(Transform t in CreatedContainers)
+		{
+			if(t!=null)
+				GameObject.Destroy(t.gameObject);
+		}
+		foreach(Transform t in CreatedLetters)
+		{
+			if(t!=null)
+				GameObject.Destroy(t.gameObject);
+		}
+
+		CreatedContainers.Clear();
+		CreatedLetters.Clear();
+		recreateAssets=true;
 	}
 	
 	void StartGame () {
@@ -141,9 +174,13 @@ public class SegmentingManager : MonoBehaviour {
 		else if(CorrectLetters.Length==5)
 			contXPos-=260.0f;
 		else if(CorrectLetters.Length==6)
-			contXPos-=190.0f;
+			contXPos=-295.0f;
 		else if(CorrectLetters.Length==7)
 			contXPos-=220.0f;
+
+		if(CorrectLetters.Length==3)
+			contXPos=-295.0f;
+		
 		
 		float contYPos=scaffoldStartYPos;
 		float letXPos=letterStartXPos;
@@ -254,6 +291,7 @@ public class SegmentingManager : MonoBehaviour {
 			OTTextSprite slet=let.GetComponent<OTTextSprite>();
 			slet.spriteContainer=LetterFont.GetComponent<OTSpriteAtlasCocos2DFnt>();
 			slet.text=LettersToUse[i];
+			slet.GetComponent<SegmentingLetter>().myPhoneme=GameManager.Instance.GetPhonemeInfoForPhoneme(LettersToUse[i]);
 
 			if(slet.text.Contains("-") && !isInDigraph)
 			{
@@ -399,6 +437,12 @@ public class SegmentingManager : MonoBehaviour {
 		}
 	}
 	
+	public void PlayAudio(AudioClip thisClip)
+	{
+		audio.clip=thisClip;
+		audio.Play();
+	}
+
 	public void PlayIntro()
 	{
 		
@@ -406,15 +450,7 @@ public class SegmentingManager : MonoBehaviour {
 	
 	public AudioClip AudioLetter(string thisLetter)
 	{
-		Debug.Log("SEEKING AUDIO FOR FRAGMENT: " + thisLetter);
-		for(int i=0;i<LetterAudio.Length;i++)
-		{
-			if(LetterAudio[i].name==thisLetter)
-			{
-				return LetterAudio[i];	
-			}
-		}
 		
-		return null;
+		return (AudioClip)Resources.Load("audio/benny_phonemes_master/"+thisLetter);
 	}
 }

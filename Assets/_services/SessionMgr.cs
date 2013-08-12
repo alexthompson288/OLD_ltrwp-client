@@ -128,6 +128,9 @@ public class SessionMgr
 		case "cross_the_river":
 			loadgs="CrossTheBridge";
 			break;
+		case "fruit_machine":
+			loadgs="fruitmachine-zoomed";
+			break;
 
 		default:
 				//load generic scene
@@ -780,7 +783,30 @@ public class SessionMgr
 	        hash.Add("game_setting", "splat_the_rat_underwater" ); 
 	        _sectionList.Add(hash); 	
 		}
-
+		else if(sessionId==9124)
+		{
+			PersistentManager.WordBankWord="rustle";
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "fruit_machine");
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9125)
+		{
+			PersistentManager.WordBankWord="author";
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "fruit_machine");
+	        _sectionList.Add(hash); 	
+		}
+		else if(sessionId==9126)
+		{
+			PersistentManager.WordBankWord="invite";
+			hash=new Hashtable(); 
+	        hash.Add("section_id", 441); 
+	        hash.Add("game_scene", "fruit_machine");
+	        _sectionList.Add(hash); 	
+		}
 
 
 		if(gotDebugSession)

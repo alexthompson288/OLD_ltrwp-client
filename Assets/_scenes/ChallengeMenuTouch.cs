@@ -62,15 +62,15 @@ public class ChallengeMenuTouch : MonoBehaviour {
 			}
 			else if(gesture.pickObject.name=="btn4Forest")
 			{
-				GameManager.Instance.SessionMgr.StartSession(9121);
+				GameManager.Instance.SessionMgr.StartSession(9124);
 			}
 			else if(gesture.pickObject.name=="btn5Space")
 			{
-				GameManager.Instance.SessionMgr.StartSession(9118);
+				GameManager.Instance.SessionMgr.StartSession(9125);
 			}
 			else if(gesture.pickObject.name=="btn6Underwater")
 			{
-				GameManager.Instance.SessionMgr.StartSession(9123);
+				GameManager.Instance.SessionMgr.StartSession(9126);
 			}
 
 			GameManager.Instance.SessionMgr.StartActivity();

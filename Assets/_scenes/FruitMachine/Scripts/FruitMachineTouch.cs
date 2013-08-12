@@ -3,6 +3,12 @@ using System.Collections;
 
 public class FruitMachineTouch : MonoBehaviour {
 
+	FruitMachineManager fmMgr;
+
+	void Awake() {
+		fmMgr=GameObject.Find("Main Camera").GetComponent<FruitMachineManager>();
+	}
+
 	// Use this for initialization
 	void Start () {
 	
@@ -45,10 +51,17 @@ public class FruitMachineTouch : MonoBehaviour {
 			Debug.Log("Hit lever");
 			MoveLeverDown();
 		}
+		else if(gameObject.name=="btnPlayButton")
+		{
+			Debug.Log("play button");
+			fmMgr.PlayCurrentWordAudio();
+		}
 	}
 
 	void MoveLeverDown()
 	{
+		fmMgr.PlayLeverDownSound();
+
 		OTSprite s=gameObject.GetComponent<OTSprite>();
 
 		Vector2 newPos=new Vector2(s.position.x, 0.11f);
@@ -63,7 +76,7 @@ public class FruitMachineTouch : MonoBehaviour {
 
 		
 		// Go.to(s, 0.3f, config );
-		GoTween tween=new GoTween(s, 0.3f, config);
+		GoTween tween=new GoTween(s, 0.47f, config);
 		tween.setOnCompleteHandler(c => MoveLeverUp());
 
 		Go.addTween(tween);
@@ -72,6 +85,7 @@ public class FruitMachineTouch : MonoBehaviour {
 
 	void MoveLeverUp()
 	{
+		fmMgr.PlayLeverUpSound();
 		OTSprite s=gameObject.GetComponent<OTSprite>();
 		Vector2 newPos=new Vector2(s.position.x, 0.1990806f);
 
@@ -85,7 +99,15 @@ public class FruitMachineTouch : MonoBehaviour {
 				.floatProp("rotation", s.rotation+80.0f)
 				.setEaseType( GoEaseType.QuadOut );
 
-		
-		Go.to(s, 0.3f, config );
+		GoTween tween=new GoTween(s, 0.365f, config);
+		tween.setOnCompleteHandler(c => ReturnToMenu());
+
+		Go.addTween(tween);
+
+		// Go.to(s, 0.365f, config );
+	}
+
+	void ReturnToMenu() {
+		Application.LoadLevel("ChallengeMenu");
 	}
 }

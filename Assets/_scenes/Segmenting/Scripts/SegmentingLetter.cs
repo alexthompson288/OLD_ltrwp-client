@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using AlTypes;
 
 public class SegmentingLetter : MonoBehaviour {
 	
@@ -7,6 +8,8 @@ public class SegmentingLetter : MonoBehaviour {
 	public SegmentingContainer MyMount;
 	public bool Locked=false;
 	OTTextSprite mySprite;
+	public PhonemeData myPhoneme;
+	bool playedAudio;
 
 	// Use this for initialization
 	void Awake () {
@@ -44,6 +47,11 @@ public class SegmentingLetter : MonoBehaviour {
 		if(Locked)return;
 		// Verification that the action on the object
 		if (gesture.pickObject == gameObject){
+			if(!playedAudio){
+				AudioClip ac=(AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+myPhoneme.Phoneme+"_"+myPhoneme.Grapheme+"_"+myPhoneme.Mneumonic.Replace(" ","_"));
+				gameManager.PlayAudio(ac);
+				playedAudio=true;
+			}
 //			mySprite.position=new Vector2(gesture.position.x-(Screen.currentResolution.width/2), gesture.position.y-(Screen.currentResolution.height/2));
 			mySprite.position=new Vector2(mySprite.position.x+gesture.deltaPosition.x,mySprite.position.y+gesture.deltaPosition.y);
 			//mySprite.position=gesture.position;
@@ -54,6 +62,7 @@ public class SegmentingLetter : MonoBehaviour {
 	private void On_TouchUp(Gesture gesture){
 		if(gesture.pickObject==gameObject){
 			gameManager.CheckCurrentLetterForContainerDrop(gameObject.transform);
+			playedAudio=false;
 		}
 	}
 }
