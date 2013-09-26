@@ -71,7 +71,7 @@ public class StoryBrowserManager : MonoBehaviour {
 
 	void ShowNextBooks()
 	{
-		if(currentIndex<46)
+		if(currentIndex<50)
 			SetupBooks();
 	}
 
@@ -122,7 +122,10 @@ public class StoryBrowserManager : MonoBehaviour {
 				Debug.Log("picked story "+thisBook.bookId+"// thisPage Image Images/storypages/"+thisPage.ImageName);
 
 				if(Resources.Load("Images/storypages/"+thisPage.ImageName))
-					Application.LoadLevel("Stories");
+				{
+					GameObject.Find("TransitionScreen").GetComponent<TransitionScreen>().ChangeLevel("Stories");
+					//Application.LoadLevel("Stories");
+				}
 				else
 					Debug.Log("do not have pages for story");
 			}

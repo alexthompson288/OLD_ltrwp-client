@@ -147,6 +147,7 @@ public class SessionMgr
 
 	public void CloseActivity ()
 	{
+		/*
 		activityIndex++;
 
 		if (debugMode) {
@@ -161,7 +162,7 @@ public class SessionMgr
 				//goto next activity
 				StartActivity ();
 			}
-		}
+		}*/
 	}
 	
 	public void StartSession (int sessionId)

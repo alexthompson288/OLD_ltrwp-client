@@ -351,6 +351,20 @@ public class OTAnimatingSprite : OTSprite
         this.delay = 0;
         _Play();
     }
+	
+	  /// <summary>
+    /// Plays a frameset of this sprite's animation once from a frame.
+    /// </summary>
+    /// <param name="frameSet">Animation frameset to play.</param>
+    public void PlayOnceFromFrame(string frameSet, int startingFrame)
+    {
+        this.animationFrameset = frameSet;
+        this.looping = false;
+        this.startFrame = startingFrame;
+        this.endFrame = -1;
+        this.delay = 0;
+        _Play();
+    }
     /// <summary>
     /// Plays a frameset of this sprite's animation looping.
     /// </summary>

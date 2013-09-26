@@ -23,11 +23,12 @@ public class OTTextSprite : OTSprite
 	private float _lineHeightModifier = 1;
 	
 	long _bytesLines = 0;
-	List<OTTextAlinea> _parsed = new List<OTTextAlinea>();
+	public List<OTTextAlinea> _parsed = new List<OTTextAlinea>();
 	
 	Vector3[] verts = new Vector3[] {};
 	Vector2[] _uv = new Vector2[] {};
 	int[] tris = new int[] {};
+
 			
 	long GetBytes()
 	{
@@ -93,7 +94,7 @@ public class OTTextSprite : OTSprite
 	int[] sizeChars = new int[]{};
 	
 	int lineHeight = 0;
-	void ParseText()
+	public void ParseText()
 	{
 		_bytesLines = GetBytes();
 		char[] chars = text.ToCharArray();
@@ -102,13 +103,11 @@ public class OTTextSprite : OTSprite
 
 		for (int p=0; p<_parsed.Count; p++)		
 			_parsed[p].Clean();		
-		_parsed.Clear();
-		
+		_parsed.Clear();		
 		
 		int dy = System.Convert.ToUInt16(GetDY());
 		int yPosition = 0;
 		OTSpriteAtlas atlas = (spriteContainer as OTSpriteAtlas);		
-						
 		
 		OTAtlasData data = atlas.atlasData[0];
 		if (data!=null && data.frameSize.y>0 && lineHeight == 0)
@@ -410,7 +409,7 @@ public class OTTextSprite : OTSprite
 }
 
 
-class OTTextAlinea
+public class OTTextAlinea
 {
 	public List<OTTextLine> lines = new List<OTTextLine>();
 		
@@ -457,7 +456,7 @@ class OTTextAlinea
 		
 }
 
-class OTTextLine
+public class OTTextLine
 {
 	public int charCount;
 	public int yPosition;
@@ -539,6 +538,7 @@ class OTTextLine
 		
 	public int width = 0;
 	public List<OTTextWord> words = new List<OTTextWord>();
+
 	public void Clean()
 	{
 		width = 0;
@@ -563,6 +563,7 @@ class OTTextLine
 	{
 		words.Add(new OTTextWord());
 		word = words[words.Count-1];
+	
 	}
 	
 	public void NextWord(OTAtlasData space)
@@ -623,7 +624,7 @@ class OTTextLine
 	
 }
 
-class OTTextWord
+public class OTTextWord
 {	
 	public int width = 0;
 	public string text = "";
@@ -653,6 +654,7 @@ class OTTextWord
 			tx = System.Convert.ToUInt16(dx);
 		txList.Add(tx);
 		atlasData.Add(data);
+			
 		
 		int tt = 0;
 		for (int i=0; i<txList.Count-1; i++)
@@ -666,7 +668,8 @@ class OTTextWord
 		System.Array.Resize<Vector3>(ref this.verts, this.verts.Length + verts.Length);
 		verts.CopyTo(this.verts, this.verts.Length - verts.Length);		
 		System.Array.Resize<Vector2>(ref this.uv, this.uv.Length + uv.Length);
-		uv.CopyTo(this.uv, this.uv.Length - uv.Length);				
+		uv.CopyTo(this.uv, this.uv.Length - uv.Length);		
+		
 	}
 	
 	public void End(OTAtlasData space)
@@ -693,6 +696,7 @@ class OTTextWord
 			if (this.space == 0)
 				this.space = 30;				
 		}
+		
 		
 	}
 	

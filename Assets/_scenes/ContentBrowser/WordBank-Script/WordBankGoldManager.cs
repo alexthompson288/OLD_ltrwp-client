@@ -58,7 +58,6 @@ public class WordBankGoldManager : MonoBehaviour {
 			OTSprite s=t.GetComponent<OTSprite>();
 			s.position=new Vector2(startX+(curX*incX),StartY-(curY*incY));
 			
-			
 			curX++;
 			
 			if(curX>2)
@@ -70,8 +69,7 @@ public class WordBankGoldManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {		
 		float newYPos=0;
 		
 		if(Input.GetKey("up"))
@@ -83,8 +81,7 @@ public class WordBankGoldManager : MonoBehaviour {
 		{
 			newYPos=Bars.position.y-3.0f;
 			Bars.position=new Vector3(Bars.position.x, newYPos, Bars.position.z);
-		}
-		
+		}		
 	}
 
 	private void On_Drag(Gesture gesture){

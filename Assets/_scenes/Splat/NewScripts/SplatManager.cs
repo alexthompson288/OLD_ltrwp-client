@@ -19,7 +19,7 @@ public class SplatManager : MonoBehaviour {
 	public AudioClip[] PipReactionsPositive;
 	public AudioClip[] BennyReactionsNegative;
 	public AudioClip[] BennyReactionsComplete;
-
+	public OTTextSprite ScoreSprite;
 
 	public bool ContainerHasStateB=false;
 	public int NumberOfContainerVariants=0;
@@ -42,6 +42,18 @@ public class SplatManager : MonoBehaviour {
 	public Transform sack;
 	public Transform pip;
 	public PipAnimation pipani;
+	public bool IsRaining = false;	
+	public bool IsTimerBasedGame = false;
+	public float TimerReward = 2.0f;
+	public float StartingTimer = 20.0f;
+	private float TimerModifier = 1.0f;
+	public float TimerModifierIncrease = 0.1f;
+	private float TimeLeft;
+	public OTSprite TimeLeftSprite;
+	private float TimeLeftSpriteStartingScale;
+	
+	public GameObject CounterBarObject;
+	public GameObject TimerBarObject;
 	
 	public ArrayList explosions;
 	
@@ -91,7 +103,8 @@ public class SplatManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
+		TimeLeft = StartingTimer;
+		TimeLeftSpriteStartingScale = TimeLeftSprite.size.y;
 		ReadPersistentObjectSettings();
 //		iTween.MoveBy(gameObject, iTween.Hash("x", 2, "easeType", "easeInOutQuad", "loopType", "pingPong", "delay", 0.1, "time", 6.0, "lookat", lookat));
 		Application.targetFrameRate=60;
@@ -100,8 +113,13 @@ public class SplatManager : MonoBehaviour {
 		explosions=new ArrayList();
 		destroyLetters=new ArrayList();
 		pipani=pip.GetComponent<PipAnimation>();
-		Debug.Log("App datapath: "+Application.dataPath);
-		StartGame ();
+		Debug.Log("App datapath: "+ Application.dataPath);
+		StartGame();
+		
+		if(IsTimerBasedGame)
+			CounterBarObject.SetActive(false);
+		else
+			TimerBarObject.SetActive(false);
 	}
 	
 	
@@ -157,12 +175,24 @@ public class SplatManager : MonoBehaviour {
 	{
 		allowInteraction=false;
 		tapsSinceLastCorrect=0;
+		
+		if(IsTimerBasedGame)
+		{
+			TimeLeft += TimerReward;
+			TimeLeft = Mathf.Clamp(TimeLeft, 0.0f, StartingTimer);
+		}
+		
 		currentCorrectLetters++;
+		ScoreSprite.text = currentCorrectLetters.ToString();
+		ScoreSprite.ForceUpdate();
+		
 		initedBubbles-=1;
 		
-		SplatTheRatProgress progress=GameObject.Find ("ProgressBar").GetComponent<SplatTheRatProgress>();
-		progress.currentNumber=currentCorrectLetters;
-		
+		if(GameObject.Find ("ProgressBar"))
+		{
+			SplatTheRatProgress progress=GameObject.Find ("ProgressBar").GetComponent<SplatTheRatProgress>();
+			progress.currentNumber=currentCorrectLetters;
+		}
 		
 		Transform ballLetter=callingBall.GetComponent<SplatBally>().MyLetter;
 		//play what they just selected
@@ -180,7 +210,7 @@ public class SplatManager : MonoBehaviour {
 		currentBalls.Remove(callingBall);
 		
 
-		if(currentCorrectLetters==expectedCorrectLetters)
+		if(!IsTimerBasedGame && currentCorrectLetters==expectedCorrectLetters)
 		{
 			StopGame();
 			return;
@@ -188,7 +218,7 @@ public class SplatManager : MonoBehaviour {
 		
 		pipani.playIdleSet=false;
 		pipani.SetNonePlaying();
-		pipani.playPositive2=true;
+		pipani.playPositive=true;
 		
 		getNextLetter();
 		CreateNewSphere();
@@ -200,31 +230,60 @@ public class SplatManager : MonoBehaviour {
 	
 	public void CreateNewSphere()
 	{
+		
+
+		Transform newObject=(Transform)Instantiate(SpherePrefab);
+		
+		bool IsInOtherBallsPlace = true;
+		int Count = 0;
+		while(IsInOtherBallsPlace == true && Count < 20)
+		{
+			if(!IsRaining){
+				newObject.position=new Vector3(Random.Range(-400, 259), Random.Range(-250, 250), 0);
+			}else{
+				newObject.position=new Vector3(Random.Range(-400, 0), 476.0f, 0);
+				((SplatBally)newObject.GetComponent("SplatBally")).IsRaining = true;
+			}
+			if(!IsRaining && newObject.position.x > -37.0f && newObject.position.y < 53.0f)
+			{
+				// sphere is over pip
+			}else{
+				IsInOtherBallsPlace = false;
+				
+				foreach(Transform Ball in currentBalls)
+				{
+				//	Debug.Log("Checking ball positions");
+					if((Ball.position - newObject.position).magnitude < 210.0f)
+					{
+						IsInOtherBallsPlace = true;
+					}
+				}
+			}
+			Count++;
+		}
+		
 		// get found bool
 		// ballscontain current balls on screen contain current target?
 		// so always a target phoneme
 		// audioletters = dummyletters
-
-
-		Transform newObject=(Transform)Instantiate(SpherePrefab);
-		
-		newObject.position=new Vector3(226, 123, 0);
-		
 		//look to see if we have one of the current letter in play
+		
 		bool found=ballsContainLetter(currentLetter);
 		
-		
+		if(!found)
+		{
+			((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=currentLetter;	
+			Debug.Log ("next letter: " + currentLetter + " was not found");
+		}else{
+			((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=(string)dummyPhonemes[Random.Range(0,dummyPhonemes.Count-1)];
+			Debug.Log ("next letter: " + currentLetter + " was found");
+		}
 		((SplatBally)newObject.GetComponent("SplatBally")).materialIndex=Random.Range(0,NumberOfContainerVariants);
-		
-		if(!found) ((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=currentLetter;
-		
-		else ((SplatBally)newObject.GetComponent("SplatBally")).currentLetter=(string)dummyPhonemes[Random.Range(0,dummyPhonemes.Count-1)];
-			
+					
 		OTSprite s=newObject.GetComponent<OTSprite>();
 		s.size=new Vector2(1.0f,1.0f);
-		s.position=new Vector2(-225,-135);
-		s.ForceUpdate();
-		
+		//s.position=new Vector2(-225,-135);
+		s.ForceUpdate();		
 		
 		OTTween mt=new OTTween(s,1.5f, OTEasing.BounceOut);
 		mt.Tween("size", s.imageSize);
@@ -298,7 +357,38 @@ public class SplatManager : MonoBehaviour {
 			GameManager.Instance.SessionMgr.CloseActivity();
 				
 		if(playing)
+		{
 			inactivetime+=Time.deltaTime;
+//			Debug.Log(TimeLeft);
+		}
+		
+		if(IsTimerBasedGame)
+		{
+			Vector2 tmpSize = TimeLeftSprite.size;
+			tmpSize.y = TimeLeftSpriteStartingScale * (TimeLeft / StartingTimer);
+			TimeLeftSprite.size = tmpSize;
+			
+			if(tmpSize.y < 0.7f)
+			{
+				Color WarningColor = new Color(1.0f, 0.35f, 0.35f, 1.0f);
+				float KlaxonValue = Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 2.5f)) * (1.0f - (TimeLeft / (StartingTimer * 0.7f)));
+				
+				TimeLeftSprite.tintColor = ( WarningColor * KlaxonValue) + (Color.white * (1.0f - KlaxonValue));
+			}
+			
+			if(allowInteraction)
+			{
+				TimeLeft -= Time.deltaTime * TimerModifier;
+				TimerModifier += TimerModifierIncrease * Time.deltaTime;
+				
+				if(TimeLeft < 0.0f)
+				{
+					TimeLeft = 0.0f;
+					allowInteraction = false;
+					StopGame();					
+				}
+			}
+		}
 	
 		if(inactivetime>15.0f && allowInteraction)
 		{
@@ -308,28 +398,28 @@ public class SplatManager : MonoBehaviour {
 			pip.audio.Play();
 		}
 
-			if(EasyTouch.GetTouchCount()>0 && !playing && !exitCountdown)	
-			{
-				StartGame();
-			}
-			
-			audioReqDelay-=Time.deltaTime;
-			if(audioReqDelay<0 && !playedAudioReq && playing)
-			{
-				allowInteraction=true;
-				//TODO: FIX AUDIO
-				// audio.clip=audioLetters[currentLetter];
-				audio.clip=(AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+currentPhonemeData.Phoneme+"_"+currentPhonemeData.Grapheme+"_"+currentPhonemeData.Mneumonic.Replace(" ","_"));
-				audio.Play();
-				playedAudioReq=true;
-				audioReqDelay=2.0f;
-			}
+		if(EasyTouch.GetTouchCount()>0 && !playing && !exitCountdown)	
+		{
+			StartGame();
+		}
+		
+		audioReqDelay-=Time.deltaTime;
+		if(audioReqDelay<0 && !playedAudioReq && playing)
+		{
+			allowInteraction=true;
+			//TODO: FIX AUDIO
+			// audio.clip=audioLetters[currentLetter];
+			audio.clip=(AudioClip)Resources.Load("audio/benny_phonemes_master/benny_phoneme_"+currentPhonemeData.Phoneme+"_"+currentPhonemeData.Grapheme+"_"+currentPhonemeData.Mneumonic.Replace(" ","_"));
+			audio.Play();
+			playedAudioReq=true;
+			audioReqDelay=2.0f;
+		}
 		
 		if(initedBubbles<expectedInitBubbles && playing)
 		{
 			timeToInit+=Time.deltaTime;
 			
-			if(timeToInit>1.5f)
+			if(timeToInit>2.0f)
 			{
 				CreateNewSphere();
 				timeToInit=0.0f;
@@ -345,20 +435,34 @@ public class SplatManager : MonoBehaviour {
 
 		//what we would like
 		targetPhonemes=new ArrayList();
+		dummyPhonemes = new ArrayList();
 		
-		DataPhonemeData[] dpd=GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
+		DataPhonemeData[] dpd=GameManager.Instance.GetTargetDataPhonemesForSection(1387);//GameManager.Instance.SessionMgr.CurrentTargetDataPhonemes;
 
 		if(dpd!=null)
 		{
 			foreach(DataPhonemeData dp in dpd)
 			{
-				targetPhonemes.Add(dp.Phoneme);
+				if(dp.IsTarget == true)
+				{
+					targetPhonemes.Add(dp.Phoneme);
+					dummyPhonemes.Add(dp.Phoneme);
+				}
+				if(dp.IsDummy == true)
+				{
+					dummyPhonemes.Add(dp.Phoneme);
+				}
 			}
 		}
 		
 		if(targetPhonemes.Count==0)
 		{
-			targetPhonemes.Add("o");
+			Debug.Log("No target phonemes found, supplementing basic ones");
+			targetPhonemes.Add("z");
+			targetPhonemes.Add("x");
+			targetPhonemes.Add("w");
+			targetPhonemes.Add("v");
+			targetPhonemes.Add("q");
 		}
 
 		// //create array of required solutions
@@ -372,15 +476,31 @@ public class SplatManager : MonoBehaviour {
 		
 		getNextLetter();
 		
-		timeToIntroductionAudio=5.0f;
-
-		dummyPhonemes=GameManager.Instance.GetDistributedDataPoints("phoneme", 0.8f, 20);
+		timeToIntroductionAudio=1.5f;
+		
+		for(int i = 0; i < dummyPhonemes.Count; i++)
+		{
+			Debug.Log( "Phoneme data for dummy: " + dummyPhonemes[i]);	
+		}
+		for(int i = 0; i < targetPhonemes.Count; i++)
+		{
+			Debug.Log( "Phoneme data for target: " + targetPhonemes[i]);	
+		}
+		
+	//	dummyPhonemes=GameManager.Instance.GetDistributedDataPoints("phoneme", 0.8f, 20);
+	//	dummyPhonemes = new ArrayList();
 		if(dummyPhonemes.Count==0)
 		{
-			dummyPhonemes.Add("x");
-			dummyPhonemes.Add("y");
-			dummyPhonemes.Add("z");
+			Debug.Log("No dummy phonemes found, supplementing basic ones");
+			dummyPhonemes.Add("l");
+			dummyPhonemes.Add("m");
+			dummyPhonemes.Add("n");
+			dummyPhonemes.Add("o");
+			dummyPhonemes.Add("p");
+
+
 		}
+		
 		
 	}
 	
@@ -439,6 +559,7 @@ public class SplatManager : MonoBehaviour {
 		audio.Play();
 		PlayBennyComplete();
 		exitCountdown=true;
+		pipani.playPositive2 = true;
 	}
 	
 	void getNextLetter() {

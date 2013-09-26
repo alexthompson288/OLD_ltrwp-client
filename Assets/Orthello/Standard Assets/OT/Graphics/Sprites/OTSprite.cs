@@ -966,8 +966,8 @@ public class OTSprite : OTObject
     {
         if (lastMatName != "" && lastMat != null)
             OT.MatDec(lastMat, lastMatName);
-        else
-           DestroyImmediate(material);
+//        else
+       //    DestroyImmediate(material);
         base.OnDestroy();
     }
 

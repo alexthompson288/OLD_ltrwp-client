@@ -18,12 +18,15 @@ public class SplatBally : MonoBehaviour {
 	public bool isOffScreen;
 	public Texture2D SplatImage;
 	PersistentObject PersistentManager;
+	public bool IsRaining = false;	
+	public PictureFrame _pictureFrame;
 	
-	
+	// falling speed
+	private float RainSpeed = -80.0f;
 	
 	// Use this for initialization
 	void Start () {
-
+		_pictureFrame = GameObject.Find("PictureFrame").GetComponent<PictureFrame>();
 		gameManager=(SplatManager)GameObject.Find("Main Camera").GetComponent<SplatManager>();
 		if(GameObject.Find ("PersistentManager")==null){
 			GameObject thisPO=new GameObject("PersistentManager");
@@ -50,10 +53,10 @@ public class SplatBally : MonoBehaviour {
 	void MoveBall (bool hasJustStarted) {
 		if(isOffScreen)return;
 		//Debug.Log ("Move things");
-		if(hasJustStarted)
-			rigidbody.AddForce(0,Random.Range(1000,1200),0);
-		else
-			rigidbody.AddForce(Random.Range(-300,300),Random.Range(-300,300),0);
+		//if(hasJustStarted)
+		//	rigidbody.AddForce(0,Random.Range(1000,1200),0);
+		//else
+			rigidbody.AddForce(Random.Range(-350,350),Random.Range(-350,350),0);
 	}
 	
 	void OnCollisionEnter(Collision c) {
@@ -77,6 +80,29 @@ public class SplatBally : MonoBehaviour {
 		{
 			timeSinceClicked+=Time.deltaTime;
 			ExplodeBubble();
+		}
+		
+		if(rigidbody.velocity.magnitude > 150.0f)
+		{
+			rigidbody.velocity =  rigidbody.velocity * 0.5f;
+		}
+		
+		if(IsRaining)
+		{
+			Vector3 Pos = transform.position;
+			Pos += new Vector3(0.0f, RainSpeed * Time.deltaTime, 0.0f);
+			if(Pos.y < -500.0f)
+				Pos.y += 1100.0f;
+			Pos.x = Mathf.Clamp(Pos.x, -400.0f, 0.0f);
+			transform.position = Pos;
+			
+			if(rigidbody.velocity.y > 0.0f)
+			{
+				Vector3 Velocity = 	rigidbody.velocity;
+				Velocity.y = 0.0f;
+				rigidbody.velocity = Velocity;
+			}
+			
 		}
 		
 		if(timeSinceClicked>0.5f)
@@ -111,7 +137,7 @@ public class SplatBally : MonoBehaviour {
 		
 		// Verification that the action on the object
 		if (gesture.pickObject == gameObject){
-			if(!gameManager.playing||!gameManager.allowInteraction||gameManager.initedBubbles<gameManager.expectedInitBubbles)return;
+			if(!gameManager.playing||!gameManager.allowInteraction)return;//||gameManager.initedBubbles<gameManager.expectedInitBubbles)return;
 		
 			if(!haveBeenPressed){
 			
@@ -138,6 +164,7 @@ public class SplatBally : MonoBehaviour {
 			}
 			else 
 			{
+				_pictureFrame.ShowMnemonic(gameManager.currentLetter, 1.8f);
 				GameManager.Instance.LogDataPoint("phoneme", currentLetter, "-1");
 				GameManager.Instance.LogDataPoint("phoneme", gameManager.currentLetter, "-1");
 				PersistentManager.PlayAudioClip(gameManager.IncorrectHit);

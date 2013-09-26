@@ -62,7 +62,7 @@ public class MenuBrowser : MonoBehaviour {
 
 	private void On_SimpleTap(Gesture gesture)
 	{
-		if(gesture.pickObject!=null)
+		if(gesture.pickObject!=null && !gesture.pickObject.name.Contains("Letter") && !gesture.pickObject.name.Contains("Play") && !gesture.pickObject.name.Contains("PipPad"))
 		{
 			Debug.Log ("tappy tappy!");		
 			audio.clip=NavigationTap;

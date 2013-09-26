@@ -107,16 +107,32 @@ public class GameManager
 
 		return outSet;
 	}
+	
+	public ArrayList GetTargetPhonemesFromSection(int sectionID)
+	{
+		ArrayList al=new ArrayList();
+		DataTable dt=CmsDb.ExecuteQuery("select phoneme_id from data_phonemes where section_id='"+sectionID+"' and is_target_phoneme='t'");
+	
+		foreach(DataRow dr in dt.Rows)
+		{
+			al.Add(GetPhonemeInfoForPhoneme(dr["phoneme_id"].ToString()).Phoneme);
+		}
+		return al;
+	}
 
 	public ArrayList GetDataPointsWithValue(string pointType, string pointValue)
 	{
 		ArrayList al=new ArrayList();
+	
 		DataTable dt=ActivityDb.ExecuteQuery("SELECT point_key FROM LoggedDataPoints WHERE user_id='" + lastUserId 
 			+ "' AND point_type='" + pointType + "' AND point_value='" + pointValue + "'");
 		foreach(DataRow dr in dt.Rows)
 		{
 			al.Add(dr["point_key"]);
 		}
+		
+		
+		
 		return al;
 	}
 	
@@ -137,6 +153,56 @@ public class GameManager
 		// return "iterate count: " + tests.Length + " with word: " + tests[41];
 
 		return "cms info queries disabled";
+	}
+	
+	public List<string> GetWordsFromStory(int storyID)
+	{
+		List<string> Words = new List<string>();
+		int pageID = 1;
+		
+		for(int i = 0; i < 50; i++)
+		{
+			DataTable dt=CmsDb.ExecuteQuery("select text from storypages where story_id='"+storyID+"' and pageorder='"+pageID+"'");
+	
+			if(dt.Rows.Count>0)
+			{
+				string PageText = (String)dt.Rows[0]["text"];
+				PageText = PageText.Replace("\\n", "\n");	
+				PageText = PageText.Replace("\n", " ");
+				string [] UntreatedWords = PageText.Split(' ');
+				for (int j = 0; j < UntreatedWords.Length; j++)
+				{
+					UntreatedWords[j] = UntreatedWords[j].ToLower();
+					UntreatedWords[j] = UntreatedWords[j].Replace(",", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace(".", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace(";", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace("!", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace("?", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace("\n", "");
+					UntreatedWords[j] = UntreatedWords[j].Replace("-", "");
+					
+					bool WordAlreadyExists = false;
+					foreach( string word in Words)
+					{
+						if(word == UntreatedWords[j])
+						{
+							WordAlreadyExists = true;
+							break;
+						}
+					}					
+					if(!WordAlreadyExists && UntreatedWords[j].Length > 0)
+						Words.Add(UntreatedWords[j]);
+				}
+				
+			}
+			else 
+			{
+				return Words;
+			}
+			
+			pageID++;
+		}
+		return Words;
 	}
 	
 	public String[] GetUserWordIndex()
@@ -268,6 +334,84 @@ public class GameManager
 		}
 		return phonemes;
 	}
+	
+	public List<PhonemeData> GetOrderedPhonemesForWord(String word)
+	{
+		//get the word
+		//DataTable dt=CmsDb.ExecuteQuery("select id from words where word='" + word + "'");
+		//int wordid=(int)dt.Rows[0]["id"];
+		
+		DataTable dt=CmsDb.ExecuteQuery("select ordered_phonemes from words where word='" + word + "'");
+		string orderedPhonemes =(string)dt.Rows[0]["ordered_phonemes"];
+		
+		List<PhonemeData> phonemes=new List<PhonemeData>();
+		
+		orderedPhonemes = orderedPhonemes.Replace("[", "");
+		orderedPhonemes = orderedPhonemes.Replace("]", "");
+		string [] individualPhonemes = orderedPhonemes.Split(',');
+		
+	/*	for(int i = 0; i < individualPhonemes.Length; i++)
+		{	
+			Debug.Log("ORDERED PHONEMES: " + individualPhonemes[i]);
+		}*/
+		
+		for(int i = 0; i < individualPhonemes.Length; i++)
+		{		
+			dt=CmsDb.ExecuteQuery("select * from phonemes where id=" + individualPhonemes[i]);
+			PhonemeData pd = GetPhonemeInfoForPhoneme((string)dt.Rows[0]["phoneme"]);
+			pd.LetterInWord = pd.Phoneme;
+			phonemes.Add( pd  );
+			
+			
+		/*	foreach ( var entry in dt.Rows[0])
+			{
+				Debug.Log("Phoneme all data[" + i.ToString() + "]: " + entry.Key + " : " + entry.Value);
+			}*/
+		}
+		
+		
+		
+		
+		//Debug.Log("Stored PHONEMES: " + phonemes[0].LetterInWord);
+		
+		
+		/*
+		//get the phonemes
+		DataTable dtp=CmsDb.ExecuteQuery("select * from phonemes p INNER JOIN phonemes_words pw ON p.id=pw.phoneme_id WHERE pw.word_id=" + wordid.ToString());
+
+		// String[] phonemes=new String[dtp.Rows.Count];
+
+		List<PhonemeData> phonemes=new List<PhonemeData>();
+
+		for(int i=0; i<dtp.Rows.Count; i++)
+		{
+			//get phoneme
+			String pr=(String)dtp.Rows[i]["phoneme"];
+
+			int ih=pr.IndexOf("-");
+			if(ih>0){
+				String pr1=pr.Substring(0, ih);
+				String pr2=pr.Substring(ih+1, 1);
+
+				PhonemeData p1d=PDataForRow(dtp.Rows[i]);
+				p1d.LetterInWord=pr1;
+
+				PhonemeData p2d=PDataForRow(dtp.Rows[i]);
+				p2d.LetterInWord=pr2;
+
+				phonemes.Add(p1d);
+				phonemes.Add(p2d);
+			}
+			else
+			{
+				PhonemeData pd=PDataForRow(dtp.Rows[i]);
+				pd.LetterInWord=pr;
+				phonemes.Add(pd);
+			}
+		}*/
+		return phonemes;
+	}
+
 
 	PhonemeData PDataForRow(DataRow dr)
 	{
@@ -306,6 +450,52 @@ public class GameManager
 			dws[i]=dw;
 		}
 		return dws;
+	}
+	
+	public bool isWordTricky(string Word)
+	{
+		/*DataTable dt=CmsDb.ExecuteQuery("select * from words where word='" + Word + "'");
+		DataWordData[] dws=new DataWordData[dt.Rows.Count];
+		if(dt.Rows.Count > 0)
+		{
+			for(int i=0; i<dt.Rows.Count; i++)		
+			{
+				string isTricky = (string)dt.Rows[i]["tricky"].ToString();			
+				Debug.Log("Is tricky: " + isTricky );
+				
+				if(isTricky.ToLower()[0] == 't')
+				{
+					return true;
+				}
+				
+			}
+		}*/
+		return isWordTrickyOrUndecodable( Word);
+	}
+	
+	public bool isWordTrickyOrUndecodable(string Word)
+	{
+		DataTable dt=CmsDb.ExecuteQuery("select * from words where word='" + Word + "'");
+		DataWordData[] dws=new DataWordData[dt.Rows.Count];
+		Debug.Log("TRICK WORD: " + Word);
+		if(dt != null && dt.Rows.Count > 0)
+		{
+			for(int i=0; i<dt.Rows.Count; i++)		
+			{
+				if(dt.Rows[i]["tricky"] != null)
+				{
+					string isTricky = (string)dt.Rows[i]["tricky"];			
+					Debug.Log("Is tricky: " + isTricky );
+					
+					if(isTricky!=null && isTricky!="" && isTricky.ToLower()[0] == 't')
+					{
+						return true;
+					}
+				}
+				
+			}
+		}
+		return false;
 	}
 
 	public DataPhonemeData[] GetTargetDataPhonemesForSection(int sectionId)
@@ -404,6 +594,29 @@ public class GameManager
 
 	public List<PhonemeData> GetSortedPhonemesForWord(String word)
 	{
+		
+		Debug.Log("test");
+		DataTable dt2=CmsDb.ExecuteQuery("select * from words where word='" + word + "'");
+		string phonemeNumber = "";
+		//int wordid2=(int)dt2.Rows[0];
+		foreach ( var entry in dt2.Rows[0])
+		{
+			Debug.Log(entry.Key + entry.Value);
+			if((entry.Key as string)	 == "ordered_phonemes")
+			{
+				phonemeNumber = (entry.Value as string)[1].ToString();
+				Debug.Log("Ordered Phoneme Number: " + phonemeNumber);
+			}
+		}
+		//"ID: " + dt2.Rows[0].);
+		Debug.Log("test");
+		
+		DataTable dt3=CmsDb.ExecuteQuery("select * from phonemes where id=" + phonemeNumber);
+		foreach ( var entry in dt3.Rows[0])
+		{
+			Debug.Log("Phonemes:" + entry.Key + entry.Value);
+		}
+		
 		if(word.Length==0) return null;
 	
 		List<PhonemeData> unsortedPhonemes=GetPhonemesForWord(word);
@@ -449,6 +662,17 @@ public class GameManager
 		//put that next on the sorted list, remove from unsorted
 
 		return sortedPhonemes;		
+	}
+	
+	public string GetStoryTitle(int storyID)
+	{
+		DataTable dt=CmsDb.ExecuteQuery("select title from stories where id='"+storyID+"'");
+
+		if(dt.Rows.Count>0)
+		{
+			return (String)dt.Rows[0]["title"];
+		}
+		return "";		
 	}
 
 	public StoryPageData GetStoryPageFor(int storyID, int pageID)
@@ -607,7 +831,7 @@ public class GameManager
 		_stateDb = new SqliteDatabase();
 		_cmsDb=new SqliteDatabase();
 		
-		Debug.Log("opening activity and state");
+		Debug.Log("opening activity and state" + _cmsDbPath);
 
 		_activityDb.Open(_activityDbPath);
 		_stateDb.Open(_stateDbPath);

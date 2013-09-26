@@ -51,6 +51,9 @@ public class PipAnimation : MonoBehaviour {
 				SetAnimationIdleSet();
 			}
 		}
+		if(playPositive2||playPositive2p2){
+				SetAnimationPositive2();
+			}
 	}
 	
 	public void SetNonePlaying()

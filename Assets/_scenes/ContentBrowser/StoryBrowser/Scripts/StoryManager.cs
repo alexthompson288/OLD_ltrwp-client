@@ -17,9 +17,11 @@ public class StoryManager : MonoBehaviour {
 	public OTSprite btnPlay;
 	public Texture2D btnPlayPress;
 	public Texture2D btnPlayUnpress;
+	public WordColliderGenerator WordGen;
 
 	void Awake () {
 		CreateNewPersistentObject();
+		WordGen = new WordColliderGenerator();
 	}
 
 
@@ -30,6 +32,7 @@ public class StoryManager : MonoBehaviour {
 		txtTC.visible=false;
 		txtTR.visible=false;
 		NextPage();
+		
 	}
 	
 	// Update is called once per frame
@@ -59,13 +62,16 @@ public class StoryManager : MonoBehaviour {
 		if(nPage==null && !shownTheEnd)
 			ShowTheEnd();
 		else if(nPage==null && shownTheEnd)
-			Application.LoadLevel("StoryBrowser");
-		else
+		{
+		//	Application.LoadLevel("StoryBrowser");
+			GameObject.Find("TransitionScreen").GetComponent<TransitionScreen>().ChangeLevel("StoryBrowser");
+		}else
 			PageSprite.image=nPage;
 
-		if(PersistentManager.StoryID<16 && !shownTheEnd){
+		if( !shownTheEnd ){//&& PersistentManager.StoryID<16){
 			GetPageText(thisPage);
 		}
+		
 		CurrentPage++;
 	}
 
@@ -74,20 +80,26 @@ public class StoryManager : MonoBehaviour {
 		if(thisPage.PageText=="null")return;
 
 		string anchor=thisPage.AnchorPoint;
-		string pageText=thisPage.PageText.Replace("\\n", "\n");
-
-
+		string pageText=thisPage.PageText.Replace("\\n", "\n");			
+		
+		bool isFirstPage = false;
+		if(CurrentPage < 1)
+			isFirstPage = true;
+			
 		if(anchor=="topleft"){
-			txtTL.text=pageText;
 			txtTL.visible=true;
+			txtTL.text=pageText;
+			StartCoroutine( WordGen.BreakUpSentenceIntoWords(txtTL,isFirstPage));
 		}
 		else if(anchor=="topcenter"){
-			txtTC.text=pageText;
 			txtTC.visible=true;
+			txtTC.text=pageText;
+			StartCoroutine( WordGen.BreakUpSentenceIntoWords(txtTC,isFirstPage) );
 		}
 		else if(anchor=="topright"){
-			txtTR.text=pageText;
 			txtTR.visible=true;
+			txtTR.text=pageText;			
+			StartCoroutine(WordGen.BreakUpSentenceIntoWords(txtTR,isFirstPage));
 		}
 
 		if(thisPage.AudioName!="")
@@ -96,7 +108,7 @@ public class StoryManager : MonoBehaviour {
 			pageHasAudio=true;
 			AudioClip ac=(AudioClip)Resources.Load("audio/stories/"+thisPage.AudioName);
 			audio.clip=ac;
-			audio.Play();
+		//	audio.Play();
 		}
 	}
 
@@ -141,12 +153,14 @@ public class StoryManager : MonoBehaviour {
 
 	void On_SimpleTap(Gesture gesture)
 	{
-		if(gesture.pickObject!=null)
+		if(gesture.pickObject!=null && (gesture.pickObject.name.Contains("sPage") || gesture.pickObject.name.Contains("btnPlay")) )//!gesture.pickObject.name.Contains("Word") && !gesture.pickObject.name.Contains("PipPad") && !gesture.pickObject.name.Contains("btnPlay") )
 		{
 			if(gesture.pickObject.name=="btnPlay" && !audio.isPlaying)
+			{
 				audio.Play();
-			else 
+			}else{ 
 				NextPage();
+			}
 		}
 	}
 
