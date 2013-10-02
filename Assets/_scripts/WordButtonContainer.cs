@@ -36,7 +36,7 @@ public class WordButtonContainer : MonoBehaviour {
 	}
 	
 	// split diagraph
-	public void Create(SimpleButton Button, int length, int WordLength, float letterWidth, float spaceWidth, int numberOfLettersBetweenSplitDiagraph, float YellowHighLightDepth)
+	public void Create(SimpleButton Button, int length, int WordLength, float letterWidth, float spaceWidth, int numberOfLettersBetweenSplitDiagraph, float YellowHighLightDepth, float scale)
 	{
 		BoxCollider bc = gameObject.GetComponent<BoxCollider>();		
 		
@@ -54,8 +54,9 @@ public class WordButtonContainer : MonoBehaviour {
 		if(PD.LetterInWord.Contains("-"))
 		{
 			length = 1;
-			_yellowHighlightDia = Instantiate(_yellowHighlight, _yellowHighlight.transform.position + new Vector3((spaceWidth + letterWidth) * (numberOfLettersBetweenSplitDiagraph), 0.0f, 0.0f), _yellowHighlight.transform.rotation) as GameObject;
+			_yellowHighlightDia = Instantiate(_yellowHighlight, _yellowHighlight.transform.position + new Vector3((spaceWidth + letterWidth) * (numberOfLettersBetweenSplitDiagraph) * scale, 0.0f, 0.0f), _yellowHighlight.transform.rotation) as GameObject;
 			_yellowHighlightDia.transform.parent = transform;
+			_yellowHighlightDia.transform.localScale = Scale;
 			Vector3 center = bc.center;
 			if(WordLength > 6)
 			{	
@@ -70,8 +71,7 @@ public class WordButtonContainer : MonoBehaviour {
 		}else{
 			Scale.x *= length;	
 		}
-		
-		
+				
 		_button = Button;
 		_yellowHighlight.transform.localScale = Scale;
 		Vector3 pos = _yellowHighlight.transform.localPosition;

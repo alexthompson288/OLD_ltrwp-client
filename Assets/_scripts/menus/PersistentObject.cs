@@ -14,6 +14,7 @@ public class PersistentObject : MonoBehaviour {
 	public bool KeywordGame=false;
 	public int StoryID=0;
 	public int LastStoryBrowserPageIndex=0;
+	public int Score =0;
 	
 	// Use this for initialization
 	void Start () {

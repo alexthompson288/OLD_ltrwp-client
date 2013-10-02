@@ -65,8 +65,8 @@ public class MenuBrowser : MonoBehaviour {
 		if(gesture.pickObject!=null && !gesture.pickObject.name.Contains("Letter") && !gesture.pickObject.name.Contains("Play") && !gesture.pickObject.name.Contains("PipPad"))
 		{
 			Debug.Log ("tappy tappy!");		
-			audio.clip=NavigationTap;
-			audio.Play ();
+			//audio.clip=NavigationTap;
+			//audio.Play ();
 			Debug.Log ("Got pickobject "+gesture.pickObject.name);
 			bool TintPickObject=false;
 			if(gesture.pickObject.name=="btnBackmark"||gesture.pickObject.name.StartsWith("Backmark"))

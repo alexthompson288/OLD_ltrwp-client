@@ -26,12 +26,17 @@ public class PipPad : MonoBehaviour {
 	private Vector2 StartingScale;
 	private float StartingYValue;
 	public float YellowHighLightDepth = -77.0f;
+	public bool UseCustomOnScreenPosition = false;
+	public Vector3 CustomOnScreenPosition;
+	public bool ShouldStayOnScreen = false;
+	private float Scale = 1.0f;
 	
 	public AudioClip AppearSound;
 	public AudioClip DisappearSound;
 	
 	// Use this for initialization
 	void Start () {
+		Scale = transform.localScale.x;
 		Sparkle = GameObject.Find("WordSelectionGlow");
 		_trickyStar.FadeOut(2.0f);
 		GameObject gl = letters[0].transform.parent.gameObject;
@@ -45,6 +50,11 @@ public class PipPad : MonoBehaviour {
 	
 	}
 	
+	IEnumerator MakeAppearDelayed(List<PhonemeData> PhonemeData, string word){
+		yield return new WaitForSeconds( 0.6f);
+		MakeAppear(PhonemeData, word);
+	}
+	
 	public void MakeAppear(List<PhonemeData> PhonemeData, string word){
 		if(isMachineMoving)
 		{
@@ -52,7 +62,9 @@ public class PipPad : MonoBehaviour {
 		}
 		if(isMachineUp)
 		{
-			MakeDisappear();
+			MakeDisappearQuick();
+			StartCoroutine(MakeAppearDelayed(PhonemeData,word));
+			return;
 		}
 		
 		deleteLettersAndButtons();	
@@ -111,9 +123,9 @@ public class PipPad : MonoBehaviour {
 			
 			if(word.Length > 6)
 			{
-				LS.size = new Vector2(1.0f, 1.0f) * TextScaleModifier;
+				LS.size = new Vector2(1.0f, 1.0f) * TextScaleModifier * Scale;
 			}else{
-				LS.size = new Vector2(2.0f, 2.0f) * TextScaleModifier;
+				LS.size = new Vector2(2.0f, 2.0f) * TextScaleModifier * Scale;
 			}
 			
 			currentXPos += LetterWidth + spaceWidth;
@@ -122,7 +134,7 @@ public class PipPad : MonoBehaviour {
 		if(!GameManager.Instance.isWordTricky(Word))
 		{
 			// place buttons
-			currentXPos = - (wordWidth  * 0.5f ) - (((float)( Word.Length - 1) * 0.5f) * spaceWidth);
+			currentXPos = - (wordWidth  * 0.5f ) - (((float)( Word.Length - 1) * 0.5f) * spaceWidth) ;// + transform.position.x;
 			// used to track how many letters we are through the word, because of multi letter phonemes
 			int CurrentPhonemePosition = 0;
 			for(int i = 0; i < PhonemeData.Count; i++)
@@ -137,18 +149,21 @@ public class PipPad : MonoBehaviour {
 					Destroy(go);	Destroy(goDia);	goDia = null;
 					go = Instantiate(SmallButtonPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 					go.transform.parent = transform; 
+					go.transform.localScale = new Vector3(Scale,Scale,Scale);
 					go.transform.localPosition = new Vector3(currentXPos + (LetterWidth * 0.5f) , -165.0f, -23.0f);
 				}else if(PhonemeLength == 2)
 				{
 					Destroy(go);	Destroy(goDia);	goDia = null;
 					go = Instantiate(MediumButtonPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 					go.transform.parent = transform; 
+					go.transform.localScale = new Vector3(Scale,Scale,Scale);
 					go.transform.localPosition = new Vector3(currentXPos + (LetterWidth ) + (spaceWidth * 0.5f) , -165.0f, -23.0f);
 				}else if(!PhonemeData[i].LetterInWord.Contains("-"))
 				{
 					Destroy(go);	Destroy(goDia);	goDia = null;
 					go = Instantiate(LargeButtonPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 					go.transform.parent = transform; 
+					go.transform.localScale = new Vector3(Scale,Scale,Scale);
 					go.transform.localPosition = new Vector3(currentXPos + ((LetterWidth + spaceWidth )* 1.5f), -165.0f, -23.0f);
 				}else{
 					// its a diaphemes
@@ -161,17 +176,17 @@ public class PipPad : MonoBehaviour {
 					goDia.transform.localPosition = new Vector3(currentXPos + (LetterWidth * 0.5f) + (LetterWidth * 2.0f) + (spaceWidth * 2.0f) , -165.0f, -23.0f);
 					if(word.Length > 6)
 					{
-						goDia.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+						goDia.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) * Scale;
 					}else{
-						goDia.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+						goDia.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Scale;
 					}						
 				}
 				
 				if(word.Length > 6)
 				{
-					go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+					go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) * Scale;
 				}else{
-					go.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+					go.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Scale;
 				}
 				
 				SimpleButton BS = go.GetComponent<SimpleButton>();
@@ -187,19 +202,29 @@ public class PipPad : MonoBehaviour {
 				
 				// generate Containers for letter and button
 				GameObject Container = Instantiate(LetterButtonContainer, new Vector3(currentXPos + (LetterWidth * 0.5f), -837.1434f, 16.0f), Quaternion.identity) as GameObject;
-				if (PhonemeLength == 2)
+				Container.transform.localScale = new Vector3(Scale,Scale,1.0f);
+				Container.transform.parent  = transform; 
+				if (PhonemeLength == 1)
 				{
-					Container.transform.position = new Vector3(currentXPos + (LetterWidth ) + (spaceWidth * 0.5f) , -837.1434f, 16.0f);
+					Container.transform.localPosition = new Vector3(currentXPos + (LetterWidth * 0.5f), -837.1434f, 16.0f);
 					
 				}else if (PhonemeLength == 3){
-					Container.transform.position = new Vector3(currentXPos + ((LetterWidth + spaceWidth )* 1.5f), -837.1434f, 16.0f);
+					Container.transform.localPosition = new Vector3(currentXPos + ((LetterWidth + spaceWidth )* 1.5f), -837.1434f, 16.0f);
+				}
+				if (PhonemeLength == 2)
+				{
+					Container.transform.localPosition = new Vector3(currentXPos + (LetterWidth ) + (spaceWidth * 0.5f) , -837.1434f, 16.0f);
+					
+				}else if (PhonemeLength == 3){
+					Container.transform.localPosition = new Vector3(currentXPos + ((LetterWidth + spaceWidth )* 1.5f), -837.1434f, 16.0f);
 				}
 				
 				WordButtonContainer WBC = Container.GetComponent<WordButtonContainer>();
 				WBC.PD = PhonemeData[i];
-				WBC.Create(BS, PhonemeData[i].LetterInWord.Length, Word.Length, LetterWidth, spaceWidth, SpaceBetweenSplitDiagraph, YellowHighLightDepth);
+				WBC.Create(BS, PhonemeData[i].LetterInWord.Length, Word.Length, LetterWidth, spaceWidth, SpaceBetweenSplitDiagraph, YellowHighLightDepth, Scale);
 				
-				WBC.transform.parent = transform; 
+				
+				//WBC.transform.parent = transform; 
 				
 				if(goDia != null)
 				{
@@ -211,9 +236,11 @@ public class PipPad : MonoBehaviour {
 				wordButtonContainers.Add(WBC);
 				
 				Vector3 pos = Container.transform.localPosition;
+					//pos.x += transform.position.x;
 					pos.y = -99.28836f;
 					Container.transform.localPosition = pos;
 				
+				//Container.transform.localScale = new Vector3(Scale,Scale,Scale);
 				for(int j = 0; j < PhonemeLength; j++)
 				{
 					currentXPos += LetterWidth + spaceWidth;
@@ -226,6 +253,8 @@ public class PipPad : MonoBehaviour {
 				
 		// bounce the PipPad up
 		Vector3 newPos=new Vector3(0.0f, -50.0f, -20.0f);
+		if(UseCustomOnScreenPosition)
+			newPos = CustomOnScreenPosition;
 		var config=new GoTweenConfig()
 			.vector3Prop( "position", newPos )
 			.setEaseType( GoEaseType.BounceOut );
@@ -273,6 +302,25 @@ public class PipPad : MonoBehaviour {
 
 		Go.addTween(tween);
 	}
+	
+	public void MakeDisappearQuick()
+	{
+		audio.clip = DisappearSound;
+		audio.Play();
+		isMachineUp = false;
+		Vector3 newPos=new Vector3(0.0f, StartingYValue, -20.0f);
+		var config=new GoTweenConfig()
+			.vector3Prop( "position", newPos )
+			.setEaseType( GoEaseType.QuadIn );
+
+		GoTween tween=new GoTween(transform, 0.4f, config);
+		
+		StartCoroutine(MachineDown(0.42f));
+		//tween.setOnCompleteHandler(c => MachineDown());
+
+		Go.addTween(tween);
+	}
+	
 	IEnumerator MachineUp (float time) {
 		audio.clip = AppearSound;
 		audio.PlayDelayed(0.3f);
@@ -320,7 +368,7 @@ public class PipPad : MonoBehaviour {
 	}
 
 	void On_SimpleTap(Gesture gesture) {
-		if(gesture.pickObject==gameObject)
+		if(gesture.pickObject==gameObject && !ShouldStayOnScreen)
 		{
 			MakeDisappear();
 		}

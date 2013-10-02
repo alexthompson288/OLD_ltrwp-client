@@ -54,6 +54,7 @@ public class SplatManager : MonoBehaviour {
 	
 	public GameObject CounterBarObject;
 	public GameObject TimerBarObject;
+	public TransitionScreen _transitionScreen;
 	
 	public ArrayList explosions;
 	
@@ -103,6 +104,7 @@ public class SplatManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		_transitionScreen = GameObject.Find("TransitionScreen").GetComponent<TransitionScreen>();
 		TimeLeft = StartingTimer;
 		TimeLeftSpriteStartingScale = TimeLeftSprite.size.y;
 		ReadPersistentObjectSettings();
@@ -560,6 +562,8 @@ public class SplatManager : MonoBehaviour {
 		PlayBennyComplete();
 		exitCountdown=true;
 		pipani.playPositive2 = true;
+		PersistentManager.Score = currentCorrectLetters;
+		StartCoroutine( _transitionScreen.ChangeLevelDelayed("ScoreScene" , 3.0f));
 	}
 	
 	void getNextLetter() {

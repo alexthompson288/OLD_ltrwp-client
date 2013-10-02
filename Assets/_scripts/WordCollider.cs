@@ -42,9 +42,7 @@ public class WordCollider : MonoBehaviour {
 		if(gesture.pickObject==gameObject && pipPad.isMachineMoving == false)
 		{
 			if(pipPad.isMachineUp == false)
-			{
-				
-				
+			{	
 				if(Word.Length > 1)
 				{
 					Sparkle.transform.position = new Vector3 (transform.position.x + 2.0f, transform.position.y, Sparkle.transform.position.z);

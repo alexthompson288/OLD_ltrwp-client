@@ -4,6 +4,7 @@ using System.Collections;
 public class StoryBrowserBook : MonoBehaviour {
 
 	public int bookId;
+	public bool isLocked = false;
 
 	// Use this for initialization
 	void Start () {

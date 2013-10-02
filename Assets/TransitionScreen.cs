@@ -35,6 +35,12 @@ public class TransitionScreen : MonoBehaviour {
 		Go.addTween(tween);
 	}
 	
+	public IEnumerator ChangeLevelDelayed(string level, float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		ChangeLevel(level);
+	}
+	
 	// Reset the cover to the left
 	void FinishedIntro () {
 		ScreenCover.transform.localPosition = new Vector3(-1024.0f, 0.0f, 0.0f);

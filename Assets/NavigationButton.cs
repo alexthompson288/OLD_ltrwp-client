@@ -32,7 +32,8 @@ public class NavigationButton : MonoBehaviour {
 	void On_SimpleTap(Gesture gesture) {
 		if(gesture.pickObject==gameObject)
 		{
-			GameObject.Find("TransitionScreen").GetComponent<TransitionScreen>().ChangeLevel("StoryWordBank");
+			
+			//GameObject.Find("TransitionScreen").GetComponent<TransitionScreen>().ChangeLevel("StoryWordBank");
 			//Application.LoadLevel("StoryWordBank");
 		}
 	}

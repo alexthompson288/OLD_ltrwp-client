@@ -52,7 +52,7 @@ public class SessionMgr
 
 	public void StartActivity ()
 	{
-		Hashtable ahash = (Hashtable)_sectionList [activityIndex];
+/*		Hashtable ahash = (Hashtable)_sectionList [activityIndex];
 		Debug.Log ("starting activity " + ahash ["test_id"] + "(session: "+ahash["section_id"]+") with game_setting "+ahash["game_setting"]);
 
 		int sectionId = (int)ahash ["section_id"];
@@ -142,7 +142,7 @@ public class SessionMgr
 
 		GameManager.Instance.LogSection(sectionId.ToString(), gs);
 
-		Application.LoadLevel (loadgs);
+		Application.LoadLevel (loadgs);*/
 	}
 
 	public void CloseActivity ()

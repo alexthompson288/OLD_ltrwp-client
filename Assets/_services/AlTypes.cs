@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AlTypes
 {
@@ -48,5 +49,13 @@ namespace AlTypes
 		public String PageText;
 		public String AudioName;
 		public String ImageName;
+	}
+	
+	public struct CorrectSentenceInfo
+	{
+		public String Word;
+		public List<String> DummySentences;
+		public String TargetSentence;
+		public int index;
 	}
 }
