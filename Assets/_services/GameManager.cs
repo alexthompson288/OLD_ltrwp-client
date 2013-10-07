@@ -259,6 +259,7 @@ public class GameManager
 
 	public PhonemeData GetPhonemeInfoForPhoneme(String phoneme)
 	{
+		Debug.Log("Getting Phoneme data for: " + phoneme);
 		PhonemeData rdata=new PhonemeData();
 		DataTable dtp=CmsDb.ExecuteQuery("select phoneme,mneumonic,mneumonic_two,grapheme from phonemes where phoneme='"+phoneme+"'");
 		
