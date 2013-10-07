@@ -14,6 +14,7 @@ public class PictureWordGameTouch : MonoBehaviour {
 	OTSprite barSprite;
 	PictureGame PG;
 	MPPictureGame MPG;
+	public Transform StarBurst;
 	public int PlayerID = 0;
 	
 	// refers to the name of the colliders on the main camera
@@ -75,6 +76,9 @@ public class PictureWordGameTouch : MonoBehaviour {
 
 	void On_SimpleTap(Gesture gesture) 
 	{
+		if(gesture.pickObject == null)
+			return;
+		
 		if(gesture.pickObject==gameObject || gesture.pickObject.name == AnswerColliderName)
 		{					
 			isSelected = true;
@@ -83,17 +87,23 @@ public class PictureWordGameTouch : MonoBehaviour {
 			barSprite = s;
 			
 			SelectedTimer = 4.0f;
-			iTween.ScaleTo(gameObject, iTween.Hash("x", 375.0f * 1.4f, "y", 187.0f * 1.4f, "time", 0.7f));
-
+			//iTween.ScaleTo(gameObject, iTween.Hash("x", 375.0f * 1.4f, "y", 187.0f * 1.4f, "time", 0.7f));
+			
 			s.depth=-10;
 			
 			if(PlayerID > 0)
 			{
-				if(MyWord == MPG.CurrentWord)
-				{
-					// we won	
-					MPG.AddPoint();
-					MPG.StartRound();
+				if(MPG.RoundTimer > 1.28f){
+					if(MyWord == MPG.CurrentWord )
+					{
+						// we won	
+						MPG.AddPoint();
+						MPG.StartRound();
+						Instantiate( StarBurst, gesture.pickObject.transform.position, Quaternion.identity);
+					}else{
+						iTween.ShakePosition(gameObject, new Vector3(5.0f, 5.0f, 0.0f), 1.0f);
+						s.tintColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
+					}
 				}
 			}else{
 				if(MyWord == PG.CurrentWord)
@@ -103,10 +113,12 @@ public class PictureWordGameTouch : MonoBehaviour {
 						MPG.StartRound();
 					
 						PG.StartRound();
+						Instantiate( StarBurst, gesture.pickObject.transform.position, Quaternion.identity);
 					
 				}else{
 					// we lost
-					
+					iTween.ShakePosition(gameObject, new Vector3(5.0f, 5.0f, 0.0f), 1.0f);
+					s.tintColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
 				}
 			}
 		

@@ -30,6 +30,7 @@ public class PipPad : MonoBehaviour {
 	public Vector3 CustomOnScreenPosition;
 	public bool ShouldStayOnScreen = false;
 	private float Scale = 1.0f;
+	private PictureFrame pictureFrame = null;
 	
 	public AudioClip AppearSound;
 	public AudioClip DisappearSound;
@@ -43,6 +44,7 @@ public class PipPad : MonoBehaviour {
 		OTTextSprite LS = gl.transform.GetChild(0).GetComponent<OTTextSprite>();
 		StartingScale = LS.size;
 		StartingYValue = transform.position.y;
+		pictureFrame = GameObject.Find("PictureFrame").GetComponent<PictureFrame>();
 	}
 	
 	// Update is called once per frame
@@ -301,6 +303,9 @@ public class PipPad : MonoBehaviour {
 		//tween.setOnCompleteHandler(c => MachineDown());
 
 		Go.addTween(tween);
+		
+		if(pictureFrame != null)
+			pictureFrame.MakeDisappear();
 	}
 	
 	public void MakeDisappearQuick()

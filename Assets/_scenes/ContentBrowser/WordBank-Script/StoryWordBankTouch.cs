@@ -12,9 +12,11 @@ public class StoryWordBankTouch : MonoBehaviour {
 	bool isSelected = false;
 	float SelectedTimer = -1.0f;
 	OTSprite barSprite;
+	private PictureFrame pictureFrame;
 	
 	// Use this for initialization
 	void Start () {
+		pictureFrame = GameObject.Find("PictureFrame").GetComponent<PictureFrame>();
 		transform.parent=GameObject.Find ("bars").GetComponent<Transform>();
 //		PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();
 		pipPad = GameObject.Find("PipPad").GetComponent<PipPad>();
@@ -84,7 +86,9 @@ public class StoryWordBankTouch : MonoBehaviour {
 	    		catch  {
 	        		MyWord = "notFound";
 	    		} 
-				pipPad.MakeAppear(_PhonemeData, MyWord.ToLower());				
+				pipPad.MakeAppear(_PhonemeData, MyWord.ToLower());		
+				
+				pictureFrame.ShowPicture(MyWord.ToLower());
 			}
 			
 			//sceneChangeTimer=true;

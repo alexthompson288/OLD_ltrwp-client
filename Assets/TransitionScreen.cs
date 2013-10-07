@@ -51,4 +51,24 @@ public class TransitionScreen : MonoBehaviour {
 		Application.LoadLevel(level);
 	}	
 	
+	public void FlashTransitionScreen()
+	{
+		Vector3 newPos=new Vector3(0.0f, 0.0f, 0.0f);
+		var config=new GoTweenConfig()
+			.vector3Prop( "localPosition", newPos )
+			.setEaseType( GoEaseType.QuadInOut );
+
+		GoTween tween=new GoTween(ScreenCover.transform, 0.8f, config);
+		Go.addTween(tween);
+		
+		newPos=new Vector3(1024.0f, 0.0f, 0.0f);
+		config=new GoTweenConfig()
+			.vector3Prop( "localPosition", newPos )
+			.setEaseType( GoEaseType.QuadInOut )
+			.setDelay( 1.2f);
+
+		tween=new GoTween(ScreenCover.transform, 0.8f, config);
+		Go.addTween(tween);
+	}
+	
 }

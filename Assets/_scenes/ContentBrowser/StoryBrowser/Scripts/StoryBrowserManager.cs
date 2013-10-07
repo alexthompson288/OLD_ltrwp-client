@@ -77,6 +77,8 @@ public class StoryBrowserManager : MonoBehaviour {
 				s.image=newImage;
 			}
 			s.position = new Vector2(BookXSpacing * (i- 3) + 10.0f,  BookYPosition);
+			s.collidable = true;
+				s.ForceUpdate();
 			g.transform.parent = BookParent.transform;
 			LoadingIndex++;
 			ActiveBooks.Add(g);
@@ -124,7 +126,9 @@ public class StoryBrowserManager : MonoBehaviour {
 			s.collider.enabled=true;
 			s.image=newImage;
 		}
+		s.collidable = true;
 		s.position = new Vector2((BookXSpacing * - 4 )+ 10.0f,  BookYPosition);
+		s.ForceUpdate();
 		g.transform.parent = BookParent.transform;
 		LoadingIndex++;
 		ActiveBooks.Insert(0,g);
@@ -171,11 +175,11 @@ public class StoryBrowserManager : MonoBehaviour {
 			s.collider.enabled=true;
 			s.image=newImage;
 		}
-		
+		s.collidable = true;
 		s.position = new Vector2((BookXSpacing * 4 ) + 10.0f,  BookYPosition);
 		g.transform.parent = BookParent.transform;
 		LoadingIndex++;
-		
+			s.ForceUpdate();
 		// randomly lock some books
 		if(Random.Range(0,10) < 2)
 		{

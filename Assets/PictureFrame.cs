@@ -21,6 +21,8 @@ public class PictureFrame : MonoBehaviour {
 	public string MyWord;
 	private float ShakeTimer = 0.0f;
 	private Vector3 ShakeOriginalPosition;
+	private bool CancelCoroutine = false;
+	private Coroutine DelayedCoroutine = null;
 	
 	// Use this for initialization
 	void Start () {
@@ -82,10 +84,13 @@ public class PictureFrame : MonoBehaviour {
 		CentralPicture.gameObject.SetActive(true);
 		MyWord = Word;
 		
+		if(DelayedCoroutine != null)
+			CancelCoroutine = true;
+		
 		if(IsDown)
 		{
 			
-		  StartCoroutine(LoadPictureAndAppearDelayed(Word));
+		  DelayedCoroutine = StartCoroutine(LoadPictureAndAppearDelayed(Word));
 		}else{
 			CentralPicture.image = (Texture2D)Resources.Load("Images/word_images_png_350/_"+Word+"_350");
 			
@@ -99,9 +104,13 @@ public class PictureFrame : MonoBehaviour {
 		MakeDisappear();
 		yield return new WaitForSeconds( 0.6f);
 		
-		CentralPicture.image = (Texture2D)Resources.Load("Images/word_images_png_350/_"+Word+"_350");
-		
-		MakeAppear();
+		if(CancelCoroutine == false)
+		{
+			CentralPicture.image = (Texture2D)Resources.Load("Images/word_images_png_350/_"+Word+"_350");		
+			MakeAppear();
+		}
+		DelayedCoroutine = null;
+		CancelCoroutine = false;
 	}
 	
 	public void Shake()

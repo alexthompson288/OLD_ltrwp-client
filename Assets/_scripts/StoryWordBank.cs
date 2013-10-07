@@ -12,6 +12,7 @@ public class StoryWordBank : MonoBehaviour {
 	private float BarsHeight = 0.0f;
 	public OTTextSprite Title;
 	PersistentObject PersistentManager;
+	public bool isStoryWordBank = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -25,14 +26,33 @@ public class StoryWordBank : MonoBehaviour {
 		}
 		else {
 			PersistentManager=GameObject.Find ("PersistentManager").GetComponent<PersistentObject>();	
-		}		
+		}
+		
 		
 		if(PersistentManager.StoryID == 0)
 			PersistentManager.StoryID++;
-		userWords=cmsLink.GetWordsFromStory(PersistentManager.StoryID);
-		Title.text = cmsLink.GetStoryTitle(PersistentManager.StoryID);
-		//foreach(string s in userWords)
-		//	Debug.Log("Story word: " + s);
+		if(isStoryWordBank)
+		{
+			userWords=cmsLink.GetWordsFromStory(PersistentManager.StoryID);
+			Title.text = cmsLink.GetStoryTitle(PersistentManager.StoryID);
+		}else{
+			DataWordData []dwd;
+			if(PersistentManager.SectionID != 0)
+				dwd = cmsLink.GetDataWordsForSection(PersistentManager.SectionID);
+			else
+				dwd = cmsLink.GetDataWordsForSection(1388);
+			
+			foreach(DataWordData dw in dwd)
+			{
+				if(dw.IsTargetWord)
+				{
+					userWords.Add(dw.Word);
+				}
+			}
+			Title.text = "Word Bank";
+			
+		}
+
 		
 		int curX=0;
 		int curY=0;

@@ -15,6 +15,7 @@ public class PersistentObject : MonoBehaviour {
 	public int StoryID=0;
 	public int LastStoryBrowserPageIndex=0;
 	public int Score =0;
+	public int SectionID = 0;
 	
 	// Use this for initialization
 	void Start () {
