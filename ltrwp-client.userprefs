@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_scripts/PipPad.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_scripts/menus/PersistentObject.cs">
     <Files>
       <File FileName="Assets/_scripts/WordCollider.cs" Line="44" Column="35" />
       <File FileName="Assets/_scripts/WordColliderGenerator.cs" Line="37" Column="38" />
